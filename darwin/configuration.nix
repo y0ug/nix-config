@@ -37,7 +37,7 @@
     stateVersion = 5;
 
     # Set Git commit hash for darwin-version.
-    configurationRevision = self.rev or self.dirtyRev or null;
+    # configurationRevision = self.rev or self.dirtyRev or null;
   };
 
   # Keyboard
