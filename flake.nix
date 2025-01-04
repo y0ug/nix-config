@@ -39,6 +39,7 @@
     in
     {
     darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
+        inherit nixpkgs;
       system = "aarch64-darwin";
       specialArgs = { inherit lib; };
       modules = [
