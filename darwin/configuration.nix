@@ -17,22 +17,6 @@
 
   # System settings
   system = {
-    defaults = {
-      NSGlobalDomain = {
-        AppleShowAllExtensions = true;
-        InitialKeyRepeat = 15;
-        KeyRepeat = 2;
-      };
-      dock = {
-        autohide = true;
-        show-recents = false;
-        mru-spaces = false;
-      };
-      finder = {
-        AppleShowAllExtensions = true;
-        _FXShowPosixPathInTitle = true;
-      };
-    };
     # For nix-darwin
     stateVersion = 5;
 
