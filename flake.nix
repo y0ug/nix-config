@@ -40,6 +40,7 @@
     {
     darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
+      specialArgs = { inherit lib; };
       modules = [
         ./darwin/configuration.nix
         home-manager.darwinModules.home-manager
@@ -47,7 +48,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.rick = import ./home.nix;
-          home-manager.extraSpecialArgs = { inherit inputs; };
+          home-manager.extraSpecialArgs = { inherit inputs lib; };
         }
       ];
     };
@@ -68,7 +69,7 @@
           config = {};
         };
         modules = [ ./home.nix ];
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = { inherit inputs lib; };
       };
     };
   };
