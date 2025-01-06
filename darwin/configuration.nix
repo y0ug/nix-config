@@ -86,7 +86,7 @@
     enable = true;
     onActivation.cleanup = "zap";
 
-    programs = [
+    brews = [
 
       "bitwarden-cli"
     ];
