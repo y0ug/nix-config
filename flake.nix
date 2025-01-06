@@ -1,4 +1,5 @@
 {
+  # test
   description = "NixOS configuration";
 
   inputs = {

@@ -19,18 +19,30 @@
     nerd-fonts.jetbrains-mono
   ];
 
+  system.activationScripts.postActivation.text = ''
+    # disable spotlight
+    launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist >/dev/null 2>&1 || true
+    # disable fseventsd on /nix volume
+    mkdir -p /nix/.fseventsd
+    test -e /nix/.fseventsd/no_log || touch /nix/.fseventsd/no_log
+  '';
+
   system = {
     defaults = {
       NSGlobalDomain = {
+        AppleMeasurementUnits = "Centimeters";
+        AppleMetricUnits = 1;
         AppleShowAllExtensions = true;
-        InitialKeyRepeat = null;
-        KeyRepeat = null;
+        AppleTemperatureUnit = "Celsius";
+        InitialKeyRepeat = 20;
+        KeyRepeat = 2;
       };
       dock = {
         autohide = true;
         show-recents = false;
         mru-spaces = false;
         tilesize = 32;
+        minimize-to-application = true;
         persistent-apps = [
           "/Applications/Safari.app"
           "${pkgs.wezterm}/Applications/Wezterm.app/"
@@ -42,12 +54,15 @@
       };
       finder = {
         AppleShowAllExtensions = true;
-        _FXShowPosixPathInTitle = true;
-        CreateDesktop = false;
+        FXDefaultSearchScope = "SCcf";
+        FXEnableExtensionChangeWarning = false;
+        FXPreferredViewStyle = "Nlsv";
+        ShowPathbar = true;
       };
       trackpad = {
         Clicking = true;
         Dragging = true;
+        swapLeftCommandAndLeftAlt = true;
       };
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
       NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
