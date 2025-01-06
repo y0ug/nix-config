@@ -10,7 +10,7 @@ in
   # home.username = user.name;
   # home.homeDirectory = user.homeDir;
   home.username = "rick"; 
-  home.homeDirectory =  "/Users/rick";
+  # home.homeDirectory =  "/Users/rick";
     # if isLinux then "/home/rick" else
     # if isDarwin then "/Users/rick" else "/Users/rick";# unsupported;
 
