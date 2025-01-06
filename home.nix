@@ -154,7 +154,7 @@ in
 
       return {
         color_scheme = 'OneHalfDark'
-        font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font Mono', })
+        font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font', })
         # default_domain = 'WSL:Debian'
         enable_scroll_bar = false,
         use_fancy_tab_bar = false,
