@@ -9,7 +9,7 @@ in
   # manage.
   # home.username = user.name;
   # home.homeDirectory = user.homeDir;
-  home.username = rick; 
+  home.username = "rick"; 
   home.homeDirectory = 
     if isLinux then "/home/rick" else
     if isDarwin then "/Users/rick" else unsupported;
