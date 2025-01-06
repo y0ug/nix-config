@@ -150,10 +150,7 @@ in
   programs.wezterm = {
     enable = true;
     extraConfig = ''
-      local wezterm = require 'wezterm'
-
       return {
-        color_scheme = 'OneHalfDark',
         enable_scroll_bar = false,
         use_fancy_tab_bar = false,
         enable_tab_bar = true,
@@ -162,6 +159,7 @@ in
       '';
   };
         # font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font ono', }),
+        #color_scheme = 'OneHalfDark',
 
   programs.git = {
     enable = true;
