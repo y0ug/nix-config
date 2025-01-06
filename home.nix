@@ -31,6 +31,7 @@ in
         nodejs
         gcc
         treefmt
+        nixfmt
 
         zsh
         nushell
