@@ -30,6 +30,7 @@ in
         neovim 
         nodejs
         gcc
+        treefmt
 
         zsh
         nushell
