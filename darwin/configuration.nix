@@ -71,7 +71,15 @@
     enable = true;
     onActivation.cleanup = "zap";
 
-    casks = [ "bitwarden" "docker" "keycastr" "linearmouse" "utm" "raycast" ];
+    casks = [
+      "bitwarden"
+      "docker"
+      "keycastr"
+      "linearmouse"
+      "utm"
+      "raycast"
+      "firefox"
+    ];
   };
   services.aerospace = {
     enable = true;
