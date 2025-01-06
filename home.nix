@@ -129,6 +129,7 @@ in {
     ] ++ lib.optionals isDarwin [
       # macOS packages
       vscode
+      glances
     ]);
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
