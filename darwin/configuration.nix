@@ -15,7 +15,11 @@
   # Create /etc/zshrc that loads the nix-darwin environment
   programs.zsh.enable = true;
 
-  fonts.fontDir.enable = true;
+  fonts.packages = with pkgs; [ 
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.jetbrainsmono
+  ];
 
   system = {
     defaults = {
