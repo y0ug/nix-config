@@ -88,6 +88,7 @@
     masApps = {
       # "Xcode" = 497799835;
       "Microsoft Remote Desktop" = 1295203466;
+      "Bitwarden" = 1352778147;
     };
 
     brews = [
@@ -95,7 +96,7 @@
       "bitwarden-cli"
     ];
     casks = [
-      "bitwarden"
+      # "bitwarden"
       # "docker"
       "orbstack"
       "keycastr"
