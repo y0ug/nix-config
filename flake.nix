@@ -40,7 +40,10 @@
         system = "aarch64-darwin";
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
-          config = { };
+          config = {
+            allowUnfreePredicate = pkg:
+              builtins.elem (nixpkgs.lib.getName pkg) [ "vscode" ];
+          };
         };
         specialArgs = { inherit username; };
         modules = [
