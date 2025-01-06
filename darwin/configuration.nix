@@ -86,9 +86,12 @@
     enable = true;
     onActivation.cleanup = "zap";
 
+    programs = [
+
+      "bitwarden-cli"
+    ];
     casks = [
       "bitwarden"
-      "bitwarden-cli"
       "docker"
       "keycastr"
       "linearmouse"
