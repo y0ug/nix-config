@@ -35,44 +35,44 @@
 
   outputs = inputs@{ nixpkgs, nix-darwin, home-manager, ... }: 
     let
-      lib = import ./lib;
+    username = "rick";
     in
-    {
-    darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
-        inherit nixpkgs;
-      system = "aarch64-darwin";
-      specialArgs = { inherit lib; };
-      modules = [
-        ./darwin/configuration.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.rick = import ./home.nix;
-          home-manager.extraSpecialArgs = { inherit inputs lib; };
-        }
-      ];
-    };
-
-    homeConfigurations = {
-      linux64-rick = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config = {}; 
+      {
+        # formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+        darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
+          inherit nixpkgs;
+          specialArgs = { inherit username; };
+          modules = [
+            ./darwin/configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.rick = import ./home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
+          ];
         };
-        modules = [ ./home.nix ];
-        extraSpecialArgs = { inherit inputs; };
-      };
 
-      osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "aarch64-darwin";
-          config = {};
+        homeConfigurations = {
+          linux64-rick = inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              config = {}; 
+            };
+            modules = [ ./home.nix ];
+            extraSpecialArgs = { inherit inputs; };
+          };
+
+          osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              system = "aarch64-darwin";
+              config = {};
+            };
+            modules = [ ./home.nix ];
+            extraSpecialArgs = { inherit inputs; };
+          };
         };
-        modules = [ ./home.nix ];
-        extraSpecialArgs = { inherit inputs lib; };
       };
-    };
-  };
 }
 

@@ -9,10 +9,10 @@ in
   # manage.
   # home.username = user.name;
   # home.homeDirectory = user.homeDir;
-  home.username = lib.user.name;
+  home.username = rick; 
   home.homeDirectory = 
-    if isLinux then "/home/${lib.user.name}" else
-    if isDarwin then "/Users/${lib.user.name}" else unsupported;
+    if isLinux then "/home/rick" else
+    if isDarwin then "/Users/rick" else unsupported;
 
   programs.direnv.enable = true;
   # This value determines the Home Manager release that your configuration is
@@ -149,8 +149,8 @@ in
 
   programs.git = {
     enable = true;
-    userName = lib.user.fullName;
-    userEmail = lib.user.email;
+    userName = "Hugo Caron" 
+    userEmail = "hca4443@gmail.com" 
   };
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
