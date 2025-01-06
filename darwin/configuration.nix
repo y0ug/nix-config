@@ -34,7 +34,6 @@
         _FXShowPosixPathInTitle = true;
       };
     };
-    stateVersion = 4;
   };
 
   system.keyboard = {
