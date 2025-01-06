@@ -1,7 +1,7 @@
 { config, pkgs, user, ... }:
 let
-  isLinux = pkgs.stdenv.hostPlatform.isLinux;
-  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  isLinux = pkgs.stdenv.isLinux;
+  isDarwin = pkgs.stdenv.isDarwin;
   unsupported = builtins.abort "Unsupported platform";
 in
   {
