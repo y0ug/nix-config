@@ -88,6 +88,7 @@
 
     casks = [
       "bitwarden"
+      "bitwarden-cli"
       "docker"
       "keycastr"
       "linearmouse"
