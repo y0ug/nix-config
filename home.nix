@@ -10,9 +10,8 @@ in
 # home.username = user.name;
 # home.homeDirectory = user.homeDir;
   home.username = "rick"; 
-# home.homeDirectory =  "/Users/rick";
-# if isLinux then "/home/rick" else
-# if isDarwin then "/Users/rick" else "/Users/rick";# unsupported;
+  home.homeDirectory =  if isLinux then "/home/rick" else
+if isDarwin then "/Users/rick" else "/Users/rick";# unsupported;
 
   programs.direnv.enable = true;
 # This value determines the Home Manager release that your configuration is
