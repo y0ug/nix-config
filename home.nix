@@ -157,11 +157,11 @@ in
         scrollback_lines = 10000,
 front_end = "WebGpu",
 webgpu_power_preference = "HighPerformance",
+        font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font ono', }),
+        color_scheme = 'OneHalfDark',
       }
       '';
   };
-        # font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font ono', }),
-        #color_scheme = 'OneHalfDark',
 
   programs.git = {
     enable = true;
