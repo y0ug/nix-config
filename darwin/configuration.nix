@@ -33,6 +33,7 @@
         show-recents = false;
         mru-spaces = false;
         persistent-apps = [ "/Applications/Safari.app", "/System/Applications/Utilities/Terminal.app" ];
+        persistent-others = [];
       };
       finder = {
         AppleShowAllExtensions = true;
