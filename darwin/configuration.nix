@@ -25,8 +25,8 @@
     defaults = {
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
-        InitialKeyRepeat = 15;
-        KeyRepeat = 2;
+        InitialKeyRepeat = null;
+        KeyRepeat = null;
       };
       dock = {
         autohide = true;
