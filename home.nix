@@ -147,6 +147,23 @@ in
   };
 
 
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      local wezterm = require 'wezterm'
+
+      return {
+        color_scheme = 'OneHalfDark'
+        font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font Mono', })
+        # default_domain = 'WSL:Debian'
+        enable_scroll_bar = false,
+        use_fancy_tab_bar = false,
+        enable_tab_bar = true,
+        scrollback_lines = 10000,
+      }
+      '';
+  }
+
   programs.git = {
     enable = true;
     userName = "Hugo Caron" ;

@@ -44,4 +44,13 @@
     enableKeyMapping = true;
     remapCapsLockToEscape = true;
   };
+
+  # sudo touch id
+  security.pam.enableSudoTouchIdAuth = true;
+
+# Disable press and hold for diacritics.
+# I want to be able to press and hold j and k
+# in VSCode with vim keys to move around.
+system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
+
 }
