@@ -91,6 +91,7 @@ in {
       glow # markdown previewer in terminal
       btop # replacement of htop/nmon
       iftop # network monitoring
+      htop
 
       # system call monitoring
       lsof # list open files

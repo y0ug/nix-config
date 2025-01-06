@@ -62,7 +62,7 @@
       trackpad = {
         Clicking = true;
         Dragging = true;
-        swapLeftCommandAndLeftAlt = true;
+        # swapLeftCommandAndLeftAlt = true;
       };
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
       NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
