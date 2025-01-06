@@ -1,7 +1,7 @@
 { self, config, pkgs, ... }: {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [ pkgs.vim ];
+  environment.systemPackages = [ ];
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
@@ -33,7 +33,6 @@
         tilesize = 32;
         persistent-apps = [
           "/Applications/Safari.app"
-          "/System/Applications/Utilities/Terminal.app"
           "${pkgs.wezterm}/Applications/Wezterm.app/"
         ];
         persistent-others = [ ];
