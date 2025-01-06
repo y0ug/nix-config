@@ -92,7 +92,8 @@
     ];
     casks = [
       "bitwarden"
-      "docker"
+      # "docker"
+      "orbstack"
       "keycastr"
       "linearmouse"
       "utm"
