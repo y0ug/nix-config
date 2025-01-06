@@ -40,7 +40,11 @@
       {
         # formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
         darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
-          inherit nixpkgs;
+          system = "aarch64-darwin";
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {};
+          };
           specialArgs = { inherit username; };
           modules = [
             ./darwin/configuration.nix
