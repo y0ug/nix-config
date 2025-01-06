@@ -32,6 +32,7 @@
         autohide = true;
         show-recents = false;
         mru-spaces = false;
+        tilesize = 32;
         persistent-apps = [ "/Applications/Safari.app" 
         "/System/Applications/Utilities/Terminal.app"
         "${pkgs.wezterm}/Applications/Wezterm.app/"];
