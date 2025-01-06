@@ -162,7 +162,7 @@ in
         scrollback_lines = 10000,
       }
       '';
-  }
+  };
 
   programs.git = {
     enable = true;
