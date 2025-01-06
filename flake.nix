@@ -48,6 +48,9 @@
         specialArgs = { inherit username; };
         modules = [
           ./darwin/configuration.nix
+          {
+            users.users.rick.home = "/Users/rick";
+          }
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
