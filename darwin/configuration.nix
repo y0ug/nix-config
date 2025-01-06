@@ -37,11 +37,21 @@
           "${pkgs.wezterm}/Applications/Wezterm.app/"
         ];
         persistent-others = [ ];
+        autohide-time-modifier = 0.0;
+        expose-animation-duration = 0.0;
+        orientation = "right";
       };
       finder = {
         AppleShowAllExtensions = true;
         _FXShowPosixPathInTitle = true;
+        CreateDesktop = false;
       };
+      trackpad = {
+        Clicking = true;
+        Dragging = true;
+      };
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+      NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
     };
   };
 
@@ -58,4 +68,10 @@
   # in VSCode with vim keys to move around.
   system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
+  homebrew = {
+    enable = true;
+    onActivation.cleanup = "zap";
+
+    casks = [ "bitwarden" "docker" "keycastr" "linearmouse" "utm" ];
+  };
 }
