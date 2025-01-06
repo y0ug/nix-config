@@ -1,9 +1,7 @@
 { self, config, pkgs, ... }: {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [ pkgs.vim
-    ];
+  environment.systemPackages = [ pkgs.vim ];
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
@@ -15,7 +13,7 @@
   # Create /etc/zshrc that loads the nix-darwin environment
   programs.zsh.enable = true;
 
-  fonts.packages = with pkgs; [ 
+  fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     nerd-fonts.droid-sans-mono
     nerd-fonts.jetbrains-mono
@@ -33,10 +31,12 @@
         show-recents = false;
         mru-spaces = false;
         tilesize = 32;
-        persistent-apps = [ "/Applications/Safari.app" 
-        "/System/Applications/Utilities/Terminal.app"
-        "${pkgs.wezterm}/Applications/Wezterm.app/"];
-        persistent-others = [];
+        persistent-apps = [
+          "/Applications/Safari.app"
+          "/System/Applications/Utilities/Terminal.app"
+          "${pkgs.wezterm}/Applications/Wezterm.app/"
+        ];
+        persistent-others = [ ];
       };
       finder = {
         AppleShowAllExtensions = true;
@@ -53,9 +53,9 @@
   # sudo touch id
   security.pam.enableSudoTouchIdAuth = true;
 
-# Disable press and hold for diacritics.
-# I want to be able to press and hold j and k
-# in VSCode with vim keys to move around.
-system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
+  # Disable press and hold for diacritics.
+  # I want to be able to press and hold j and k
+  # in VSCode with vim keys to move around.
+  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
 }

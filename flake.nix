@@ -5,7 +5,7 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    nix-darwin ={
+    nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -13,7 +13,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -33,24 +32,20 @@
 
   };
 
-  outputs = inputs@{ nixpkgs, nix-darwin, home-manager, ... }: 
-    let
-      username = "rick";
-    in
-      {
+  outputs = inputs@{ nixpkgs, nix-darwin, home-manager, ... }:
+    let username = "rick";
+    in {
       # formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
       darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
-          config = {};
+          config = { };
         };
         specialArgs = { inherit username; };
         modules = [
           ./darwin/configuration.nix
-          {
-            users.users.rick.home = "/Users/rick";
-          }
+          { users.users.rick.home = "/Users/rick"; }
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -65,7 +60,7 @@
         linux64-rick = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
-            config = {}; 
+            config = { };
           };
           modules = [ ./home.nix ];
           extraSpecialArgs = { inherit inputs; };
@@ -74,7 +69,7 @@
         osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
-            config = {};
+            config = { };
           };
           modules = [ ./home.nix ];
           extraSpecialArgs = { inherit inputs; };
