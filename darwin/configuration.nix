@@ -74,4 +74,5 @@
 
     casks = [ "bitwarden" "docker" "keycastr" "linearmouse" "utm" ];
   };
+  services.aerospace = { enable = true; };
 }
