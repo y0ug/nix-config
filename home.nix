@@ -149,8 +149,8 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Hugo Caron" 
-    userEmail = "hca4443@gmail.com" 
+    userName = "Hugo Caron" ;
+    userEmail = "hca4443@gmail.com" ;
   };
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
