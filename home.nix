@@ -12,7 +12,7 @@ in
   home.username = "rick"; 
   home.homeDirectory = 
     if isLinux then "/home/rick" else
-    if isDarwin then "/Users/rick" else unsupported;
+    if isDarwin then "/Users/rick" else "/Users/rick";# unsupported;
 
   programs.direnv.enable = true;
   # This value determines the Home Manager release that your configuration is
