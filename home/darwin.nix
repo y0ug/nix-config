@@ -8,6 +8,7 @@
   home.username = "rick";
   home.homeDirectory = "/Users/rick";
 
+  home.stateVersion = "24.05";
   home.packages = with pkgs; [
     vscode
     glances
