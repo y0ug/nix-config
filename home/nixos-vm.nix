@@ -6,6 +6,5 @@
 
   home.packages = with pkgs; [ firefox ];
 
-  xsession.windowManager.i3.config.startup =
-    [{ command = "exec ${pkgs.nitrogen}/bin/nitrogen --restore"; }];
+
 }

@@ -3,6 +3,7 @@
 {
   imports = [./wezterm.nix];
 
+  programs.kitty.enable = true;
   wayland.windowManager.hyprland = {
     # Whether to enable Hyprland wayland compositor
     enable = true;
