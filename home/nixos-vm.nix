@@ -2,8 +2,8 @@
 {
   imports = [
     ./linux.nix
-    ./programs/i3.nix
-    ./programs/wezterm.nix
+    ../programs/i3.nix
+    ../programs/wezterm.nix
   ];
 
   home.username = "rick";

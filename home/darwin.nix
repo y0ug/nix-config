@@ -1,7 +1,7 @@
 { config, pkgs, ...}:
 {
   imports = [ ./common.nix 
-    ./programs/wezterm.nix
+    ../programs/wezterm.nix
   ];
 
   home.username = "rick";

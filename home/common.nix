@@ -95,6 +95,7 @@
       pre-commit
       poetry
       pipx
+      go
     ]);
 
     programs.git = {
@@ -109,5 +110,5 @@
 
 
     programs.direnv.enable = true;
-    
+    programs.home-manager.enable = true;
   }

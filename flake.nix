@@ -37,28 +37,28 @@
     let username = "rick";
     in {
       # formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
-      # darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
-      #   system = "aarch64-darwin";
-      #   pkgs = import nixpkgs {
-      #     system = "aarch64-darwin";
-      #     config = {
-      #       allowUnfreePredicate = pkg:
-      #         builtins.elem (nixpkgs.lib.getName pkg) [ "vscode" ];
-      #     };
-      #   };
-      #   specialArgs = { inherit username; };
-      #   modules = [
-      #     ./darwin/configuration.nix
-      #     { users.users.rick.home = "/Users/rick"; }
-      #     home-manager.darwinModules.home-manager
-      #     {
-      #       home-manager.useGlobalPkgs = true;
-      #       home-manager.useUserPackages = true;
-      #       home-manager.users.rick = import ./home/darwin.nix;
-      #       # home-manager.extraSpecialArgs = { inherit inputs; };
-      #     }
-      #   ];
-      # };
+      darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        pkgs = import nixpkgs {
+          system = "aarch64-darwin";
+          config = {
+            allowUnfreePredicate = pkg:
+              builtins.elem (nixpkgs.lib.getName pkg) [ "vscode" ];
+          };
+        };
+        specialArgs = { inherit username; };
+        modules = [
+          ./host/levua/configuration.nix
+          # { users.users.rick.home = "/Users/rick"; }
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.rick = import ./home/darwin.nix;
+            # home-manager.extraSpecialArgs = { inherit inputs; };
+          }
+        ];
+      };
 
       homeConfigurations = {
         linux64-rick = inputs.home-manager.lib.homeManagerConfiguration {
@@ -70,23 +70,24 @@
           ({ config, ... }: { # programs.i3.config.terminal = "${pkgs.kitty}/bin/kitty";
           })
           ];
-          # extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs; };
         };
-#         osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
-#           pkgs = import nixpkgs {
-#             system = "aarch64-darwin";
-#             config = { };
-#           };
-#           modules = [ ./home/darwin.nix ];
-# # extraSpecialArgs = { inherit inputs; };
-#         };
+
+        osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config = { };
+          };
+          modules = [ ./home/darwin.nix ];
+            extraSpecialArgs = { inherit inputs; };
+        };
 
 
       nixosConfigurations."nixos-vm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit username; };
         modules = [
-          ./nixos-vm/configuration.nix
+          ./hosts/nixos-vm/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
