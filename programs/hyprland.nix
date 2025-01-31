@@ -27,14 +27,14 @@
   programs = {
 	  waybar.enable = true;
 	  hyprlock.enable = true;
-	  thunar.enable = true;
-	  thunar.plugins = with pkgs.xfce; [
-		  exo
-		  mousepad
-		  thunar-archive-plugin
-		  thunar-volman
-		  tumbler
-  	  ];
+	  # thunar.enable = true;
+	  # thunar.plugins = with pkgs.xfce; [
+	  #  exo
+	  #  mousepad
+	  #  thunar-archive-plugin
+	  #  thunar-volman
+	  #  tumbler
+	  #   ];
     xwayland.enable = true;
 
   };
