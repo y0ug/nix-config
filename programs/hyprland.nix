@@ -37,7 +37,6 @@
   	  ];
     xwayland.enable = true;
 
-    seahorse.enable = true;
   };
 
   home.pointerCursor = {
