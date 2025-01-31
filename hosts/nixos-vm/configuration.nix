@@ -20,10 +20,10 @@
 
   # System-level GUI packages
   environment.systemPackages = with pkgs; [ 
-    kitty
   ];
 
 
+  environment.localBinInPath = true;
 
 
   # SSH is enable
@@ -37,7 +37,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILPlZ1DnETw4zdAVGB4uQL/MBj42qmPU3nzaR6g4SEe rick@mazenet.org"
     ];
 
-    environment.localBinInPath = true;
 
     programs.hyprland = {
       enable = true;
