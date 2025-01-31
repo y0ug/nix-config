@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = ["./wezterm.nix"];
+  imports = [./wezterm.nix];
   home.packages = with pkgs; [
     i3status
     dmenu
