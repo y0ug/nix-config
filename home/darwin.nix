@@ -1,7 +1,8 @@
 { config, pkgs, ...}:
 {
-  imports = [ ./common.nix 
-    ../programs/wezterm.nix
+  imports = [ 
+    ../modules/home/packages/common.nix
+    ../modules/home/packages/wezterm.nix
   ];
 
   home.username = "rick";
