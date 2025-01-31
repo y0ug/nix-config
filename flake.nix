@@ -66,8 +66,11 @@
             system = "x86_64-linux";
             config = { };
           };
-          modules = [ ./home.nix ];
-          extraSpecialArgs = { inherit inputs; };
+          modules = [ ./home/linux.nix
+          ({ config, ... }: { # programs.i3.config.terminal = "${pkgs.kitty}/bin/kitty";
+          })
+          ];
+          # extraSpecialArgs = { inherit inputs; };
         };
 
         osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
@@ -75,9 +78,24 @@
             system = "aarch64-darwin";
             config = { };
           };
-          modules = [ ./home.nix ];
-          extraSpecialArgs = { inherit inputs; };
+          modules = [ ./home/darwin.nix ];
+          # extraSpecialArgs = { inherit inputs; };
         };
+      };
+
+      nixosConfigurations."nixos-vm" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit username; };
+        modules = [
+          ./nixos-vm/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.rick = import ./home.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+          }
+        ];
       };
     };
 }
