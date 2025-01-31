@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  imports = ["./wezterm.nix"];
   home.packages = with pkgs; [
     i3status
     dmenu
@@ -8,9 +9,10 @@
     nitrogen
   ];
 
-  programs.wezterm.enable = true;
+  #programs.wezterm.enable = true;
 
   programs.i3 = {
+    enable = true;
     config = {
       modifier = "Mod4";
       keybindings = {
