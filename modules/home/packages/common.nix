@@ -5,6 +5,8 @@
     gcc
     nixfmt
 
+    direnv
+
     zsh
     nushell
     atuin # shell history
