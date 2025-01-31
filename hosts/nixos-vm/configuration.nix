@@ -20,8 +20,24 @@
 
   # System-level GUI packages
   environment.systemPackages = with pkgs; [ 
+    kitty
   ];
 
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true; # recommended for most users
+    xwayland.enable = true; # Xwayland can be disabled.
+  };
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
 
   environment.localBinInPath = true;
 
@@ -38,21 +54,7 @@
     ];
 
 
-    programs.hyprland = {
-      enable = true;
-      withUWSM = true; # recommended for most users
-      xwayland.enable = true; # Xwayland can be disabled.
-    };
 
-    xdg.portal = {
-      enable = true;
-      wlr.enable = true;
-      xdgOpenUsePortal = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
-        pkgs.xdg-desktop-portal-gtk
-      ];
-    };
 
   };
 
