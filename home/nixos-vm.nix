@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  imports = [ ./linux.nix ../programs/i3.nix ../programs/wezterm.nix ];
+  imports = [ ./linux.nix ../programs/hyprland.nix ../programs/wezterm.nix ];
 
   home.username = "rick";
   home.homeDirectory = "/home/rick";
