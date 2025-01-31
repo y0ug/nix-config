@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  programs.borgmatic.enable = false;
   imports = [ ./common.nix ];
 
   home.username = "rick";

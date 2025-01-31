@@ -15,21 +15,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-    };
-
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # agenix = {
+    #   url = "github:ryantm/agenix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    #
+    # deploy-rs = {
+    #   url = "github:serokell/deploy-rs";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.utils.follows = "flake-utils";
+    # };
+    #
+    # pre-commit-hooks = {
+    #   url = "github:cachix/pre-commit-hooks.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
   };
 
@@ -72,16 +72,15 @@
           ];
           # extraSpecialArgs = { inherit inputs; };
         };
+#         osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
+#           pkgs = import nixpkgs {
+#             system = "aarch64-darwin";
+#             config = { };
+#           };
+#           modules = [ ./home/darwin.nix ];
+# # extraSpecialArgs = { inherit inputs; };
+#         };
 
-        osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "aarch64-darwin";
-            config = { };
-          };
-          modules = [ ./home/darwin.nix ];
-          # extraSpecialArgs = { inherit inputs; };
-        };
-      };
 
       nixosConfigurations."nixos-vm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -97,6 +96,7 @@
           }
         ];
       };
+    };
     };
 }
 
