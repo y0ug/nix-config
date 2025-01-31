@@ -19,8 +19,7 @@
       enable = true;
       wayland.enable = true;
   }
-  
-  services.xserver.displayManager.defaultSession = "ssdm";
+
   services.xserver.enable = true;
 
   # System-level GUI packages
