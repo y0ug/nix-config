@@ -1,6 +1,6 @@
 { self, config, pkgs, ... }: {
   import [
-    "../programs/aerospace.nix"
+    ../programs/aerospace.nix
   ]
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
