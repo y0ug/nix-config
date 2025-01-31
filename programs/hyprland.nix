@@ -42,5 +42,5 @@
         # VM "WLR_RENDERER_ALLOW_SOFTWARE,1"
         # nivida "WLR_NO_HARDWARE_CURSORS,1"
       ];
-  }
+  };
 }
