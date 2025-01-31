@@ -18,5 +18,5 @@ lib.mkIf (config.programs.i3.enable) {
         "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
       };
     };
-  }
+  };
 }
