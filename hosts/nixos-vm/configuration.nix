@@ -5,7 +5,7 @@
   ../../modules/core/user.nix
   ../../modules/core/GUI
   ];
-
+  boot.kernelModules = [ "hv_vmbus" "hv_storvsc" "hv_netvsc" "hyperv_fb" ];
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

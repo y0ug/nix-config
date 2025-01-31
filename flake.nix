@@ -1,3 +1,4 @@
+# https://github.com/LucaAAntonelli/nixos-config
 {
   # test
   description = "NixOS configuration";
