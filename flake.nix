@@ -81,10 +81,7 @@
             system = "x86_64-linux";
             config = { };
           };
-          modules = [ ./home/linux.nix
-          ({ config, ... }: { # programs.i3.config.terminal = "${pkgs.kitty}/bin/kitty";
-          })
-          ];
+          modules = [ ./home/linux.nix  ];
           extraSpecialArgs = { inherit inputs; };
         };
 
