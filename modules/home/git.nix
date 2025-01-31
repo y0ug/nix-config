@@ -1,12 +1,11 @@
-{inputs, ... }: 
-{
+{ inputs, ... }: {
   programs.git = {
     enable = true;
-    
+
     # userName = "";
     # userEmail = "";
-    
-    extraConfig = { 
+
+    extraConfig = {
       init.defaultBranch = "main";
       # credential.helper = "store";
       core.editor = "nvim";

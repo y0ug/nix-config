@@ -1,5 +1,4 @@
-{ pkgs, inputs, ...}:
-{
+{ pkgs, inputs, ... }: {
   home.packages = with pkgs; ([
     iotop # io monitoring
     strace # system call monitoring
@@ -10,6 +9,6 @@
     ethtool
     pciutils # lspci
     usbutils # lsusb
-    ]);
+  ]);
 
-  }
+}

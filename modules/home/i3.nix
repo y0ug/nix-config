@@ -1,14 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [./wezterm.nix];
+  imports = [ ./wezterm.nix ];
 
-  home.packages = with pkgs; [
-    i3status
-    dmenu
-    rofi 
-    nitrogen
-  ];
+  home.packages = with pkgs; [ i3status dmenu rofi nitrogen ];
 
   xsession.windowManager.i3 = {
     enable = true;

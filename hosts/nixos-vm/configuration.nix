@@ -1,9 +1,9 @@
 { config, pkgs, ... }: {
-  imports = [ 
-  ./hardware-configuration.nix
-  ../../modules/core/system.nix
-  ../../modules/core/user.nix
-  ../../modules/core/GUI
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/core/system.nix
+    ../../modules/core/user.nix
+    ../../modules/core/GUI
   ];
   boot.kernelModules = [ "hv_vmbus" "hv_storvsc" "hv_netvsc" "hyperv_fb" ];
   # Use the systemd-boot EFI boot loader.
@@ -13,9 +13,7 @@
   networking.hostName = "nixos-vm";
 
   # System-level GUI packages
-  environment.systemPackages = with pkgs; [ 
-  ];
-
+  environment.systemPackages = with pkgs; [ ];
 
   environment.localBinInPath = true;
 

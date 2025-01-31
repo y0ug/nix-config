@@ -1,6 +1,5 @@
-{ inputs, ... }: 
-{
-  imports = [ 
+{ inputs, ... }: {
+  imports = [
     ./hyprland.nix
     ./config.nix
     ./hyprlock.nix

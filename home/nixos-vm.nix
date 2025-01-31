@@ -1,8 +1,5 @@
 { config, pkgs, ... }: {
-  imports = [ 
-  ../modules/home/desktop.nix
-  ];
-  
+  imports = [ ../modules/home/desktop.nix ];
 
   home.username = "rick";
   home.homeDirectory = "/home/rick";

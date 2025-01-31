@@ -1,8 +1,7 @@
-{ host, ... }: 
-{
+{ host, ... }: {
   wayland.windowManager.hyprland = {
     settings = {
-      
+
       # autostart
       exec-once = [
         "systemctl --user import-environment &"
@@ -26,9 +25,7 @@
         numlock_by_default = false;
         follow_mouse = 1;
         sensitivity = 0;
-        touchpad = {
-          natural_scroll = true;
-        };
+        touchpad = { natural_scroll = true; };
       };
 
       general = {
@@ -80,7 +77,7 @@
           # size = 4;
           # passes = 2;
           brightness = 1;
-          contrast = 1.400;
+          contrast = 1.4;
           ignore_opacity = true;
           noise = 0;
           new_optimizations = true;
@@ -294,7 +291,7 @@
         "maxsize 1 1,class:^(xwaylandvideobridge)$"
         "noblur,class:^(xwaylandvideobridge)$"
       ];
-      
+
       # On desktop: workspaces 1-5 on left screen, 6-10 on right
       workspace = [
         "workspace = 1, monitor: HDMI-A-1"
@@ -308,7 +305,7 @@
         "workspace = 8, monitor: HDMI-A-2"
         "workspace = 9, monitor: HDMI-A-2"
         "workspace = 10, monitor: HDMI-A-2"
-      ] ;
+      ];
 
     };
     #

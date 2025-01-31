@@ -66,13 +66,13 @@
         specialArgs = { inherit username; };
         modules = [
           ./hosts/nixos-vm/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.rick = import ./home/nixos-vm.nix;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-            }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.rick = import ./home/nixos-vm.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+          }
         ];
       };
 
@@ -82,7 +82,7 @@
             system = "x86_64-linux";
             config = { };
           };
-          modules = [ ./home/linux.nix  ];
+          modules = [ ./home/linux.nix ];
           extraSpecialArgs = { inherit inputs; };
         };
 
@@ -92,11 +92,10 @@
             config = { };
           };
           modules = [ ./home/darwin.nix ];
-            extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs; };
         };
 
-
-          };
+      };
     };
 }
 
