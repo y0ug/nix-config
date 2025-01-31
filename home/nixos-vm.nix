@@ -13,8 +13,8 @@
     # firefox
   ];
 
-  programs.i3.enable = true
-  programs.wezterm.enable = true
+  programs.i3.enable = true;
+  programs.wezterm.enable = true;
 
   programs.i3.config.startup = [
     { command = "exec ${pkgs.nitrogen}/bin/nitrogen --restore"; }

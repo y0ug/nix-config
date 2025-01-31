@@ -10,7 +10,7 @@
   home.packages = with pkgs; [
     vscode
     glances
-  ]
+  ];
 
   # macOS-specific overrides
   # programs.wezterm.extraConfig = config.programs.wezterm.extraConfig + ''
