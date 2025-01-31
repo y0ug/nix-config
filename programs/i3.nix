@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-lib.mkIf (config.programs.i3.enable) {
+{
   home.packages = with pkgs; [
     i3status
     dmenu
