@@ -9,25 +9,20 @@
 
   time.timeZone = "Europe/Paris";
 
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true; # recommended for most users
-    xwayland.enable = true; # Xwayland can be disabled.
-  };
 
-  services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-  };
 
-  services.xserver.enable = true;
+ # services.displayManager.sddm = {
+  #     enable = true;
+  #     wayland.enable = true;
+  # };
+
+  # services.xserver.enable = true;
 
   # System-level GUI packages
   environment.systemPackages = with pkgs; [ 
-    xorg.xkill xorg.xrandr kitty
+    kitty
   ];
 
-  environment.localBinInPath = true;
 
 
 
@@ -37,10 +32,29 @@
   users.users.rick = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    packages = with pkgs; [ tree neovim chezmoi ];
+    packages = with pkgs; [ tree neovim chezmoi kitty];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILPlZ1DnETw4zdAVGB4uQL/MBj42qmPU3nzaR6g4SEe rick@mazenet.org"
     ];
+
+    environment.localBinInPath = true;
+
+    programs.hyprland = {
+      enable = true;
+      withUWSM = true; # recommended for most users
+      xwayland.enable = true; # Xwayland can be disabled.
+    };
+
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      xdgOpenUsePortal = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-hyprland
+        pkgs.xdg-desktop-portal-gtk
+      ];
+    };
+
   };
 
   home-manager.backupFileExtension = "backup-" + pkgs.lib.readFile
