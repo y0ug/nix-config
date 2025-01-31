@@ -2,7 +2,7 @@
 {
   imports = [ 
     ../modules/home/packages/common.nix
-    ../modules/home/packages/wezterm.nix
+    ../modules/home/wezterm.nix
   ];
 
   home.username = "rick";
