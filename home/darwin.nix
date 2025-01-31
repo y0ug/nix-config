@@ -12,6 +12,7 @@
     glances
   ];
 
+  home.sessionPath = [ "$HOME/.local/bin"];
   # macOS-specific overrides
   # programs.wezterm.extraConfig = config.programs.wezterm.extraConfig + ''
   #   -- macOS-specific tweaks
