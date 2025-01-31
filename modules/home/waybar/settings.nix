@@ -70,9 +70,9 @@
           {
             "1"= [];
           }
-          (lib.optionalAttrs(host == "desktop"){
+          {
             "6" = [];
-           })
+           }
         ];
     };
     memory= {

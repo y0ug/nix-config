@@ -5,7 +5,7 @@
   evince # pdf viewier
   imv # image viewer
   gparted # partition editor
-  obsidian # markdown editor
+  # obsidian # markdown editor
    man-pages					            	  # extra man pages
    killall  
    libnotify
