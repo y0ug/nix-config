@@ -4,6 +4,9 @@
     ./programs/wezterm.nix
   ];
 
+  home.username = "rick";
+  home.homeDirectory = "/Users/rick";
+
   home.packages = with pkgs; [
     vscode
     glances

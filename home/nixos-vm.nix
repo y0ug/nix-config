@@ -6,8 +6,11 @@
     ./programs/wezterm.nix
   ];
 
+  home.username = "rick";
+  home.homeDirectory = "/home/rick";
+
   home.packages = with pkgs; [
-    firefox
+    # firefox
   ];
 
   programs.i3.enable = true

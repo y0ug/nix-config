@@ -2,6 +2,9 @@
 {
   imports = [ ./common.nix ];
 
+  home.username = "rick";
+  home.homeDirectory = "/home/rick";
+
   home.packages = with pkgs; [
     iotop # io monitoring
     strace # system call monitoring
