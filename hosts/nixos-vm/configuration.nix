@@ -12,6 +12,8 @@
   # System-level GUI packages
   environment.systemPackages = with pkgs; [ xorg.xkill xorg.xrandr i3 lightdm ];
 
+  environment.localBinInPath = true;
+
   # X11 configuration
   services.xserver = {
     enable = true;

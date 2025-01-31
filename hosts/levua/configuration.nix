@@ -5,6 +5,8 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [ ];
 
+  environment.localBinInPath = true;
+
   # Necessary for using flakes on this system.
   nix = {
     settings = {
