@@ -48,14 +48,14 @@
         };
         specialArgs = { inherit username; };
         modules = [
-          ./host/levua/configuration.nix
-          # { users.users.rick.home = "/Users/rick"; }
+          ./hosts/levua/configuration.nix
+          { users.users.rick.home = "/Users/rick"; }
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/darwin.nix;
-            # home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
       };

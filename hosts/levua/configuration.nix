@@ -1,13 +1,23 @@
 { self, config, pkgs, ... }: {
-  import [
-    ../programs/aerospace.nix
-  ]
+  imports = [ ../../programs/aerospace.nix ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [ ];
 
   # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters =
+        [ "https://nix-community.cachix.org" "https://cache.nixos.org/" ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
+      trusted-users = [ "root" "wheel" ];
+    };
+  };
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

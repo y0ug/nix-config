@@ -9,6 +9,8 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  environment.localBinInPath = true;
+  
   home.packages = with pkgs;
     ([
       neovim
