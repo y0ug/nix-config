@@ -54,7 +54,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.rick = import ./home.nix;
+            home-manager.users.rick = import ./home/darwin.nix;
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
@@ -92,7 +92,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.rick = import ./home.nix;
+            home-manager.users.rick = import ./home/nixos-vm.nix;
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
