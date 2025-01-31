@@ -9,16 +9,23 @@
 
   time.timeZone = "Europe/Paris";
 
-
   programs.hyprland = {
     enable = true;
     withUWSM = true; # recommended for most users
     xwayland.enable = true; # Xwayland can be disabled.
   };
 
+  services.displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+  }
+  
+  services.xserver.displayManager.defaultSession = "ssdm";
+  services.xserver.enable = true;
+
   # System-level GUI packages
   environment.systemPackages = with pkgs; [ 
-    xorg.xkill xorg.xrandr kitty 
+    xorg.xkill xorg.xrandr kitty
   ];
 
   environment.localBinInPath = true;
