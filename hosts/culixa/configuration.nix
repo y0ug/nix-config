@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/core/system.nix
     ../../modules/core/GUI
@@ -21,19 +22,30 @@
   # Docker
   virtualisation.docker.enable = true;
 
-# Virt-manager and qemu
+  # Virt-manager and qemu
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["rick"];
+  users.groups.libvirtd.members = [ "rick" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
+
+  programs.zsh.enable = true;
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
 
   users.users.rick = {
     isNormalUser = true;
     description = "rick";
-    extraGroups = [ "docker" "networkmanager" "wheel" ];
+    extraGroups = [
+      "docker"
+      "networkmanager"
+      "wheel"
+    ];
+    shell = pkgs.zsh;
     packages = with pkgs; [ ];
   };
-
 
   environment.systemPackages = with pkgs; [ qemu ];
 
