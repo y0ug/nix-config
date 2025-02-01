@@ -20,6 +20,7 @@
       # hidpi = true;
     };
     # enableNvidiaPatches = false;
-    # systemd.enable = true;
+    systemd.enable = true;
   };
+
 }
