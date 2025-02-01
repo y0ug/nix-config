@@ -3,7 +3,6 @@
     ./packages/common.nix
     ./packages/linux.nix
     ./packages/linux_gui.nix
-    ./hyprland
     ./wezterm.nix # terminal
     ./kitty.nix # terminal
     ./bat.nix # better cat command
@@ -11,9 +10,7 @@
     ./git.nix # version control
 
     ./hyprland.nix
-    ./swaylock.nix
     ./fuzzel.nix
-    ./swaync/swaync.nix
     ./waybar
   ];
   #nixpkgs.config.allowUnfree = true;

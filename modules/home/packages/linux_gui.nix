@@ -18,8 +18,8 @@
     pamixer
     pavucontrol
     playerctl
-    wl-clipboard
-    cliphist # clipboard manager
+    # wl-clipboard
+    # cliphist # clipboard manager
     xdg-utils
   ]);
 }
