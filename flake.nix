@@ -76,6 +76,21 @@
         ];
       };
 
+      nixosConfigurations."culixa" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit username; };
+        modules = [
+          ./hosts/culixa/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.rick = import ./home/nixos-vm.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+          }
+        ];
+      };
+
       homeConfigurations = {
         linux64-rick = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {

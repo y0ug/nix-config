@@ -7,6 +7,7 @@
   #     builtins.filter (name: name != "default.nix") programFiles;
   # in map (name: ./. + "/${name}") filteredPrograms;
   imports = [
+    ./audio.nix
     ./fonts.nix
     ./program.nix
     ./security.nix
