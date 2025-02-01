@@ -1,5 +1,9 @@
-{ pkgs, ... }: {
-  programs.waybar = { enable = true; };
+{ pkgs, ... }:
+{
+  programs.waybar = {
+    enable = true;
+  };
+  programs.waybar.systemd.enable = true;
   # programs.waybar.package = pkgs.waybar.overrideAttrs
   #   (oa: { mesonFlags = (oa.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ]; });
 }
