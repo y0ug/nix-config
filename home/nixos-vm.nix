@@ -7,5 +7,7 @@
 
   home.packages = with pkgs; [ firefox ];
 
-  environment.variables.EDITOR = "nvim";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 }
