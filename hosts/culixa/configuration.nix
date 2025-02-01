@@ -17,7 +17,14 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Docker
   virtualisation.docker.enable = true;
+
+# Virt-manager and qemu
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["rick"];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   users.users.rick = {
     isNormalUser = true;
@@ -27,7 +34,7 @@
   };
 
 
-  environment.systemPackages = with pkgs; [ neovim ];
+  environment.systemPackages = with pkgs; [ neovim qemu ];
 
   environment.localBinInPath = true;
 
