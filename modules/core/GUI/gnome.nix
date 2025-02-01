@@ -12,7 +12,7 @@
       {
         lockAll = true; # prevents overriding
         settings = {
-          "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type" = {
+          "org/gnome/settings-daemon/plugins/power" = {
             sleep-inactive-ac-type = "nothing";
           };
         };
