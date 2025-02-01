@@ -1,6 +1,7 @@
-{ ... }: {
+{ ... }:
+{
 
-# Sould be relocated
+  # Sould be relocated
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
