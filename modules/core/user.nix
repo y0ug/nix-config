@@ -1,6 +1,11 @@
 { pkgs, username, ... }: {
   programs.zsh.enable = true;
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
   users.users.${username} = {
     isNormalUser = true;
     description = "${username}";

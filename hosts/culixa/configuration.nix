@@ -35,7 +35,7 @@
   };
 
 
-  environment.systemPackages = with pkgs; [ neovim qemu ];
+  environment.systemPackages = with pkgs; [ qemu ];
 
   environment.localBinInPath = true;
 
