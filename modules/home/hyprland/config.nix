@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   wayland.windowManager.hyprland.plugins = [
-    pkgs.hyprlandPlugins.hy3
+    # pkgs.hyprlandPlugins.hy3
   ];
 
   wayland.windowManager.hyprland.settings = {
