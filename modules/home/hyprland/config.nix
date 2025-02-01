@@ -5,6 +5,10 @@
   #   # pkgs.hyprlandPlugins.hy3
   # ];
 
+  # home-manager.users.rick.wayland.windowManager.hyprland.settings.exec-once = [
+  #   "systemctl --user start hyprpolkitagent"
+  # ];
+
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = {
     "$mainMod" = "SUPER";

@@ -1,5 +1,6 @@
 { inputs, pkgs, ... }:
 {
+
   home.packages = with pkgs; [
     hyprpicker
     hyprsunset
@@ -25,10 +26,13 @@
 
     wf-recorder
     glib
+    wlr-randr
 
     # filemanager
     wofi
     dolphin
+
+    hyprpolkitagent
   ];
 
   # systemd.user.targets.hyprland-session.Unit.Wants =
