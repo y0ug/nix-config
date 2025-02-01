@@ -7,7 +7,7 @@
 
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = {
-    "$mod" = "SUPER";
+    "$mainMod" = "SUPER";
 
     monitor = ",preferred,auto,auto";
 
