@@ -17,17 +17,15 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  virtualisation.docker.enable = true;
+
   users.users.rick = {
     isNormalUser = true;
     description = "rick";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs;
-      [
-        #  thunderbird
-      ];
+    extraGroups = [ "docker", "networkmanager" "wheel" ];
+    packages = with pkgs; [ ];
   };
 
-  programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [ neovim ];
 
