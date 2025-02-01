@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }: {
   home.packages = with pkgs; ([
     firefox
+    freerdp3
     evince # pdf viewier
     imv # image viewer
     gparted # partition editor
@@ -18,7 +19,7 @@
     pavucontrol
     playerctl
     wl-clipboard
-    cliphist
+    cliphist # clipboard manager
     xdg-utils
   ]);
 }
