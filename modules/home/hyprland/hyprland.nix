@@ -13,7 +13,7 @@
 
  # systemd.user.targets.hyprland-session.Unit.Wants =
   #   [ "xdg-desktop-autostart.target" ];
-  wayland.windowManager.hyprland.enable = false; 
+  # wayland.windowManager.hyprland.enable = false; 
   # = {
   #   enable = true;
   #   xwayland = {
