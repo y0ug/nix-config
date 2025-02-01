@@ -3,7 +3,7 @@
     neovim
     nodejs
     gcc
-    nixfmt
+    nixfmt-rfc-style
 
     direnv
 

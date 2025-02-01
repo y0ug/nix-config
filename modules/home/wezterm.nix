@@ -9,7 +9,7 @@
         use_fancy_tab_bar = false,
         enable_tab_bar = true,
         scrollback_lines = 10000,
-        front_end = "WebGpu",
+        front_end = "OpenGL",
         webgpu_power_preference = "HighPerformance",
         font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font Mono', }),
         color_scheme = 'OneHalfDark',

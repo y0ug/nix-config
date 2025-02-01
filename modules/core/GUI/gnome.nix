@@ -6,6 +6,20 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  programs.dconf = {
+    enable = true;
+    profiles.user.databases = [
+      {
+        lockAll = true; # prevents overriding
+        settings = {
+          "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type" = {
+            sleep-inactive-ac-type = "nothing";
+          };
+        };
+      }
+    ];
+  };
+
   environment.gnome.excludePackages = with pkgs; [
     orca
     evince
