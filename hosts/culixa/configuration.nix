@@ -22,7 +22,7 @@
   users.users.rick = {
     isNormalUser = true;
     description = "rick";
-    extraGroups = [ "docker", "networkmanager" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
     packages = with pkgs; [ ];
   };
 
