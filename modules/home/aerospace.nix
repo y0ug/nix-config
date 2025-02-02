@@ -44,6 +44,8 @@ lib.mkIf pkgs.stdenv.isDarwin {
           alt-slash = "layout tiles horizontal vertical";
           alt-comma = "layout accordion horizontal vertical";
 
+          alt-c = "close";
+
           alt-h = "focus left";
           alt-j = "focus down";
           alt-k = "focus up";
