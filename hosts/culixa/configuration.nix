@@ -14,7 +14,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "culixa"; # Define your hostname.
+  nixpkgs.config.allowUnfree = true;
+
+  networking.hostName = "culixa";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -64,7 +66,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable

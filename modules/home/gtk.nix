@@ -1,5 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   fonts.fontconfig.enable = true;
+
+  # Noto Color Emoji doesn't render on Firefox
+  # fonts.fontconfig.useEmbeddedBitmaps = true;
+
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.noto
@@ -9,30 +14,30 @@
   ];
 
   home.pointerCursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 16;
     gtk.enable = true;
-    package = pkgs.nordzy-cursor-theme;
-    name = "Nordzy-cursors";
-    size = 22;
+    x11.enable = true;
   };
 
   gtk = {
     enable = true;
-    font = {
-      name = "SN Pro";
-      size = 11;
-    };
+
     iconTheme = {
-      name = "Gruvbox-Plus-Dark";
-      package = pkgs.gruvbox-plus-icons;
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
     };
+
     theme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-gtk;
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
     };
-    cursorTheme = {
-      name = "Nordzy-cursors";
-      package = pkgs.nordzy-cursor-theme;
-      size = 22;
+
+    font = {
+      name = "Inter";
+      package = pkgs.google-fonts.override { fonts = [ "Inter" ]; };
+      size = 9;
     };
   };
 

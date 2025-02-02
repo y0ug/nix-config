@@ -1,4 +1,16 @@
 { pkgs, ... }:
+let
+  toggle =
+    program:
+    let
+      prog = builtins.substring 0 14 program;
+    in
+    "pkill ${prog} || uwsm app -- ${program}";
+
+  runOnce = program: "pgrep ${program} || uwsm app -- ${program}";
+  cursorName = "Bibata-Modern-Classic";
+  pointerSize = 16;
+in
 {
 
   # wayland.windowManager.hyprland.plugins = [
@@ -11,35 +23,68 @@
 
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = {
+    env = [
+      "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+      "HYPRCURSOR_THEME,${cursorName}"
+      "HYPRCURSOR_SIZE,${toString pointerSize}"
+    ];
+
     "$mainMod" = "SUPER";
 
-    monitor = ",preferred,auto,auto";
+    monitor = ",preferred,auto-left,auto";
 
     "$terminal" = "wezterm";
     "$fileManager" = "yazi";
     "$menu" = "wofi --show drun";
 
     # exec-once = "$terminal";
-    exec-once = "wl-paste --type text --watch cliphist store";
+
+    # general = {
+    #   layout = "master";
+    # };
+
+    exec-once = [
+      "uwsm finalize"
+      "hyprctl setcursor ${cursorName} ${toString pointerSize}"
+      "${runOnce "wl-paste"} --type text --watch cliphist store"
+    ];
     # exec-once = "waybar";
 
     bind =
       [
-        "$mainMod, Q, exec, $terminal"
-        "$mainMod, C, killactive,"
+        "$mainMod, Q, killactive,"
+        "$mainMod, F, fullscreen,"
+
+        # "$mainMod, G, tooglegroup,"
+        # "$mainMod SHIFT, N, changegroupactive, f"
+        # "$mainMod SHIFT, P, changegroupactive, b"
+
+        "$mainMod, S, togglesplit, # dwindle"
+        "$mainMod SHIFT, Space, layoutmsg, movetoroot"
+        "$mainMod, T, togglefloating,"
+        "$mainMod, P, pseudo, # dwindle"
+
+        "$mainMod ALT,, resizeactive"
+
+        "$mainMod, RETURN, exec, $terminal"
         "$mainMod, M, exit,"
         "$mainMod, E, exec, $fileManager"
-        "$mainMod, F, togglefloating,"
         "$mainMod, R, exec, $menu"
-        "$mainMod, P, pseudo, # dwindle"
-        "$mainMod, J, togglesplit, # dwindle"
 
-        "$mainMod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+        "$mainMod, V, exec, ${runOnce "cliphist"} list | wofi --dmenu | cliphist decode | wl-copy"
+
         # Move focus focus with mainMod + arrow keys
-        "$mainMod, left, movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
+        "$mainMod, h, movefocus, l"
+        "$mainMod, l, movefocus, r"
+        "$mainMod, k, movefocus, u"
+        "$mainMod, j, movefocus, d"
+
+        "$mainMod SHIFT, h, movewindow, l"
+        "$mainMod SHIFT, l, movewindow, r"
+        "$mainMod SHIFT, k, movewindow, u"
+        "$mainMod SHIFT, j, movewindow, d"
+
+        "$mainMod, Escape, exec, ${runOnce "hyprlock"}"
 
         # Example special workspace (scratchpad)
         "$mainMod, S, togglespecialworkspace, magic"
@@ -49,6 +94,17 @@
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
 
+        "$mainMod, Tab, workspace, m+1"
+        "$mainMod SHIFT, Tab, workspace, m-1"
+
+        # Screenshot a window
+        "$mainMod, PRINT, exec, hyprshot -m window"
+        # Screenshot a monitor
+        ", PRINT, exec, hyprshot -m output"
+        # Screenshot a region
+        "$mainMod SHIFT, PRINT, exec, hyprshot -m region"
+
+        "$mainMod SHIFT, n, exec, swaync-client -t -sw"
       ]
       ++ (
         # workspaces
@@ -98,6 +154,18 @@
     windowrulev2 = [
       "suppressevent maximize, class:.*"
       "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+
+      # idle inhibit while watching videos
+      "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
+      "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
+      "idleinhibit fullscreen, class:^(zen)$"
+
+      # Bitwarden extension
+      "float, title:^(.*Bitwarden Password Manager.*)$"
+
+      # gnome calculator
+      "float, class:^(org.gnome.Calculator)$"
+      "size 360 490, class:^(org.gnome.Calculator)$"
     ];
 
     dwindle = {

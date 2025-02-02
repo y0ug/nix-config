@@ -12,7 +12,7 @@
     #wpaperd # if we want dynamic
 
     # notification
-    dunst
+    # dunst
     swaynotificationcenter # swaync
 
     # fileManager
