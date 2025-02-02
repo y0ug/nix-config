@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -20,6 +20,12 @@
       }
     ];
   };
+
+  services.gnome.core-utilities.enable = lib.mkForce false;
+  services.gnome.gnome-browser-connector.enable = lib.mkForce false;
+  services.gnome.gnome-online-accounts.enable = lib.mkForce false;
+  services.gnome.evolution-data-server.enable = lib.mkForce false;
+  security.polkit.enable = true;
 
   environment.gnome.excludePackages = with pkgs; [
     gnome-online-accounts

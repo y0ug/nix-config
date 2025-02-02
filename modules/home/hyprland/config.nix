@@ -46,7 +46,7 @@ in
     exec-once = [
       "uwsm finalize"
       "hyprctl setcursor ${cursorName} ${toString pointerSize}"
-      "${runOnce "wl-paste"} --type text --watch cliphist store"
+      "wl-paste --type text --watch cliphist store"
     ];
     # exec-once = "waybar";
 
@@ -54,20 +54,22 @@ in
       [
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen,"
+        "$mainMod, M, fullscreen,1"
 
         # "$mainMod, G, tooglegroup,"
         # "$mainMod SHIFT, N, changegroupactive, f"
         # "$mainMod SHIFT, P, changegroupactive, b"
 
         "$mainMod, S, togglesplit, # dwindle"
-        "$mainMod SHIFT, Space, layoutmsg, movetoroot"
         "$mainMod, T, togglefloating,"
         "$mainMod, P, pseudo, # dwindle"
+        "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
 
         "$mainMod ALT,, resizeactive"
 
         "$mainMod, RETURN, exec, $terminal"
-        "$mainMod, M, exit,"
+        "$mainMod SHIFT, Escape, exit,"
+
         "$mainMod, E, exec, $fileManager"
         "$mainMod, R, exec, $menu"
 

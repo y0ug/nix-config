@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.hyprland = {
     enable = true;
     withUWSM = true;
@@ -10,11 +11,16 @@
     enable = true;
     wlr.enable = true;
     xdgOpenUsePortal = true;
-    extraPortals =
-      [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
-  security.pam.services = { hyprlock.enableGnomeKeyring = true; };
+  security.pam.services = {
+    hyprlock.enableGnomeKeyring = true;
+  };
+  security.polkit.enable = true;
 
   services = {
     gvfs.enable = true;

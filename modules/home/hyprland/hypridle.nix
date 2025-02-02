@@ -13,18 +13,14 @@
 
       listener = [
         {
-          timeout = 30;
+          timeout = 300; # 5min
           on-timeout = "loginctl lock-session";
         }
         # Screen of
         {
-          timeout = 1200;
+          timeout = 300;
           on-timeout = "hyprctl dispatch dpms off"; # screen off
           on-resume = "hyprctl dispatch dpms on";
-        }
-        {
-          timeout = 1800; # 30min
-          on-timeout = systemctl suspend; # suspend pc
         }
       ];
     };
