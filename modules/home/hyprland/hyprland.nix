@@ -20,8 +20,10 @@
     cliphist
     wl-clipboard
     wl-clip-persist
+    wl-clipboard
 
     wf-recorder
+    wl-screenrec
     glib
     wlr-randr
 

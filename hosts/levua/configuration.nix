@@ -101,7 +101,7 @@
   };
 
   system.keyboard = {
-    enableKeyMapping = true;
+r   enableKeyMapping = true;
     remapCapsLockToEscape = true;
   };
 

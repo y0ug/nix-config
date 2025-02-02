@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
     ../../modules/core/system.nix
     ../../modules/core/GUI
-    ../../modules/core/GUI/gnome.nix
+    # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
   ];
 
