@@ -16,7 +16,6 @@
     dust # disk usage analyzer
 
     yazi # terminal file manager
-    zenity # GUI for yazi
     superfile # SPF file manager to be test
 
     libnotify
@@ -24,11 +23,9 @@
     pamixer
     pavucontrol
     playerctl
-    # wl-clipboard
-    # cliphist # clipboard manager
+
     xdg-utils
 
-    variety # background downloader
   ]);
 
 }

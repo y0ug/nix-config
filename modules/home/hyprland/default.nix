@@ -3,9 +3,9 @@
   imports = [
     ./hyprland.nix
     ./config.nix
+    ./hypridle.nix
     ./hyprlock.nix
     ./hyprpaper.nix
     ./variables.nix
-    # inputs.hyprland.homeManagerModules.default
   ];
 }
