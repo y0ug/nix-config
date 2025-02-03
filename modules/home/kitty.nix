@@ -6,7 +6,7 @@
     # themeFile = "gruvbox-dark";
 
     extraConfig = ''
-      include ${../../themes/tokionight/kitty/tokyonight_night.conf}
+      include ${../../themes/tokyonight/kitty/tokyonight_night.conf}
     '';
 
     font = {
