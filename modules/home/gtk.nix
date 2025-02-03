@@ -29,11 +29,15 @@
       package = pkgs.adwaita-icon-theme;
     };
 
-    theme = {
-      name = "adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
-    };
+    # theme = {
+    #   name = "adw-gtk3-dark";
+    #   package = pkgs.adw-gtk3;
+    # };
 
+    theme = {
+      name = "Tokyonight-Dark";
+      package = pkgs.tokyo-night-gtk;
+    };
     font = {
       name = "Inter";
       package = pkgs.google-fonts.override { fonts = [ "Inter" ]; };

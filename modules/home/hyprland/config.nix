@@ -33,8 +33,8 @@ in
 
     monitor = ",preferred,auto-left,auto";
 
-    "$terminal" = "wezterm";
-    "$fileManager" = "yazi";
+    "$terminal" = "kitty";
+    "$fileManager" = "$terminal yazi";
     "$menu" = "wofi --show drun";
 
     # exec-once = "$terminal";
@@ -63,7 +63,8 @@ in
         "$mainMod, S, togglesplit, # dwindle"
         "$mainMod, T, togglefloating,"
         "$mainMod, P, pseudo, # dwindle"
-        "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
+        "$mainMod SHIFT, P, pin" # pin the window
+        # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
 
         "$mainMod ALT,, resizeactive"
 
@@ -100,11 +101,11 @@ in
         "$mainMod SHIFT, Tab, workspace, m-1"
 
         # Screenshot a window
-        "$mainMod, PRINT, exec, hyprshot -m window"
+        "$mainMod SHIFT, W, exec, hyprshot -m window"
         # Screenshot a monitor
-        ", PRINT, exec, hyprshot -m output"
+        "$mainMod SHIFT, M, exec, hyprshot -m output"
         # Screenshot a region
-        "$mainMod SHIFT, PRINT, exec, hyprshot -m region"
+        "$mainMod SHIFT, S, exec, hyprshot -m region"
 
         "$mainMod SHIFT, n, exec, swaync-client -t -sw"
       ]
@@ -168,12 +169,42 @@ in
       # gnome calculator
       "float, class:^(org.gnome.Calculator)$"
       "size 360 490, class:^(org.gnome.Calculator)$"
+
+      # "float, class:^(pavucontrol)$"
+      # "size 86% 40%, class:^(pavucontrol)$"
+      # "move 50% 6%, class:^(pavucontrol)$"
+      # "workspace special silent, class:^(pavucontrol)$"
+      # "opacity 0.80, class:^(pavucontrol)$"
+      # "minsize 20%, floating:1"
+
+      "float,class:.*blueman.*"
+      "float,class:.*pavucontrol.*"
+      "float, class:^(firefox)$, title:^(Sign In)$"
+      "float, class:^(firefox)$, title:^(Picture-in-Picture)$"
+      "float, class:^(firefox)$, title:.*Bitwarden Password Manager.*"
+      # "workspace special:config,class:.*blueman.*"
+      # "workspace special:config,class:.*pavucontrol.*"
+      "bordercolor rgb(FFFF00), title:.*Bitwarden Password Manager.*" # set bordercolor to yellow when title contains Hyprland
     ];
 
     dwindle = {
       # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
       pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
       preserve_split = true; # you probably want this
+    };
+
+    misc = {
+      force_default_wallpaper = 0;
+      # disable_hyprland_logo = true
+      vfr = true;
+      focus_on_activate = true;
+      # Fix some windows opening on workspace 1
+      initial_workspace_tracking = false;
+    };
+
+    decoration = {
+      blur.enabled = false;
+      shadow.enabled = false;
     };
 
     master = {

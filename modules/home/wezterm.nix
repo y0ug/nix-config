@@ -12,8 +12,15 @@
         front_end = "OpenGL",
         webgpu_power_preference = "HighPerformance",
         font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font Mono', }),
-        color_scheme = 'OneHalfDark',
+        color_scheme = 'tokyonight_night',
       }
     '';
+    #color_scheme = 'OneHalfDark',
   };
+
+  # apps.wezterm.colorscheme = lib.mkIf default "tokyonight_night";
+  home.file.".config/wezterm/tokyonight_night.toml".source =
+    ../../themes/tokionight/wezterm/tokyonight_night.toml;
+
+  # "${pkgs.vimPlugins.tokyonight-nvim}/extras/wezterm/tokyonight_night.toml"
 }
