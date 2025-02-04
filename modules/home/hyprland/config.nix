@@ -231,6 +231,8 @@ in
       "workspace name:RDP, class:^wlfreerdp$"
       "workspace name:RDP, class:^xfreerdp$"
 
+      "workspace 6, class:^(Mattermost)$"
+
       "float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
       "float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
       "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
