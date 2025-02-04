@@ -175,20 +175,24 @@
     "network" = {
       # "interface" = "wlp2*" # (Optional) To force the use of this interface
       "format-wifi" = "{essid} ({signalStrength}%) ";
-      "format-ethernet" = "{ipaddr}/{cidr} ";
+      "format" = "";
+      "format-ethernet" = " ";
       "tooltip-format" = "{ifname} via {gwaddr} ";
-      "format-linked" = "{ifname} (No IP) ";
-      "format-disconnected" = "Disconnected ⚠";
+      "format-linked" = "(No IP) ";
+      "format-disconnected" = "⚠";
       "format-alt" = "{ifname}: {ipaddr}/{cidr}";
     };
 
     "pulseaudio" = {
       "scroll-step" = 5; # %, can be a float
       "format" = "{volume}% {icon} {format_source}";
-      "format-bluetooth" = "{volume}% {icon} {format_source}";
-      "format-bluetooth-muted" = " {icon} {format_source}";
+      "format-muted" = "󰝟 {format_source}";
+      # "format-muted" = " {format_source}";
+      # "format-bluetooth" = "{volume}% {icon} {format_source}";
+      # "format-bluetooth-muted" = " {icon} {format_source}";
       # "format-muted" = " {format_source}";
       # "format-source" = "{volume}% ";
+      "format-source" = "";
       "format-source-muted" = "";
       "format-icons" = {
         "headphone" = "";
