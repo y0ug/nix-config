@@ -46,9 +46,9 @@ in
 
     general = {
       #   layout = "master";
-      border_size = 1;
-      gaps_out = 10;
-      gaps_in = 2;
+      border_size = 2;
+      gaps_out = 0;
+      gaps_in = 0;
     };
 
     exec-once = [
@@ -59,6 +59,27 @@ in
     bind =
       [
         "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
+        "$mainMod, RETURN, exec, $terminal"
+        "$mainMod SHIFT, Escape, exec, ${run} wlogout"
+        "$mainMod CTRL, L, exec, ${runOnce "hyprlock"}"
+
+        "$mainMod, E, exec, $fileManager"
+        "$mainMod, SPACE, exec, $menu"
+
+        "$mainMod, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
+
+        # Screenshot a window
+        "$mainMod SHIFT, W, exec, ${runOnce "hyprshot"} -m window"
+        # Screenshot a monitor
+        "$mainMod SHIFT, M, exec, ${runOnce "hyprshot"} -m output"
+        # Screenshot a region
+        "$mainMod SHIFT, S, exec, ${runOnce "hyprshot"} -m region"
+
+        "$mainMod SHIFT, n, exec, ${runOnce "swaync-client"} -t -sw"
+
+        # emoji
+        "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
+
         "$mainMod, Q, killactive,"
         "$mainMod SHIFT, F, fullscreen,"
         "$mainMod, M, fullscreen,1"
@@ -75,14 +96,6 @@ in
         "$mainMod SHIFT, Y, pin" # pin the window
         # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
 
-        "$mainMod, RETURN, exec, $terminal"
-        "$mainMod SHIFT, Escape, exit,"
-
-        "$mainMod, E, exec, $fileManager"
-        "$mainMod, R, exec, $menu"
-
-        "$mainMod, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
-
         # Move focus focus with mainMod + arrow keys
         "$mainMod, h, movefocus, l"
         "$mainMod, l, movefocus, r"
@@ -94,7 +107,29 @@ in
         "$mainMod SHIFT, k, movewindow, u"
         "$mainMod SHIFT, j, movewindow, d"
 
-        "$mainMod, Escape, exec, ${runOnce "hyprlock"}"
+        "$mainMod, left, movefocus, l"
+        "$mainMod, right, movefocus, r"
+        "$mainMod, up, movefocus, u"
+        "$mainMod, down, movefocus, d"
+
+        "$mainMod SHIFT, left, movewindow, l"
+        "$mainMod SHIFT, right, movewindow, r"
+        "$mainMod SHIFT, up, movewindow, u"
+        "$mainMod SHIFT, down, movewindow, d"
+
+        "$mainMod, N, movetoworkspace, empty"
+        "$mainMod, backslash, workspace, previous"
+
+        "ALT, tab, cyclenext,"
+        "ALT, tab, alterzorder, top"
+        "ALT SHIFT, tab, cyclenext, prev"
+        "ALT SHIFT, tab, alterzorder, top"
+        "$mainMod, tab, focusurgentorlast,"
+
+        "$mainMod , period, movecurrentworkspacetomonitor,+1"
+        "$mainMod , coma, movecurrentworkspacetomonitor, -1"
+        "$mainMod SHIFT, period, movewindow, mon:+1"
+        "$mainMod SHIFT, coma, movewindow, mon:-1"
 
         # Example special workspace (scratchpad)
         "$mainMod, S, togglespecialworkspace, magic"
@@ -106,18 +141,6 @@ in
 
         "$mainMod, bracketleft, workspace, r-1"
         "$mainMod, bracketright, workspace, r+1"
-
-        # Screenshot a window
-        "$mainMod SHIFT, W, exec, ${runOnce "hyprshot"} -m window"
-        # Screenshot a monitor
-        "$mainMod SHIFT, M, exec, ${runOnce "hyprshot"} -m output"
-        # Screenshot a region
-        "$mainMod SHIFT, S, exec, ${runOnce "hyprshot"} -m region"
-
-        "$mainMod SHIFT, n, exec, ${runOnce "swaync-client"} -t -sw"
-
-        # emoji
-        "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
 
       ]
       ++ (
@@ -278,12 +301,14 @@ in
     };
 
     misc = {
-      force_default_wallpaper = 0;
-      # disable_hyprland_logo = true
+
+      # disable_loading_bar = true;
+      # no_fade_in = false;
+      disable_hyprland_logo = true;
+      disable_splash_rendering = true;
+      force_default_wallpaper = 0; # disable default wallpaper
       vfr = true;
-      focus_on_activate = true;
-      # Fix some windows opening on workspace 1
-      initial_workspace_tracking = false;
+      focus_on_activate = false;
     };
 
     decoration = {
@@ -301,11 +326,14 @@ in
       sensitivity = 0; # -1.0 - 1.0, 0 means no modification
       touchpad = {
         natural_scroll = false;
+        disable_while_typing = true;
+        middle_button_emulation = true;
+        tap-to-click = true;
       };
     };
 
     gestures = {
-      workspace_swipe = false;
+      workspace_swipe = true;
     };
 
   };

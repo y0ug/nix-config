@@ -45,7 +45,7 @@
     font = {
       name = "Inter";
       package = pkgs.google-fonts.override { fonts = [ "Inter" ]; };
-      size = 9;
+      size = 11;
     };
   };
 
