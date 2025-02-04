@@ -25,7 +25,7 @@
     playerctl
 
     xdg-utils
-
+    powertop
   ]);
 
 }

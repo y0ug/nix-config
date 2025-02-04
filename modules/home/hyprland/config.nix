@@ -66,12 +66,15 @@ in
         # "$mainMod SHIFT, P, changegroupactive, b"
 
         "$mainMod, S, togglesplit, # dwindle"
-        "$mainMod, T, togglefloating,"
+        "$mainMod, A, togglefloating,"
         "$mainMod, P, pseudo, # dwindle"
-        "$mainMod SHIFT, P, pin" # pin the window
+        "$mainMod SHIFT, Y, pin" # pin the window
+        "$mainMod, G, togglegroup"
+
         # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
 
-        "$mainMod ALT,, resizeactive"
+        "$mainMod, I, changegroupactive, b"
+        "$mainMod, O, changegroupactive, f"
 
         "$mainMod, RETURN, exec, $terminal"
         "$mainMod SHIFT, Escape, exit,"
@@ -79,7 +82,7 @@ in
         "$mainMod, E, exec, $fileManager"
         "$mainMod, R, exec, $menu"
 
-        "$mainMod, V, exec, ${runOnce "cliphist"} list | $menu --dmenu | cliphist decode | wl-copy"
+        "$mainMod, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
 
         # Move focus focus with mainMod + arrow keys
         "$mainMod, h, movefocus, l"
@@ -217,7 +220,7 @@ in
     ];
 
     workspace = [
-
+      "1, monitor:DP-1, default:true, persistent:true, defaultName:web"
       # smartgaps trick see wiki workspace-rules
       "w[tv1], gapsout:0, gapsin:0"
       "f[1], gapsout:0, gapsin:0"
