@@ -21,6 +21,25 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Bluetooth
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  # Enabling A2DP Sink
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+      Experimental = true; # to get battery status
+    };
+  };
+
+  security.sudo.extraConfig = ''
+    Defaults timestamp_timeout=120 # 2 hours timeout
+    # Defaults env_keep+=SSH_AUTH_SOCK
+    # Defaults env_keep+=EDITOR
+  '';
+
   # Docker
   virtualisation.docker.enable = true;
 
@@ -53,13 +72,16 @@
 
   environment.localBinInPath = true;
 
+  # allow non-nix executable
+  programs.nix-ld.enable = true;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 

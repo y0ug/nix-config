@@ -16,6 +16,8 @@
           monitor = "";
           color = "rgba(25, 20, 20, 1.0)";
           # path = config.theme.wallpaper;
+          path = "screenshot";
+          blur_passes = 2;
         }
       ];
 

@@ -189,13 +189,14 @@ in
       # "opacity 0.80, class:^(pavucontrol)$"
       # "minsize 20%, floating:1"
 
-      "float,class:blueman"
-      "size 25% 25%,class:blueman"
-      "move 25% 25%,class:blueman"
+      "opacity 0.85,class:^(fuzzel)$"
+      "float,class:.*blueman.*"
+      "size 25% 25%,class:.*blueman.*"
+      "move 25% 25%,class:.*blueman.*"
 
-      "float,class:pavucontrol"
-      "size 25% 25%,class:pavucontrol"
-      "move 25% 25%,class:pavucontrol"
+      "float,class:.*pavucontrol.*"
+      "size 25% 25%,class:.*pavucontrol.*"
+      "move 25% 25%,class:.*pavucontrol.*"
 
       "float, class:^(firefox)$, title:^(Sign In)$"
       "float, class:^(firefox)$, title:^(Picture-in-Picture)$"

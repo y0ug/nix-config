@@ -8,27 +8,26 @@
       main = {
         # output=<not set>
         font = "JetBrainsMono Nerd Font Mono:size=13";
-        dpi-aware=auto
-        prompt = ''">    "'';
+        dpi-aware = "auto";
         icon-theme = "Nordic-darker";
-        # icons-enabled=yes
-        # fields=filename,name,generic
-        # password-character=*
-        # fuzzy=yes
-        # show-actions=no
-        # terminal=$TERMINAL -e  # Note: you cannot actually use environment variables here
-        # launch-prefix=<not set>
 
         lines = 20;
         width = 60;
         horizontal-pad = 40;
         vertical-pad = 16;
         inner-pad = 6;
-        # image-size-ratio=0.5;
-        # line-height=<use font metrics>;
-        #letter-spacing=0;
+
         layer = "top";
-        exit-on-keyboard-focus-loss = yes;
+      };
+
+      colors = {
+        background = "16161eff";
+        text = "c0caf5ff";
+        match = "2ac3deff";
+        selection = "343a55ff";
+        selection-match = "2ac3deff";
+        selection-text = "c0caf5ff";
+        border = "27a1b9ff";
       };
 
       #[border]
