@@ -9,16 +9,15 @@
 
     "modules-left" = [
       "hyprland/workspaces"
-      "custom/media"
       "hyprland/submap"
     ];
     "modules-center" = [
       "hyprland/window"
     ];
     "modules-right" = [
-      "mpd"
       "idle_inhibitor"
       "custom/notification"
+      "privacy"
       "pulseaudio"
       "network"
       # "power-profiles-daemon"
@@ -39,6 +38,35 @@
     };
 
     "hyprland/window".separate-outputs = true;
+
+    "hyprland/submap" = {
+      "format" = "✌️ {}";
+      "max-length" = 8;
+      "tooltip" = false;
+    };
+
+    "privacy" = {
+      "icon-spacing" = 4;
+      "icon-size" = 18;
+      "transition-duration" = 250;
+      "modules" = [
+        {
+          "type" = "screenshare";
+          "tooltip" = true;
+          "tooltip-icon-size" = 24;
+        }
+        # {
+        #   "type" = "audio-out";
+        #   "tooltip" = true;
+        #   "tooltip-icon-size" = 24;
+        # }
+        {
+          "type" = "audio-in";
+          "tooltip" = true;
+          "tooltip-icon-size" = 24;
+        }
+      ];
+    };
 
     "keyboard-state" = {
       "numlock" = true;
@@ -155,11 +183,11 @@
     };
 
     "pulseaudio" = {
-      # "scroll-step" = 1; # %, can be a float
+      "scroll-step" = 5; # %, can be a float
       "format" = "{volume}% {icon} {format_source}";
       "format-bluetooth" = "{volume}% {icon} {format_source}";
-      "format-bluetooth-muted" = " {icon} {format_source}";
-      "format-muted" = " {format_source}";
+      "format-bluetooth-muted" = " {icon} {format_source}";
+      "format-muted" = " {format_source}";
       "format-source" = "{volume}% ";
       "format-source-muted" = "";
       "format-icons" = {
@@ -176,6 +204,8 @@
         ];
       };
       "on-click" = "pavucontrol";
+      "on-click-right" = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      "on-click-middle" = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
     };
 
     "custom/notification" = {

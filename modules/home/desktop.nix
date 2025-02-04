@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ./packages/common.nix
     ./packages/linux.nix
@@ -10,7 +11,6 @@
     ./git.nix # version control
 
     ./hyprland.nix
-    ./fuzzel.nix
     ./waybar
   ];
   #nixpkgs.config.allowUnfree = true;

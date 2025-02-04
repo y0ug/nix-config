@@ -24,11 +24,15 @@
   gtk = {
     enable = true;
 
+    # iconTheme = {
+    #   name = "Adwaita";
+    #   package = pkgs.adwaita-icon-theme;
+    # };
+    #
     iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      name = "Numix-Dark-Gtk";
+      package = pkgs.numix-icon-theme;
     };
-
     # theme = {
     #   name = "adw-gtk3-dark";
     #   package = pkgs.adw-gtk3;

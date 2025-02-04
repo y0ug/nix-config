@@ -6,5 +6,6 @@
     ./hypridle.nix
     ./hyprlock.nix
     ./hyprpaper.nix
+    ./fuzzel.nix
   ];
 }

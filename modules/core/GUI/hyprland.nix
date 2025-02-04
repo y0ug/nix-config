@@ -2,8 +2,8 @@
 {
   services.xserver.desktopManager.gnome.enable = lib.mkForce false;
   services.xserver.displayManager.lightdm.enable = lib.mkForce false;
-  services.displayManager.ly.enable = lib.mkForce true;
-  # services.displayManager.sddm.enable = lib.mkForce true;
+  # services.displayManager.ly.enable = lib.mkForce true;
+  services.displayManager.sddm.enable = lib.mkForce true;
 
   programs.hyprland = {
     enable = true;
@@ -24,12 +24,15 @@
 
   security.pam.services = {
     hyprlock.enableGnomeKeyring = true;
+    sddm.enableGnomeKeyring = true;
+    login.enableGnomeKeyring = true;
   };
   security.polkit.enable = true;
 
   services = {
     gvfs.enable = true;
     gnome.gnome-keyring.enable = true;
+    # passSecretService.enable = true;
     dbus.enable = true;
     fstrim.enable = true;
     printing.enable = true;

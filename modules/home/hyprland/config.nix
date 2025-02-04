@@ -1,13 +1,11 @@
 { pkgs, ... }:
 let
-  toggle =
-    program:
-    let
-      prog = builtins.substring 0 14 program;
-    in
-    "pkill ${prog} || uwsm app -- ${program}";
-
-  runOnce = program: "pgrep ${program} || uwsm app -- ${program}";
+  # toggle = app: "pkill ${app} || uwsm app -u ${app}.scope -- ${app}";
+  # runOnce = app: "pgrep ${app} || uwsm app -- ${app}";
+  # toggle = app: "systemctl --user stop ${app}.scope || uwsm app -u ${app}.scope -- ${app}";
+  toggle = app: "pkill ${app} || uwsm app -u ${app}.scope -- ${app}";
+  runOnce = app: "uwsm app -u ${app}.scope -- ${app}";
+  run = "uwsm app --";
   cursorName = "Bibata-Modern-Classic";
   pointerSize = 16;
 in
@@ -25,33 +23,40 @@ in
   wayland.windowManager.hyprland.settings = {
     env = [
       "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-      "HYPRCURSOR_THEME,${cursorName}"
-      "HYPRCURSOR_SIZE,${toString pointerSize}"
+      "TERMINAL,kitty"
+      # "HYPRCURSOR_THEME,${cursorName}"
+      # "HYPRCURSOR_SIZE,${toString pointerSize}"
     ];
 
     "$mainMod" = "SUPER";
 
-    monitor = ",preferred,auto-left,auto";
+    monitor = [
+      "DP-1,preferred,auto,1,vrr,1"
+      "HDMI-A-2,preferred,auto-left,1,vrr,1"
+      ",preferred,auto-left,1"
+    ];
 
-    "$terminal" = "kitty";
-    "$fileManager" = "$terminal yazi";
-    "$menu" = "wofi --show drun";
+    "$terminal" = "${run} kitty";
+    "$fileManager" = "$terminal ${run} yazi";
+    "$menu" = "${toggle "fuzzel"} --launch-prefix='${run}'";
 
     # exec-once = "$terminal";
 
-    # general = {
-    #   layout = "master";
-    # };
+    general = {
+      #   layout = "master";
+      border_size = 1;
+      gaps_out = 10;
+      gaps_in = 2;
+    };
 
     exec-once = [
-      "uwsm finalize"
       "hyprctl setcursor ${cursorName} ${toString pointerSize}"
-      "wl-paste --type text --watch cliphist store"
+      "${runOnce "wl-paste"} --type text --watch cliphist store"
     ];
-    # exec-once = "waybar";
 
     bind =
       [
+        "$mainMod SHIFT, 1, exec, ${run} $HOME/.local/bin/screenON.sh"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen,"
         "$mainMod, M, fullscreen,1"
@@ -74,7 +79,7 @@ in
         "$mainMod, E, exec, $fileManager"
         "$mainMod, R, exec, $menu"
 
-        "$mainMod, V, exec, ${runOnce "cliphist"} list | wofi --dmenu | cliphist decode | wl-copy"
+        "$mainMod, V, exec, ${runOnce "cliphist"} list | $menu --dmenu | cliphist decode | wl-copy"
 
         # Move focus focus with mainMod + arrow keys
         "$mainMod, h, movefocus, l"
@@ -101,13 +106,16 @@ in
         "$mainMod SHIFT, Tab, workspace, m-1"
 
         # Screenshot a window
-        "$mainMod SHIFT, W, exec, hyprshot -m window"
+        "$mainMod SHIFT, W, exec, ${runOnce "hyprshot"} -m window"
         # Screenshot a monitor
-        "$mainMod SHIFT, M, exec, hyprshot -m output"
+        "$mainMod SHIFT, M, exec, ${runOnce "hyprshot"} -m output"
         # Screenshot a region
-        "$mainMod SHIFT, S, exec, hyprshot -m region"
+        "$mainMod SHIFT, S, exec, ${runOnce "hyprshot"} -m region"
 
-        "$mainMod SHIFT, n, exec, swaync-client -t -sw"
+        "$mainMod SHIFT, n, exec, ${runOnce "swaync-client"} -t -sw"
+
+        # emoji
+        "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
       ]
       ++ (
         # workspaces
@@ -164,7 +172,11 @@ in
       "idleinhibit fullscreen, class:^(zen)$"
 
       # Bitwarden extension
-      "float, title:^(.*Bitwarden Password Manager.*)$"
+      "float, class:Bitwarden"
+      "size 50% 50%, class:Bitwarden"
+      "move 25% 25%, class:Bitwarden"
+
+      "minsize 30%, floating:1"
 
       # gnome calculator
       "float, class:^(org.gnome.Calculator)$"
@@ -177,14 +189,33 @@ in
       # "opacity 0.80, class:^(pavucontrol)$"
       # "minsize 20%, floating:1"
 
-      "float,class:.*blueman.*"
-      "float,class:.*pavucontrol.*"
+      "float,class:blueman"
+      "size 25% 25%,class:blueman"
+      "move 25% 25%,class:blueman"
+
+      "float,class:pavucontrol"
+      "size 25% 25%,class:pavucontrol"
+      "move 25% 25%,class:pavucontrol"
+
       "float, class:^(firefox)$, title:^(Sign In)$"
       "float, class:^(firefox)$, title:^(Picture-in-Picture)$"
+      "float, class:^(firefox)$, title:^(Library)$"
       "float, class:^(firefox)$, title:.*Bitwarden Password Manager.*"
       # "workspace special:config,class:.*blueman.*"
       # "workspace special:config,class:.*pavucontrol.*"
-      "bordercolor rgb(FFFF00), title:.*Bitwarden Password Manager.*" # set bordercolor to yellow when title contains Hyprland
+
+      # smartgaps trick see wiki workspace-rules
+      "bordersize 0, floating:0, onworkspace:w[tv1]"
+      "rounding 0, floating:0, onworkspace:w[tv1]"
+      "bordersize 0, floating:0, onworkspace:f[1]"
+      "rounding 0, floating:0, onworkspace:f[1]"
+    ];
+
+    workspace = [
+
+      # smartgaps trick see wiki workspace-rules
+      "w[tv1], gapsout:0, gapsin:0"
+      "f[1], gapsout:0, gapsin:0"
     ];
 
     dwindle = {

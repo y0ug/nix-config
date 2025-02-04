@@ -16,4 +16,20 @@
     #media-session.enable = true;
   };
 
+  # The mSBC codec provides slightly better sound quality in calls than regular HFP/HSP, while the SBC-XQ provides better sound quality for audio listening. For more information see this link.
+  # https://www.guyrutenberg.com/2021/03/11/replacing-pulseaudio-with-pipewire/
+  services.pipewire.wireplumber.extraConfig.bluetoothEnhancements = {
+    "monitor.bluez.properties" = {
+      "bluez5.autoswitch-profile" = true;
+      "bluez5.enable-sbc-xq" = true;
+      "bluez5.enable-msbc" = true;
+      "bluez5.enable-hw-volume" = true;
+      "bluez5.roles" = [
+        "hsp_hs"
+        "hsp_ag"
+        "hfp_hf"
+        "hfp_ag"
+      ];
+    };
+  };
 }
