@@ -34,17 +34,24 @@
 
   };
 
-  outputs = inputs@{ nixpkgs, nix-darwin, home-manager, ... }:
-    let username = "rick";
-    in {
+  outputs =
+    inputs@{
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+      ...
+    }:
+    let
+      username = "rick";
+    in
+    {
       # formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
       darwinConfigurations."levua" = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
           config = {
-            allowUnfreePredicate = pkg:
-              builtins.elem (nixpkgs.lib.getName pkg) [ "vscode" ];
+            allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "vscode" ];
           };
         };
         specialArgs = { inherit username; };
@@ -85,7 +92,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.rick = import ./home/nixos-vm.nix;
+            home-manager.users.rick = import ./home/culixa.nix;
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
@@ -113,4 +120,3 @@
       };
     };
 }
-
