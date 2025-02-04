@@ -10,6 +10,7 @@
     # notification
     # dunst
     swaynotificationcenter # swaync
+    mako
 
     # fileManager
     nnn
@@ -44,7 +45,7 @@
 
     # polkit
     hyprpolkitagent
-    gcr
+    # gcr
 
     seahorse
   ];

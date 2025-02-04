@@ -33,8 +33,8 @@
 
     "hyprland/workspaces" = {
       # all-outputs = true;
-      on-scroll-up = "hyprctl dispatch workspace m-1";
-      on-scroll-down = "hyprctl dispatch workspace m+1";
+      on-scroll-up = "hyprctl dispatch workspace r-1";
+      on-scroll-down = "hyprctl dispatch workspace r+1";
       # "format" = "{name}: {icon}";
       # "format-icons" = {
       #   "1" = "";
@@ -45,10 +45,10 @@
       #   "active" = "";
       #   "default" = "";
       # };
-      # "persistent-workspaces" = {
-      #   "*" = 5; # 5 workspaces by default on every monitor
-      #   "HDMI-A-2" = 3; # but only three on HDMI-A-1
-      # };
+      "persistent-workspaces" = {
+        "DP-1" = 6; # 5 workspaces by default on every monitor
+        # "HDMI-A-2" = 1; # but only three on HDMI-A-1
+      };
     };
 
     "hyprland/window" = {

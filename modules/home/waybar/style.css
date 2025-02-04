@@ -7,14 +7,14 @@ window#waybar {
       /* background: transparent; */
     background-color: @background;
     color: @foreground;
-    opacity: 0.8;
+    /*opacity: 0.8;*/
     transition-property: background-color;
     transition-duration: .5s;
     /*border-bottom: 3px solid rgba(100, 114, 125, 0.5);*/
 }
 
 window#waybar.hidden {
-    opacity: 0.2;
+    /*opacity: 0.2;*/
 }
 
 

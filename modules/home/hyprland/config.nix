@@ -30,8 +30,10 @@ in
 
     "$mainMod" = "SUPER";
 
+    "$mainMonitor" = "DP-1";
+
     monitor = [
-      "DP-1,preferred,auto,1,vrr,1"
+      "$mainMonitor,preferred,auto,1,vrr,1"
       "HDMI-A-2,preferred,auto-left,1,vrr,1"
       ",preferred,auto-left,1"
     ];
@@ -56,25 +58,22 @@ in
 
     bind =
       [
-        "$mainMod SHIFT, 1, exec, ${run} $HOME/.local/bin/screenON.sh"
+        "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
         "$mainMod, Q, killactive,"
-        "$mainMod, F, fullscreen,"
+        "$mainMod SHIFT, F, fullscreen,"
         "$mainMod, M, fullscreen,1"
 
-        # "$mainMod, G, tooglegroup,"
-        # "$mainMod SHIFT, N, changegroupactive, f"
-        # "$mainMod SHIFT, P, changegroupactive, b"
+        "$mainMod, G, togglegroup,"
+        "$mainMod SHIFT, N, changegroupactive, f"
+        "$mainMod SHIFT, P, changegroupactive, b"
+        # "$mainMod, I, changegroupactive, b"
+        # "$mainMod, O, changegroupactive, f"
 
         "$mainMod, S, togglesplit, # dwindle"
-        "$mainMod, A, togglefloating,"
+        "$mainMod, F, togglefloating,"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod SHIFT, Y, pin" # pin the window
-        "$mainMod, G, togglegroup"
-
         # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
-
-        "$mainMod, I, changegroupactive, b"
-        "$mainMod, O, changegroupactive, f"
 
         "$mainMod, RETURN, exec, $terminal"
         "$mainMod SHIFT, Escape, exit,"
@@ -102,11 +101,11 @@ in
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
         # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+        "$mainMod, mouse_down, workspace, r+1"
+        "$mainMod, mouse_up, workspace, r-1"
 
-        "$mainMod, Tab, workspace, m+1"
-        "$mainMod SHIFT, Tab, workspace, m-1"
+        "$mainMod, bracketleft, workspace, r-1"
+        "$mainMod, bracketright, workspace, r+1"
 
         # Screenshot a window
         "$mainMod SHIFT, W, exec, ${runOnce "hyprshot"} -m window"
@@ -119,6 +118,7 @@ in
 
         # emoji
         "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
+
       ]
       ++ (
         # workspaces
@@ -179,8 +179,6 @@ in
       "size 50% 50%, class:Bitwarden"
       "move 25% 25%, class:Bitwarden"
 
-      "minsize 30%, floating:1"
-
       # gnome calculator
       "float, class:^(org.gnome.Calculator)$"
       "size 360 490, class:^(org.gnome.Calculator)$"
@@ -192,19 +190,11 @@ in
       # "opacity 0.80, class:^(pavucontrol)$"
       # "minsize 20%, floating:1"
 
-      "opacity 0.85,class:^(fuzzel)$"
-      "float,class:.*blueman.*"
-      "size 25% 25%,class:.*blueman.*"
-      "move 25% 25%,class:.*blueman.*"
+      # "float,class:.*blueman.*"
 
-      "float,class:.*pavucontrol.*"
       "size 25% 25%,class:.*pavucontrol.*"
       "move 25% 25%,class:.*pavucontrol.*"
 
-      "float, class:^(firefox)$, title:^(Sign In)$"
-      "float, class:^(firefox)$, title:^(Picture-in-Picture)$"
-      "float, class:^(firefox)$, title:^(Library)$"
-      "float, class:^(firefox)$, title:.*Bitwarden Password Manager.*"
       # "workspace special:config,class:.*blueman.*"
       # "workspace special:config,class:.*pavucontrol.*"
 
@@ -217,13 +207,68 @@ in
       "tile, class:^(xfreerdp)$"
       "workspace name:RDP, class:^wlfreerdp$"
       "workspace name:RDP, class:^xfreerdp$"
+
+      "float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
+      "float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
+      "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
+
+      "float,title:^(About Mozilla Firefox)$"
+      "float,class:^(firefox)$,title:^(Picture-in-Picture)$"
+      "float,class:^(firefox)$,title:^(Library)$"
+      "float,class:^(vlc)$"
+      "float,class:^(qt5ct)$"
+      "float,class:^(qt6ct)$"
+      "float,class:^(org.pulseaudio.pavucontrol)$"
+
+      "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$"
+      "opacity 0.80 0.70,class:.*blueman.*"
+      "opacity 0.80 0.70,class:^(nm-applet)$"
+      "opacity 0.80 0.70,class:^(nm-connection-editor)$"
+      "opacity 0.80 0.70,class:^(polkit-gnome-authentication-agent-1)$"
+
+      "float,class:.*blueman.*"
+      "float,class:^(nm-applet)$"
+      "float,class:^(nm-connection-editor)$"
+      "float,class:^(Signal)$ # Signal-Gtk"
+      "float,class:^(eog)$ # Imageviewer-Gtk"
+      "float,class:^(io.missioncenter.MissionCenter)$ # MissionCenter-Gtk"
+      "float,class:^(io.gitlab.adhami3310.Impression)$ # Impression-Gtk"
+
+      "size 25% 25%,class:.*blueman.*"
+      "move 25% 25%,class:.*blueman.*"
+    ];
+
+    windowrule = [
+      # common modals
+      "float,title:^(Open)$"
+      "float,title:^(Choose Files)$"
+      "float,title:^(Save As)$"
+      "float,title:^(Confirm to replace files)$"
+      "float,title:^(File Operation Progress)$"
     ];
 
     workspace = [
-      "1, monitor:DP-1, default:true, persistent:true, defaultName:web"
+      "1,monitor:$mainMonitor,default:true"
+      "2,monitor:$mainMonitor"
+      "3,monitor:$mainMonitor"
+      "4,monitor:$mainMonitor"
+      "5,monitor:$mainMonitor"
+      "6,monitor:$mainMonitor"
+
       # smartgaps trick see wiki workspace-rules
       "w[tv1], gapsout:0, gapsin:0"
       "f[1], gapsout:0, gapsin:0"
+    ];
+
+    layerrule = [
+      "blur,launcher" # fuzzel
+      "ignorezero,launcher"
+      "blur,swaync-control-center"
+      "ignorezero,swaync-control-center"
+      "blur,swaync-notification-window"
+      "ignorezero,swaync-notification-window"
+      "blur,logout_dialog"
+      "blur,waybar"
     ];
 
     dwindle = {
@@ -242,8 +287,8 @@ in
     };
 
     decoration = {
-      blur.enabled = false;
-      shadow.enabled = false;
+      blur.enabled = true;
+      shadow.enabled = true;
     };
 
     master = {
@@ -264,4 +309,12 @@ in
     };
 
   };
+
+  wayland.windowManager.hyprland.extraConfig = ''
+    # Passthrough mode
+    # bind=$mainMod SHIFT, P,submap,passthrough
+    # submap=passthrough
+    # bind=$mainMod SHIFT, P,submap,reset
+    # submap=reset
+  '';
 }
