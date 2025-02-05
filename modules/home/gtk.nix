@@ -5,6 +5,7 @@
     nerd-fonts.noto
     noto-fonts-emoji
     gnome-font-viewer
+    font-awesome
     nwg-look
     # google-fonts.inter
   ];

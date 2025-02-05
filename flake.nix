@@ -16,6 +16,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland"; # Prevents version mismatch.
+    };
+    hy3 = {
+      url = "github:outfoxxed/hy3?ref=hl0.47.0"; # where {version} is the hyprland release version
+      # or "github:outfoxxed/hy3" to follow the development branch.
+      # (you may encounter issues if you dont do the same for hyprland)
+      inputs.hyprland.follows = "hyprland";
+    };
     # agenix = {
     #   url = "github:ryantm/agenix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -39,6 +50,8 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      hyprland,
+      hyprland-plugins,
       ...
     }:
     let
@@ -54,7 +67,7 @@
             allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "vscode" ];
           };
         };
-        specialArgs = { inherit username; };
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/levua/configuration.nix
           { users.users.rick.home = "/Users/rick"; }
@@ -70,7 +83,7 @@
 
       nixosConfigurations."nixos-vm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit username; };
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-vm/configuration.nix
           home-manager.nixosModules.home-manager
@@ -85,7 +98,7 @@
 
       nixosConfigurations."culixa" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit username; };
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/culixa/configuration.nix
           home-manager.nixosModules.home-manager

@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -6,7 +11,7 @@
     ./hardware-configuration.nix
     ../../modules/core/system.nix
     ../../modules/core/GUI
-    ../../modules/core/nestedvm.nix
+    ../../modules/core/GUI/nestedvm.nix
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
   ];
