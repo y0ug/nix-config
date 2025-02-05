@@ -7,7 +7,7 @@
     settings = {
       main = {
         # output=<not set>
-        font = "JetBrainsMono Nerd Font Mono:size=13";
+        font = "Roboto Nerd Font Mono:size=12";
         dpi-aware = "auto";
         icon-theme = "Nordic-darker";
 

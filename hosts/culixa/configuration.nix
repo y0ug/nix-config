@@ -6,6 +6,7 @@
     ./hardware-configuration.nix
     ../../modules/core/system.nix
     ../../modules/core/GUI
+    ../../modules/core/nestedvm.nix
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
   ];
@@ -13,6 +14,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.extraModprobeConfig = "options kvm_intel nested=1";
 
   nixpkgs.config.allowUnfree = true;
 

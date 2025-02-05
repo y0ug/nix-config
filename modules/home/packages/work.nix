@@ -1,6 +1,8 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; ([
-    "mattermost-desktop"
+    mattermost-desktop
+    cifs-utils
+    nautilus
   ]);
 }

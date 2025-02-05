@@ -11,11 +11,11 @@
 
     font = {
       name = "JetBrainsMono Nerd Font";
-      size = 13;
+      size = 12;
     };
 
     settings = {
-      background_opacity = "0.90";
+      # background_opacity = "0.90";
       window_padding_width = 5;
       scrollback_lines = 10000;
       mouse_hide_wait = 60;
@@ -41,7 +41,7 @@
 
       # Audio and Visual Bell
       enable_audio_bell = false;
-      visual_bell_duration = 0.1;
+      visual_bell_duration = 0.2;
       window_alert_on_bell = true;
       kitty_mod = "ctrl+alt";
     };

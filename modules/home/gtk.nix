@@ -1,16 +1,12 @@
 { pkgs, ... }:
 {
-  fonts.fontconfig.enable = true;
-
-  # Noto Color Emoji doesn't render on Firefox
-  # fonts.fontconfig.useEmbeddedBitmaps = true;
-
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.noto
-    twemoji-color-font
     noto-fonts-emoji
-    gruvbox-dark-icons-gtk
+    gnome-font-viewer
+    nwg-look
+    # google-fonts.inter
   ];
 
   home.pointerCursor = {
@@ -24,29 +20,31 @@
   gtk = {
     enable = true;
 
-    # iconTheme = {
-    #   name = "Adwaita";
-    #   package = pkgs.adwaita-icon-theme;
-    # };
-    #
     iconTheme = {
-      name = "Numix-Dark-Gtk";
-      package = pkgs.numix-icon-theme;
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
     };
-    # theme = {
-    #   name = "adw-gtk3-dark";
-    #   package = pkgs.adw-gtk3;
+    #
+    # iconTheme = {
+    #   name = "Numix-Dark-Gtk";
+    #   package = pkgs.numix-icon-theme;
     # };
-
     theme = {
-      name = "Tokyonight-Dark";
-      package = pkgs.tokyo-night-gtk;
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
     };
-    font = {
-      name = "Inter";
-      package = pkgs.google-fonts.override { fonts = [ "Inter" ]; };
-      size = 11;
-    };
+
+    # theme = {
+    #   name = "Tokyonight-Dark";
+    #   package = pkgs.tokyo-night-gtk;
+    # };
+    # font = {
+    #   name = "Noto Color Emoji";
+    #   # package = pkgs.nerd-fonts.noto;
+    #   # name = "Inter";
+    #   # package = pkgs.google-fonts.override { fonts = [ "Inter" ]; };
+    #   size = 11;
+    # };
   };
 
 }

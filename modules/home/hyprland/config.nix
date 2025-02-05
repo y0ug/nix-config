@@ -102,10 +102,10 @@ in
         "$mainMod, k, movefocus, u"
         "$mainMod, j, movefocus, d"
 
-        "$mainMod SHIFT, h, movewindow, l"
-        "$mainMod SHIFT, l, movewindow, r"
-        "$mainMod SHIFT, k, movewindow, u"
-        "$mainMod SHIFT, j, movewindow, d"
+        "$mainMod SHIFT, h, movewindoworgroup, l"
+        "$mainMod SHIFT, l, movewindoworgroup, r"
+        "$mainMod SHIFT, k, movewindoworgroup, u"
+        "$mainMod SHIFT, j, movewindoworgroup, d"
 
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"
@@ -126,21 +126,21 @@ in
         "ALT SHIFT, tab, alterzorder, top"
         "$mainMod, tab, focusurgentorlast,"
 
-        "$mainMod , period, movecurrentworkspacetomonitor,+1"
-        "$mainMod , coma, movecurrentworkspacetomonitor, -1"
-        "$mainMod SHIFT, period, movewindow, mon:+1"
-        "$mainMod SHIFT, coma, movewindow, mon:-1"
+        "$mainMod SHIFT, period, movecurrentworkspacetomonitor,+1"
+        "$mainMod SHIFT, comma, movecurrentworkspacetomonitor, -1"
+        "$mainMod , period, movewindow, mon:+1"
+        "$mainMod , comma, movewindow, mon:-1"
 
         # Example special workspace (scratchpad)
         "$mainMod, S, togglespecialworkspace, magic"
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
         # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, r+1"
-        "$mainMod, mouse_up, workspace, r-1"
+        "$mainMod, mouse_down, workspace, m+1"
+        "$mainMod, mouse_up, workspace, m-1"
 
-        "$mainMod, bracketleft, workspace, r-1"
-        "$mainMod, bracketright, workspace, r+1"
+        "$mainMod, bracketleft, workspace, m-1"
+        "$mainMod, bracketright, workspace, m+1"
 
       ]
       ++ (
@@ -228,10 +228,14 @@ in
       "rounding 0, floating:0, onworkspace:f[1]"
 
       "tile, class:^(xfreerdp)$"
-      "workspace name:RDP, class:^wlfreerdp$"
-      "workspace name:RDP, class:^xfreerdp$"
+      "workspace name:5, class:^wlfreerdp$"
+      "workspace name:5, class:^xfreerdp$"
 
       "workspace 6, class:^(Mattermost)$"
+
+      "opacity 0.90 0.70 ,class:^(kitty)$,"
+      "opacity 0.93 0,7 ,class:^(kitty)$,title:.*vim.*"
+      "opacity 0.93 0.7 ,class:^(kitty)$,title:.*tmux.*"
 
       "float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
       "float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
@@ -244,6 +248,8 @@ in
       "float,class:^(qt5ct)$"
       "float,class:^(qt6ct)$"
       "float,class:^(org.pulseaudio.pavucontrol)$"
+      "float,class:^(nwg-look)$"
+      "float,class:^(\.virt-manager-wrapped)$"
 
       "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$"
       "opacity 0.80 0.70,class:.*blueman.*"

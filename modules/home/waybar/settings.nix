@@ -46,7 +46,7 @@
       #   "default" = "";
       # };
       "persistent-workspaces" = {
-        "DP-1" = 6; # 5 workspaces by default on every monitor
+        # "DP-1" = 6; # 5 workspaces by default on every monitor
         # "HDMI-A-2" = 1; # but only three on HDMI-A-1
       };
     };
