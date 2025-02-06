@@ -22,6 +22,7 @@ in
     settings = {
       env = [
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "ELECTRON_OZONE_PLATFORM_HINT,wayland"
         "TERMINAL,kitty"
         # "HYPRCURSOR_THEME,${cursorName}"
         # "HYPRCURSOR_SIZE,${toString pointerSize}"
@@ -70,7 +71,7 @@ in
       decoration = {
         rounding = 10;
         active_opacity = 1.0;
-        inactive_opacity = 0.9;
+        inactive_opacity = 1.0;
         fullscreen_opacity = 1.0;
 
         blur = {
@@ -78,9 +79,8 @@ in
           size = 6;
           passes = 2;
           new_optimizations = true;
-          ignore_opacity = true;
+          # ignore_opacity = false;
           xray = true;
-          # blurls = waybar
         };
 
         shadow = {
@@ -118,6 +118,10 @@ in
         "col.inactive_border" = "rgb(414868)";
         "col.active_border" = "rgb(7aa5f7)";
         no_focus_fallback = true;
+
+        snap = {
+          enabled = true;
+        };
       };
 
       exec-once = [
@@ -128,22 +132,23 @@ in
       bind =
         [
           "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
-          "$mainMod, RETURN, exec, $terminal"
+          "$mainMod,RETURN, exec, $terminal"
           "$mainMod SHIFT, Escape, exec, ${run} wlogout"
           "$mainMod CTRL, L, exec, ${runOnce "hyprlock"}"
 
           "$mainMod, E, exec, $fileManager"
+          "$mainMod, R, exec, $menu"
           "$mainMod, SPACE, exec, $menu"
 
           "$mainMod, equal, hyprexpo:expo, toggle"
           "$mainMod, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
 
           # Screenshot a window
-          "$mainMod SHIFT, W, exec, ${runOnce "hyprshot"} -m window"
+          "$mainMod, PRINT, exec, ${runOnce "hyprshot"} -m window"
           # Screenshot a monitor
-          "$mainMod SHIFT, M, exec, ${runOnce "hyprshot"} -m output"
+          ",PRINT, exec, ${runOnce "hyprshot"} -m output"
           # Screenshot a region
-          "$mainMod SHIFT, S, exec, ${runOnce "hyprshot"} -m region"
+          "SHIFT, PRINT, exec, ${runOnce "hyprshot"} -m region"
 
           "$mainMod SHIFT, n, exec, ${runOnce "swaync-client"} -t -sw"
           # "$mainMod SHIFT, N, exec, ${runOnce "makoctl"} menu fuzzel -d"
@@ -263,11 +268,13 @@ in
       ];
 
       windowrulev2 = [
+        # Ignore maximize requests from apps
         "suppressevent maximize, class:.*"
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 
         # changed pined border
         "bordercolor rgba(B6C7E9AA) rgba(B6C7E977),pinned:1"
+
+        # enable hyprbars on floating only
         "plugin:hyprbars:nobar,floating:0"
 
         # idle inhibit while watching videos
@@ -275,45 +282,38 @@ in
         "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(zen)$"
 
-        # Bitwarden extension
+        # windowrule v2 to avoid idle for fullscreen apps
+        " idleinhibit fullscreen, class:^(*)$"
+        " idleinhibit fullscreen, title:^(*)$"
+        " idleinhibit fullscreen, fullscreen:1"
+
         "float, class:Bitwarden"
-        "size 50% 50%, class:Bitwarden"
-        "move 25% 25%, class:Bitwarden"
-
-        # gnome calculator
-        "float, class:^(org.gnome.Calculator)$"
-        "size 360 490, class:^(org.gnome.Calculator)$"
-
-        # "float, class:^(pavucontrol)$"
-        # "size 86% 40%, class:^(pavucontrol)$"
-        # "move 50% 6%, class:^(pavucontrol)$"
-        # "workspace special silent, class:^(pavucontrol)$"
-        # "opacity 0.80, class:^(pavucontrol)$"
-        # "minsize 20%, floating:1"
-
-        # "float,class:.*blueman.*"
-
-        "size 25% 25%,class:.*pavucontrol.*"
-        "move 25% 25%,class:.*pavucontrol.*"
-
-        # "workspace special:config,class:.*blueman.*"
-        # "workspace special:config,class:.*pavucontrol.*"
-
-        # smartgaps trick see wiki workspace-rules
-        "bordersize 0, floating:0, onworkspace:w[tv1]"
-        "rounding 0, floating:0, onworkspace:w[tv1]"
-        "bordersize 0, floating:0, onworkspace:f[1]"
-        "rounding 0, floating:0, onworkspace:f[1]"
-
-        "tile, class:^(xfreerdp)$"
-        "workspace name:5, class:^wlfreerdp$"
-        "workspace name:5, class:^xfreerdp$"
-
-        "workspace 6, class:^(Mattermost)$"
-
-        "opacity 0.95 0.85 ,class:^(kitty)$,"
-        # "opacity 0.95 0,85 ,class:^(kitty)$,title:.*vim.*"
-        # "opacity 0.95 0.85 ,class:^(kitty)$,title:.*tmux.*"
+        " float, class:^(org.kde.polkit-kde-authentication-agent-1)$ "
+        " float, class:([Zz]oom|onedriver|onedriver-launcher)$"
+        " float, class:([Tt]hunar), title:(File Operation Progress)"
+        " float, class:([Tt]hunar), title:(Confirm to replace files)"
+        " float, class:(xdg-desktop-portal-gtk)"
+        " float, class:(org.gnome.Calculator), title:(Calculator)"
+        " float, class:(codium|codium-url-handler|VSCodium|code-oss), title:(Add Folder to Workspace)"
+        " float, class:(electron), title:(Add Folder to Workspace)"
+        " float, class:^(eog|org.gnome.Loupe)$ # image viewer"
+        " float, class:^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"
+        " float, class:^(nwg-look|qt5ct|qt6ct)$"
+        " float, class:^(mpv|com.github.rafostar.Clapper)$"
+        " float, class:^(nm-applet|nm-connection-editor|blueman-manager)$"
+        " float, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$ # system monitor"
+        " float, class:^(wihotspot(-gui)?)$ # wifi hotspot"
+        " float, class:^(evince)$ # document viewer"
+        " float, class:^(file-roller|org.gnome.FileRoller)$ # archive manager"
+        " float, class:^([Bb]aobab|org.gnome.[Bb]aobab)$ # Disk usage analyzer"
+        " float, title:(Kvantum Manager)"
+        " float, class:^([Ss]team)$,title:^((?![Ss]team).*|[Ss]team [Ss]ettings)$"
+        " float, class:^([Qq]alculate-gtk)$"
+        " float, class:^([Ww]hatsapp-for-linux)$"
+        " float, class:^([Ff]erdium)$"
+        " float, title:^(Picture-in-Picture)$"
+        " float, title:^(ROG Control)$"
+        " float, title:^(hyprgui)$"
 
         "float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
         "float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
@@ -329,12 +329,6 @@ in
         "float,class:^(nwg-look)$"
         "float,class:^(\.virt-manager-wrapped)$"
 
-        # "opacity 0.90 0.80,class:^(org.pulseaudio.pavucontrol)$"
-        # "opacity 0.90 0.80,class:.*blueman.*"
-        # "opacity 0.90 0.80,class:^(nm-applet)$"
-        # "opacity 0.90 0.80,class:^(nm-connection-editor)$"
-        # "opacity 0.90 0.80,class:^(polkit-gnome-authentication-agent-1)$"
-
         "float,class:.*blueman.*"
         "float,class:^(nm-applet)$"
         "float,class:^(nm-connection-editor)$"
@@ -343,11 +337,42 @@ in
         "float,class:^(io.missioncenter.MissionCenter)$ # MissionCenter-Gtk"
         "float,class:^(io.gitlab.adhami3310.Impression)$ # Impression-Gtk"
 
-        "size 25% 25%,class:.*blueman.*"
-        "move 25% 25%,class:.*blueman.*"
+        " size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
+        " size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
+        " size 60% 70%, title:(Kvantum Manager)"
+        " size 60% 70%, class:^(qt6ct)$"
+        " size 70% 70%, class:^(evince|wihotspot(-gui)?)$"
+        " size 60% 70%, class:^(file-roller|org.gnome.FileRoller)$"
+        " size 60% 70%, class:^([Ww]hatsapp-for-linux)$"
+        " size 60% 70%, class:^([Ff]erdium)$"
+        " size 60% 70%, title:^(ROG Control)$"
+        " size 25% 25%, title:^(Picture-in-Picture)$   "
+        " size 60% 70%, title:^(hyprgui)$"
+        "size 60%, 70% class:Bitwarden"
+
+        " keepaspectratio, title:^(Picture-in-Picture)$"
+
+        # smartgaps trick see wiki workspace-rules
+        "bordersize 0, floating:0, onworkspace:w[tv1]"
+        "rounding 0, floating:0, onworkspace:w[tv1]"
+        "bordersize 0, floating:0, onworkspace:f[1]"
+        "rounding 0, floating:0, onworkspace:f[1]"
+
+        "workspace 5 silent, class:^([w|x]lfreerdp)$"
+        "workspace 6 silent, class:^(Mattermost)$"
+
+        # "opacity 0.95 0.85 ,class:^(kitty)$,"
+        "opacity 0.95 0.85 ,fullscreen:0, pinned:0"
 
         "rounding 10,floating:1"
         "bordersize 1,floating:1"
+
+        # Fix some dragging issues with XWayland
+        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+
+        # Fix mattermost menu that does not have a class and don't render blur correctly
+        "noblur,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        "opacity 1 overide 1 overide 1 overide,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
 
       windowrule = [
@@ -419,6 +444,7 @@ in
         follow_mouse = 1;
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification
         kb_options = "ctrl:nocaps";
+        scroll_factor = 2.0;
         touchpad = {
           natural_scroll = false;
           disable_while_typing = true;
