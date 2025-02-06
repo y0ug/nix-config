@@ -8,5 +8,6 @@
     ./hyprpaper.nix
     ./fuzzel.nix
     ./wlogout.nix
+    ./swaync.nix
   ];
 }

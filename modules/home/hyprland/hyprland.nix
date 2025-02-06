@@ -7,11 +7,6 @@
     hyprshot
     hyprcursor
 
-    # notification
-    # dunst
-    swaynotificationcenter # swaync
-    mako
-
     # fileManager
     nnn
     ranger
@@ -48,6 +43,7 @@
     # gcr
 
     seahorse
+    tridactyl-native
   ];
 
   # services.mpd-mpris.enable = true;

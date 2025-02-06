@@ -13,7 +13,7 @@
 
       listener = [
         {
-          timeout = 300; # 5min
+          timeout = 120; # 2min
           on-timeout = "loginctl lock-session";
         }
         # Screen of

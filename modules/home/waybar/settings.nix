@@ -197,9 +197,9 @@
       # "interface" = "wlp2*" # (Optional) To force the use of this interface
       "format-wifi" = "{essid} ({signalStrength}%) ";
       "format" = "";
-      "format-ethernet" = " ";
-      "tooltip-format" = "{ifname} via {gwaddr} ";
-      "format-linked" = "(No IP) ";
+      "format-ethernet" = " ";
+      "tooltip-format" = "{ifname} via {gwaddr} ";
+      "format-linked" = "(No IP) ";
       "format-disconnected" = "⚠";
       "format-alt" = "{ifname}: {ipaddr}/{cidr}";
     };
@@ -217,8 +217,8 @@
       "format-source-muted" = "";
       "format-icons" = {
         "headphone" = "";
-        "hands-free" = "";
-        "headset" = "";
+        "hands-free" = "󰋎";
+        "headset" = "󰋎";
         "phone" = "";
         "portable" = "";
         "car" = "";

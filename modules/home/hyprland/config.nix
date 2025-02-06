@@ -77,7 +77,7 @@ in
           enabled = true;
           size = 6;
           passes = 2;
-          new_optimizations = "on";
+          new_optimizations = true;
           ignore_opacity = true;
           xray = true;
           # blurls = waybar
@@ -146,6 +146,7 @@ in
           "$mainMod SHIFT, S, exec, ${runOnce "hyprshot"} -m region"
 
           "$mainMod SHIFT, n, exec, ${runOnce "swaync-client"} -t -sw"
+          # "$mainMod SHIFT, N, exec, ${runOnce "makoctl"} menu fuzzel -d"
 
           # emoji
           "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
@@ -187,7 +188,7 @@ in
           "$mainMod SHIFT, up, movewindow, u"
           "$mainMod SHIFT, down, movewindow, d"
 
-          "$mainMod, N, movetoworkspace, empty"
+          "$mainMod, O, movetoworkspace, empty"
           "$mainMod, backslash, workspace, previous"
 
           "ALT, tab, cyclenext,"
@@ -374,10 +375,15 @@ in
       layerrule = [
         "blur,launcher" # fuzzel
         "ignorezero,launcher"
+
+        "blur,notification" # dunst
+        "ignorezero,notification"
+
         "blur,swaync-control-center"
         "ignorezero,swaync-control-center"
         "blur,swaync-notification-window"
         "ignorezero,swaync-notification-window"
+
         "blur,logout_dialog"
         "blur,waybar"
       ];
@@ -412,6 +418,7 @@ in
         kb_layout = "us";
         follow_mouse = 1;
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification
+        kb_options = "ctrl:nocaps";
         touchpad = {
           natural_scroll = false;
           disable_while_typing = true;
