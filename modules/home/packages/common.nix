@@ -1,4 +1,5 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }:
+{
   home.packages = with pkgs; ([
     neovim
     nodejs
@@ -37,8 +38,8 @@
     ripgrep # recursively searches directories for a regex pattern
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processor https://github.com/mikefarah/yq
-    eza # A modern replacement for ‘ls’
-    fzf # A command-line fuzzy finder
+    # eza # A modern replacement for ‘ls’
+    # fzf # A command-line fuzzy finder
     bat # cat alternative
     fd # find replacement
     tdf # cli pdf viewer
@@ -84,10 +85,121 @@
     flare-floss
 
     # dev/python general
-    pre-commit
-    poetry
     pipx
-    go
+
+    cargo
+
+    # fzf-preview.sh dependencies
+    imgcat
+    chafa
+    file
+    #bat
+
   ]);
+
+  programs.go = {
+    enable = true;
+    goPath = ".go";
+  };
+
+  programs.fzf = {
+    enable = true;
+    # enableZshIntegration = true;
+    defaultOptions = [
+      # "--preview bat --color=always --style=header,grid --line-range :500 {}"
+      "--preview 'fzf-preview.sh {}'"
+    ];
+  };
+  programs.eza.enable = true;
+  programs.bat.enable = true;
+  programs.htop.enable = true;
+  programs.tmux.enable = true;
+  programs.starship.enable = true;
+  programs.bash.enable = true;
+  # program.lazygit.enable = true;
+
+  home.sessionPath = [ "$GOPATH/bin" ];
+
+  home.file.fzf = {
+    enable = true;
+    target = ".local/bin/fzf-preview.sh";
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      #
+      # The purpose of this script is to demonstrate how to preview a file or an
+      # image in the preview window of fzf.
+      #
+      # Dependencies:
+      # - https://github.com/sharkdp/bat
+      # - https://github.com/hpjansson/chafa
+      # - https://iterm2.com/utilities/imgcat
+
+      if [[ $# -ne 1 ]]; then
+        >&2 echo "usage: $0 FILENAME"
+        exit 1
+      fi
+
+      file=''${1/#\~\//$HOME/}
+      type=$(file --dereference --mime -- "$file")
+
+      if [[ ! $type =~ image/ ]]; then
+        if [[ $type =~ =binary ]]; then
+          file "$1"
+          exit
+        fi
+
+        # Sometimes bat is installed as batcat.
+        if command -v batcat > /dev/null; then
+          batname="batcat"
+        elif command -v bat > /dev/null; then
+          batname="bat"
+        else
+          cat "$1"
+          exit
+        fi
+
+        ''${batname} --color=always -- "$file"
+        exit
+      fi
+
+      dim=''${FZF_PREVIEW_COLUMNS}x''${FZF_PREVIEW_LINES}
+      if [[ $dim = x ]]; then
+        dim=$(stty size < /dev/tty | awk '{print $2 "x" $1}')
+      elif ! [[ $KITTY_WINDOW_ID ]] && (( FZF_PREVIEW_TOP + FZF_PREVIEW_LINES == $(stty size < /dev/tty | awk '{print $1}') )); then
+        # Avoid scrolling issue when the Sixel image touches the bottom of the screen
+        # * https://github.com/junegunn/fzf/issues/2544
+        dim=''${FZF_PREVIEW_COLUMNS}x$((FZF_PREVIEW_LINES - 1))
+      fi
+
+      # 1. Use kitty icat on kitty terminal
+      if [[ $KITTY_WINDOW_ID ]]; then
+        # 1. 'memory' is the fastest option but if you want the image to be scrollable,
+        #    you have to use 'stream'.
+        #
+        # 2. The last line of the output is the ANSI reset code without newline.
+        #    This confuses fzf and makes it render scroll offset indicator.
+        #    So we remove the last line and append the reset code to its previous line.
+        kitty icat --clear --transfer-mode=memory --unicode-placeholder --stdin=no --place="$dim@0x0" "$file" | sed '$d' | sed $'$s/$/\e[m/'
+
+      # 2. Use chafa with Sixel output
+      elif command -v chafa > /dev/null; then
+        chafa -s "$dim" "$file"
+        # Add a new line character so that fzf can display multiple images in the preview window
+        echo
+
+      # 3. If chafa is not found but imgcat is available, use it on iTerm2
+      elif command -v imgcat > /dev/null; then
+        # NOTE: We should use https://iterm2.com/utilities/it2check to check if the
+        # user is running iTerm2. But for the sake of simplicity, we just assume
+        # that's the case here.
+        imgcat -W "''${dim%%x*}" -H "''${dim##*x}" "$file"
+
+      # 4. Cannot find any suitable method to preview the image
+      else
+        file "$file"
+      fi
+    '';
+  };
 
 }

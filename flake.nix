@@ -27,6 +27,7 @@
       # (you may encounter issues if you dont do the same for hyprland)
       inputs.hyprland.follows = "hyprland";
     };
+    stylix.url = "github:danth/stylix";
     # agenix = {
     #   url = "github:ryantm/agenix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +49,7 @@
   outputs =
     inputs@{
       nixpkgs,
+      stylix,
       nix-darwin,
       home-manager,
       hyprland,
@@ -85,6 +87,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          stylix.nixosModules.stylix
           ./hosts/nixos-vm/configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -100,6 +103,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          stylix.nixosModules.stylix
           ./hosts/culixa/configuration.nix
           home-manager.nixosModules.home-manager
           {

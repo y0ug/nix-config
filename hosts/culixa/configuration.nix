@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  stylix,
   ...
 }:
 
@@ -33,7 +34,6 @@
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
   # Enabling A2DP Sink
   hardware.bluetooth.settings = {
     General = {
@@ -58,6 +58,10 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
   programs.zsh.enable = true;
+  programs.zsh.enableCompletion = false;
+
+  # programs.bash.enable = true;
+  programs.bash.completion.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -72,11 +76,43 @@
       "networkmanager"
       "wheel"
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.bash;
     packages = with pkgs; [ ];
   };
 
-  environment.systemPackages = with pkgs; [ qemu ];
+  stylix.enable = true;
+  stylix.image = pkgs.fetchurl {
+    url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
+    sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
+  };
+
+  stylix = {
+    autoEnable = true;
+    polarity = "dark";
+    # image = "${opts.wallpaper}";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyodark.yaml";
+
+    opacity = {
+      terminal = 0.9;
+      popups = 0.8;
+    };
+
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    fonts = {
+      # serif = config.stylix.fonts.monospace;
+      # sansSerif = config.stylix.fonts.monospace;
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+    };
+  };
+  environment.systemPackages = with pkgs; [ libinput ];
 
   environment.localBinInPath = true;
 

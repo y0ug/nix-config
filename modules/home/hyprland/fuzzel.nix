@@ -7,9 +7,9 @@
     settings = {
       main = {
         # output=<not set>
-        font = "Roboto Nerd Font Mono:size=12";
+        # font = "Roboto Nerd Font Mono:size=12";
         dpi-aware = "auto";
-        icon-theme = "Nordic-darker";
+        # icon-theme = "Nordic-darker";
 
         lines = 20;
         width = 60;
@@ -20,16 +20,16 @@
         layer = "top";
       };
 
-      colors = {
-        background = "16161eff";
-        text = "c0caf5ff";
-        match = "2ac3deff";
-        selection = "343a55ff";
-        selection-match = "2ac3deff";
-        selection-text = "c0caf5ff";
-        border = "27a1b9ff";
-      };
-
+      # colors = {
+      #   background = "16161eff";
+      #   text = "c0caf5ff";
+      #   match = "2ac3deff";
+      #   selection = "343a55ff";
+      #   selection-match = "2ac3deff";
+      #   selection-text = "c0caf5ff";
+      #   border = "27a1b9ff";
+      # };
+      #
       #[border]
       # width=1
       # radius=10

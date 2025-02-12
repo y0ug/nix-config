@@ -26,17 +26,9 @@
 	"hide-on-action": true,
 	"script-fail-notify": true,
 
-	// "widgets": [
-	// 	"title",
-	// 	"dnd",
-	// 	"mpris",
-	// 	"notifications",
-	// "menubar",
-		// "buttons-grid"
-	// ],
-
 	"widgets": [
 		"label",
+    "menubar",
 		"backlight",
 		"volume",
 		"mpris",
@@ -75,43 +67,26 @@
 				}
 			  ]
 			},
-			"menu#powermode-buttons": {
-			  "label": "", 
-			  "position": "right",
-			  "actions": [ 
-				{
-				  "label": "Performance",
-				  "command": "powerprofilesctl set performance"
-				},
-				{
-				  "label": "Balanced",
-				  "command": "powerprofilesctl set balanced"
-				},
-				{
-				  "label": "Power-saver",
-				  "command": "powerprofilesctl set power-saver"
-				}
-			  ]
-			},
+
 			"menu#screenshot-buttons": {
-			  "label": "",
+			  "label": "󰍹",
 			  "position": "left",
 			  "actions": [
 				{
-				  "label": "   Entire screen",
+				  "label": "󰍹  Entire screen",
 				  "command": "swaync-client -cp && sleep 1 && hyprshot -m output"
 				},
 				{
-				  "label": "   Select a region",
+				  "label": "󱋆 Select a region",
 				  "command": "swaync-client -cp && sleep 1 && hyprshot -m region"
 				},
 				{
-				  "label": "   Open screenshot menu",
+				  "label": " Open screenshot menu",
 				  "command": "swaync-client -cp && screenshot rofi"
 				},
 				{
-				  "label": "   Open screenshot folder",
-				  "command": "exo-open $HYPRSHOT_DIR"
+				  "label": " Open screenshot folder",
+				  "command": "nautilus $HYPRSHOT_DIR"
 				}
 			  ]
 			},
@@ -120,44 +95,23 @@
 			  "position": "left",
 			  "actions": [
 				{
-				  "label": "   Entire screen",
+				  "label": "  Entire screen",
 				  "command": "swaync-client -cp && sleep 1 && recording.sh toggle fullscreen"
 				},
 				{
-				  "label": "   Select a region",
+				  "label": "  Select a region",
 				  "command": "swaync-client -cp && sleep 1 && recording.sh toggle region"
 				},
 				{
-				  "label": "   Stop",
+				  "label": "  Stop",
 				  "command": "swaync-client -cp && recording.sh stop"
 				},
 				{
-				  "label": "   Open screencast folder",
+				  "label": "  Open screencast folder",
 				  "command": "thunar $HOME/Videos/Screencasts"
 				}
 			  ]
 			}
-		},
-		
-		"buttons-grid": {
-			"actions": [
-			  {
-				"label": "",
-				"command": "nm-connection-editor"
-			  },
-			  {
-				"label": "",
-				"command": "blueman"
-			  },
-			  {
-				"label": "",
-				"command": "nwg-look"
-			  },
-			  {
-				"label": "",
-				"command": "hyprterm music"
-			  }
-			]
 		},
 
 		"title": {
@@ -172,16 +126,7 @@
 			"image-size": 96,
 			"image-radius": 8
 		},
-		"backlight": {
-			"label": "",
-			"device": "intel_backlight",
-			"min": 10
-		},
-		"backlight#KB": {
-			"label": " ",
-			"device": "asus::kbd_backlight",
-			"subsystem": "leds"
-		},
+
 		"volume": {
 			"label": ""
 		}

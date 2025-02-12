@@ -10,7 +10,12 @@ let
   pointerSize = 16;
 in
 {
-
+  xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
+    "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
+    "ELECTRON_OZONE_PLATFORM_HINT=wayland"
+    "TERMINAL=kitty"
+    "HYPRSHOT_DIR=$HOME/Pictures"
+  ];
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [
@@ -20,18 +25,22 @@ in
       inputs.hy3.packages.${pkgs.stdenv.hostPlatform.system}.hy3
     ];
     settings = {
+      # we used UWSM so no env here
       env = [
-        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        "ELECTRON_OZONE_PLATFORM_HINT,wayland"
-        "TERMINAL,kitty"
-        # "HYPRCURSOR_THEME,${cursorName}"
-        # "HYPRCURSOR_SIZE,${toString pointerSize}"
       ];
 
       "$mainMod" = "SUPER";
 
       "$mainMonitor" = "DP-1";
 
+      device = [
+        {
+          name = "kensington-slimblade-pro(2.4ghz-receiver)-kensington-slimblade-pro-trackball(2.4ghz-receiver)";
+          natural_scroll = false;
+          sensitivity = 0.5;
+          accel_profile = "adaptive";
+        }
+      ];
       plugin = {
         hyprbars = {
           bar_text_font = "JetBrains Mono";
@@ -58,7 +67,7 @@ in
         hyprexpo = {
           columns = 3;
           gap_size = 5;
-          bg_col = "rgb(111111)";
+          # bg_col = "rgb(111111)";
           workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
           enable_gesture = true; # laptop touchpad
@@ -87,13 +96,17 @@ in
           enabled = true;
           range = 30;
           render_power = 3;
-          color = "0x66000000";
+          # color = "0x66000000";
         };
 
         # Dim
         dim_inactive = false;
         dim_strength = 0.1;
         dim_special = 0;
+      };
+
+      animations = {
+        enabled = false;
       };
 
       monitor = [
@@ -115,8 +128,8 @@ in
         gaps_in = 5;
         resize_on_border = true;
         # Fallback colors
-        "col.inactive_border" = "rgb(414868)";
-        "col.active_border" = "rgb(7aa5f7)";
+        # "col.inactive_border" = "rgb(414868)";
+        # "col.active_border" = "rgb(7aa5f7)";
         no_focus_fallback = true;
 
         snap = {
@@ -141,12 +154,12 @@ in
           "$mainMod, SPACE, exec, $menu"
 
           "$mainMod, equal, hyprexpo:expo, toggle"
-          "$mainMod, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
+          "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
 
           # Screenshot a window
           "$mainMod, PRINT, exec, ${runOnce "hyprshot"} -m window"
           # Screenshot a monitor
-          ",PRINT, exec, ${runOnce "hyprshot"} -m output"
+          ", PRINT, exec, ${runOnce "hyprshot"} -m output"
           # Screenshot a region
           "SHIFT, PRINT, exec, ${runOnce "hyprshot"} -m region"
 
@@ -157,6 +170,7 @@ in
           "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
 
           "$mainMod, Q, killactive,"
+          "$mainMod SHIFT, Q, forcekillactive,"
           "$mainMod SHIFT, F, fullscreen,"
           "$mainMod, M, fullscreen,1"
 
@@ -166,7 +180,7 @@ in
           # "$mainMod, I, changegroupactive, b"
           # "$mainMod, O, changegroupactive, f"
 
-          "$mainMod, S, togglesplit, # dwindle"
+          "$mainMod, V, togglesplit, # dwindle"
           "$mainMod, F, togglefloating,"
           "$mainMod, P, pseudo, # dwindle"
           "$mainMod SHIFT, Y, pin" # pin the window
@@ -183,12 +197,17 @@ in
           "$mainMod SHIFT, k, movewindoworgroup, u"
           "$mainMod SHIFT, j, movewindoworgroup, d"
 
+          "$mainMod ALT, h, resizeactive, -40 0"
+          "$mainMod ALT, j, resizeactive, 0 40"
+          "$mainMod ALT, k, resizeactive, 0 -40"
+          "$mainMod ALT, l, resizeactive, 40 0"
+
           "$mainMod, left, movefocus, l"
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"
           "$mainMod, down, movefocus, d"
 
-          "$mainMod SHIFT, left, movewindow, l"
+          "$mainMod ALT, left, movewindow, l"
           "$mainMod SHIFT, right, movewindow, r"
           "$mainMod SHIFT, up, movewindow, u"
           "$mainMod SHIFT, down, movewindow, d"
@@ -328,7 +347,7 @@ in
         "float,class:^(org.pulseaudio.pavucontrol)$"
         "float,class:^(nwg-look)$"
         "float,class:^(\.virt-manager-wrapped)$"
-
+        "float,class:^(org.gnome.Nautilus)$"
         "float,class:.*blueman.*"
         "float,class:^(nm-applet)$"
         "float,class:^(nm-connection-editor)$"
@@ -336,6 +355,13 @@ in
         "float,class:^(eog)$ # Imageviewer-Gtk"
         "float,class:^(io.missioncenter.MissionCenter)$ # MissionCenter-Gtk"
         "float,class:^(io.gitlab.adhami3310.Impression)$ # Impression-Gtk"
+        "float,class:^(imv)$"
+
+        "float,class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
+        "size 25% 25%, class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
+
+        "float,class:^(org.keepassxc.KeePassXC)$"
+        "size 25% 25%,class:^(org.keepassxc.KeePassXC)$"
 
         " size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
         " size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
@@ -349,6 +375,7 @@ in
         " size 25% 25%, title:^(Picture-in-Picture)$   "
         " size 60% 70%, title:^(hyprgui)$"
         "size 60%, 70% class:Bitwarden"
+        "size 50%, 50%,class:^(org.gnome.Nautilus)$"
 
         " keepaspectratio, title:^(Picture-in-Picture)$"
 
@@ -371,8 +398,8 @@ in
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 
         # Fix mattermost menu that does not have a class and don't render blur correctly
-        "noblur,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
         "opacity 1 overide 1 overide 1 overide,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        "noblur,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
 
       windowrule = [
@@ -430,10 +457,6 @@ in
         focus_on_activate = false;
       };
 
-      # decoration = {
-      #   blur.enabled = true;
-      #   shadow.enabled = true;
-      # };
       #
       master = {
         new_status = "master";

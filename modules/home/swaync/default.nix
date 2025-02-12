@@ -5,9 +5,12 @@
 {
   services.swaync = {
     enable = true;
-    # style = ''
-    #
-    # '';
+    style = ''
+          * {
+          font-family: "JetBrains Mono Nerd Font";
+          font-weight: bold;
+      }
+    '';
     # settings = {
     #   positionX = "right";
     #   positionY = "top";
@@ -21,9 +24,9 @@
     #   hide-on-clear = true; # hide control center on clear
     #   #image-visibility = "when-available";
     # };
-    settings = lib.readFile ./swaync.conf;
+    settings = builtins.fromJSON (builtins.readFile ./config.json);
   };
-
+  # home.file.".config/swaync/config.json".text = builtins.readFile ./config.json;
   services.mako.enable = lib.mkForce false;
   services.dunst.enable = lib.mkForce false;
 }
