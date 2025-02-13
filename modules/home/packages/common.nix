@@ -1,7 +1,6 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; ([
-    neovim
     nodejs
     gcc
     nixfmt-rfc-style
@@ -202,4 +201,23 @@
     '';
   };
 
+  # programs.neovim = {
+  #   enable = true;
+  #
+  #   defaultEditor = true;
+  #
+  #   viAlias = true;
+  #   vimAlias = true;
+  #
+  #   withRuby = true;
+  #   withNodeJs = true;
+  #   withPython3 = true;
+  #
+  #   extraLuaPackages = ps: [ ps.magick ];
+  #   extraPackages = [ pkgs.imagemagick ];
+  #
+  #   plugins = [
+  #     pkgs.vimPlugins.lazy-nvim
+  #   ];
+  # };
 }
