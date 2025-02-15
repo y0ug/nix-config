@@ -6,14 +6,15 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       nerd-fonts.jetbrains-mono
-      nerd-fonts.noto
       nerd-fonts.fira-code
       nerd-fonts.droid-sans-mono
+      nerd-fonts.symbols-only
       font-awesome
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
-      google-fonts
+      jetbrains-mono
+      fira-code
     ];
     # fontconfig = {
     #   defaultFonts = {

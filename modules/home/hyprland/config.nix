@@ -140,6 +140,7 @@ in
       exec-once = [
         "hyprctl setcursor ${cursorName} ${toString pointerSize}"
         "${runOnce "wl-paste"} --type text --watch cliphist store"
+        "${runOnce "wl-paste"} --type image --watch cliphist store"
       ];
 
       bind =

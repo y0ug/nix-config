@@ -20,7 +20,9 @@ let
         ipython
         nbformat
       ];
-    extraPackages = p: [ p.imagemagick ];
+    extraPackages = p: [
+      p.imagemagick
+    ];
     withNodeJs = true;
     withRuby = true;
     withPython3 = true;
@@ -38,6 +40,9 @@ in
     })
   ];
   environment.systemPackages = with pkgs; [
+    luarocks
+    lua5_1
+    luajit
     neovim-custom
     # Can't install this with the rest of the python packages b/c this needs to be in path
     python3Packages.jupytext # if you want to use vim-jupytext or similar
