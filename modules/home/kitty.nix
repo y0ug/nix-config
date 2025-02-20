@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  # stylix.targets.kitty.enable = false;
   programs.kitty = {
     enable = true;
 
@@ -19,6 +18,75 @@
       map kitty_mod+g kitty_scrollback_nvim --config ksb_builtin_last_cmd_output
       # Show clicked command output in nvim
       mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
+
+
+      # tmux settings
+      map ctrl+a>r load_config_file
+      # Make ctrl+a ctrl+a to send ctrl+a
+      map ctrl+a>ctrl+a send_text all \x01
+      map ctrl+shift+2 send_text all \x00
+
+      ### Layout operations ###
+      # stack layout behaves the same as tmux pane zoom
+      enabled_layouts splits,stack
+      map ctrl+a>z toggle_layout stack
+      map ctrl+a>space layout_action rotate
+
+      ### Tab operations, corresponds to tmux window ###
+      map ctrl+a>c new_tab
+      map ctrl+a>& close_tab
+      map ctrl+a>s new_tab_with_cwd
+
+      map ctrl+a>w select_tab
+      map ctrl+a>n next_tab
+      map ctrl+a>p previous_tab
+      map ctrl+a>0 goto_tab 1
+      map ctrl+a>1 goto_tab 2
+      map ctrl+a>2 goto_tab 3
+      map ctrl+a>3 goto_tab 4
+      map ctrl+a>4 goto_tab 5
+      map ctrl+a>5 goto_tab 6
+      map ctrl+a>6 goto_tab 7
+      map ctrl+a>7 goto_tab 8
+      map ctrl+a>8 goto_tab 9
+      map ctrl+a>9 goto_tab 10
+
+      # tmux sensible keybinding
+      map ctrl+a>ctrl+p previous_tab
+      map ctrl+a>ctrl+n next_tab
+
+      ### Window operations, corresponds to tmux pane ###
+      map ctrl+a>" launch --location=hsplit --cwd=current
+      map ctrl+a>% launch --location=vsplit --cwd=current
+
+      map ctrl+a>x close_window
+      map ctrl+a>f new_window_with_cwd
+
+      map ctrl+a>q focus_visible_window
+      map ctrl+a>o next_window
+
+      map ctrl+a>up neighboring_window up
+      map ctrl+a>down neighboring_window down
+      map ctrl+a>left neighboring_window left
+      map ctrl+a>right neighboring_window right
+
+      map ctrl+a>k neighboring_window up
+      map ctrl+a>j neighboring_window down
+      map ctrl+a>h neighboring_window left
+      map ctrl+a>l neighboring_window right
+
+      ### hints kitten ###
+      # Open file or url
+      map ctrl+a>h>f kitten hints --type=linenum --linenum-action=tab nvim +{line} {path}
+      map ctrl+a>h>u open_url_with_hints
+      # Insert text directly
+      map ctrl+a>h>p kitten hints --type=path --program=-
+      map ctrl+a>h>w kitten hints --type=word --program=-
+      map ctrl+a>h>h kitten hints --type=hash --program=-
+      # Copy text to clipboard
+      map ctrl+a>h>l kitten hints --type=line --program=@
+      map ctrl+a>h>c kitten hints --type=word --program=@
+      map ctrl+a>h>a kitten hints --type=url --program=@
     '';
 
     # font = {
@@ -41,7 +109,7 @@
       allow_remote_control = "socket-only";
       listen_on = if pkgs.stdenv.isLinux then "unix:@kitty" else "unix:/tmp/kitty";
 
-      enabled_layouts = "splits,fat";
+      enabled_layouts = "tall,stack, fat, grid, splits, horizontal, vertical";
       # enabled_layouts = "";
 
       notify_on_cmd_finish = "invisible 5.0 command notify-send \"job finished with status: %s\" %c";
@@ -71,6 +139,13 @@
 
     # tmux bindings
     keybindings = {
+      "kitty_mod+;" = "previous_tab";
+      "kitty_mod+'" = "next_tab";
+      "kitty_mod+\\" = "goto_tab -1";
+      "kitty_mod+f" = "toggle_layout stack";
+      "kitty_mod+n" = "new_window_with_cwd";
+      # "kitty_mod+m" = "toggle_layout tall";
+
       # Key Mappings (Default kitty_mod is ctrl+shift)
       # "ctrl+c" = "copy_to_clipboard";
       # "ctrl+v" = "paste_from_clipboard";

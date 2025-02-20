@@ -9,8 +9,15 @@
     webex
     keepassxc
     file-roller
+    go-jira
+    lftp
+
   ]);
   # programs.vesktop = {
   #   enable = true;
   # };
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
 }

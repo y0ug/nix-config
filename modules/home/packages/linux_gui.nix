@@ -25,6 +25,7 @@
     playerctl
 
     xdg-utils
+    wev # to find keycode
     powertop
   ]);
 

@@ -14,6 +14,8 @@
     grc
   ];
 
+  # programs.zsh.enabled = true;
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

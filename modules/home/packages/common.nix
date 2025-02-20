@@ -20,6 +20,7 @@
     xz
     unzip
     p7zip
+    zstd
 
     # networking tools
     mtr # A network diagnostic tool
@@ -54,14 +55,16 @@
     gnused
     gnutar
     gawk
-    zstd
     gnupg
+    bc # calculator
 
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
 
     glow # markdown previewer in terminal
+    presenterm # markdown presentation tool
+
     btop # replacement of htop/nmon
     iftop # network monitoring
     htop
@@ -201,6 +204,9 @@
     '';
   };
 
+  # programs.zsh = {
+  #   enable = true;
+  # };
   # programs.neovim = {
   #   enable = true;
   #
