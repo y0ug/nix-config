@@ -96,7 +96,7 @@
     chafa
     file
     #bat
-
+    tmux
   ]);
 
   programs.go = {
@@ -115,7 +115,7 @@
   programs.eza.enable = true;
   programs.bat.enable = true;
   programs.htop.enable = true;
-  programs.tmux.enable = true;
+  # programs.tmux.enable = true;
   programs.starship.enable = true;
   programs.bash.enable = true;
   # program.lazygit.enable = true;

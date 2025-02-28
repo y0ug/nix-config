@@ -147,7 +147,7 @@ in
         [
           "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
           "$mainMod,RETURN, exec, $terminal"
-          "$mainMod SHIFT, Escape, exec, ${run} wlogout"
+          # "$mainMod SHIFT, Escape, exec, ${run} wlogout"
           "$mainMod CTRL, L, exec, ${runOnce "hyprlock"}"
 
           "$mainMod, E, exec, $fileManager"
@@ -216,11 +216,11 @@ in
           "$mainMod, O, movetoworkspace, empty"
           "$mainMod, backslash, workspace, previous"
 
-          "ALT, tab, cyclenext,"
-          "ALT, tab, alterzorder, top"
-          "ALT SHIFT, tab, cyclenext, prev"
-          "ALT SHIFT, tab, alterzorder, top"
-          "$mainMod, tab, focusurgentorlast,"
+          # "ALT, tab, cyclenext,"
+          # "ALT, tab, alterzorder, top"
+          # "ALT SHIFT, tab, cyclenext, prev"
+          # "ALT SHIFT, tab, alterzorder, top"
+          # "$mainMod, tab, focusurgentorlast,"
 
           "$mainMod SHIFT, period, movecurrentworkspacetomonitor,+1"
           "$mainMod SHIFT, comma, movecurrentworkspacetomonitor, -1"
@@ -386,7 +386,7 @@ in
         "bordersize 0, floating:0, onworkspace:f[1]"
         "rounding 0, floating:0, onworkspace:f[1]"
 
-        "workspace 5 silent, class:^([w|x]lfreerdp)$"
+        "workspace 5 silent, class:^([wl|x]freerdp)$"
         "workspace 6 silent, class:^(Mattermost)$"
 
         # "opacity 0.95 0.85 ,class:^(kitty)$,"
@@ -467,7 +467,7 @@ in
         kb_layout = "us";
         follow_mouse = 1;
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification
-        kb_options = "ctrl:nocaps";
+        # kb_options = "ctrl:nocaps";
         scroll_factor = 2.0;
         touchpad = {
           natural_scroll = false;
@@ -485,10 +485,10 @@ in
 
     extraConfig = ''
       # Passthrough mode
-      # bind=$mainMod SHIFT, P,submap,passthrough
-      # submap=passthrough
-      # bind=$mainMod SHIFT, P,submap,reset
-      # submap=reset
+      bind=$mainMod , Escape,submap,passthrough
+      submap=passthrough
+      bind=$mainMod , Escape,submap,reset
+      submap=reset
     '';
   };
 }

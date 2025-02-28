@@ -11,7 +11,7 @@
     file-roller
     go-jira
     lftp
-
+    ffmpeg
   ]);
   # programs.vesktop = {
   #   enable = true;
