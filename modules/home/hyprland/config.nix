@@ -216,11 +216,11 @@ in
           "$mainMod, O, movetoworkspace, empty"
           "$mainMod, backslash, workspace, previous"
 
-          # "ALT, tab, cyclenext,"
-          # "ALT, tab, alterzorder, top"
-          # "ALT SHIFT, tab, cyclenext, prev"
-          # "ALT SHIFT, tab, alterzorder, top"
-          # "$mainMod, tab, focusurgentorlast,"
+          "ALT, tab, cyclenext,"
+          "ALT, tab, alterzorder, top"
+          "ALT SHIFT, tab, cyclenext, prev"
+          "ALT SHIFT, tab, alterzorder, top"
+          "$mainMod, tab, focusurgentorlast,"
 
           "$mainMod SHIFT, period, movecurrentworkspacetomonitor,+1"
           "$mainMod SHIFT, comma, movecurrentworkspacetomonitor, -1"

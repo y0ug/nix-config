@@ -109,7 +109,7 @@
     # enableZshIntegration = true;
     defaultOptions = [
       # "--preview bat --color=always --style=header,grid --line-range :500 {}"
-      "--preview 'fzf-preview.sh {}'"
+      # "--preview 'fzf-preview.sh {}'"
     ];
   };
   programs.eza.enable = true;
