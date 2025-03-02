@@ -19,8 +19,8 @@
   };
 
   # apps.wezterm.colorscheme = lib.mkIf default "tokyonight_night";
-  home.file.".config/wezterm/tokyonight_night.toml".source =
-    ../../themes/tokyonight/wezterm/tokyonight_night.toml;
+  # home.file.".config/wezterm/tokyonight_night.toml".source =
+  #   ../../themes/tokyonight/wezterm/tokyonight_night.toml;
 
   # "${pkgs.vimPlugins.tokyonight-nvim}/extras/wezterm/tokyonight_night.toml"
 }

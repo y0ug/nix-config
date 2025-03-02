@@ -12,6 +12,7 @@
     go-jira
     lftp
     ffmpeg
+    librewolf
   ]);
   # programs.vesktop = {
   #   enable = true;

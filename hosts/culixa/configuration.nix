@@ -21,7 +21,9 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
+  networking.hostId = "95166fcd";
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
   hardware.keyboard.qmk.enable = true;
