@@ -17,7 +17,28 @@
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
   ];
-
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+        "https://devenv.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+      ];
+      trusted-users = [
+        "root"
+        "wheel"
+      ];
+    };
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -26,8 +47,18 @@
   networking.hostId = "95166fcd";
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
+      intel-media-driver
+      intel-compute-runtime
+      libvdpau-va-gl
+    ];
+  };
+
   hardware.keyboard.qmk.enable = true;
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "culixa";
 
@@ -63,7 +94,7 @@
 
   programs.zsh = {
     enable = true;
-    enableCompletion = false;
+    # enableCompletion = true;
     # enableBashCompletion = true;
   };
 
@@ -83,6 +114,8 @@
       "networkmanager"
       "wheel"
       "plugdev"
+      "video"
+      "render"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [ ];
@@ -125,7 +158,7 @@
     libinput
     nix-zsh-completions
     via # qmk userland customization
-
+    zsh-nix-shell
   ];
 
   services.udev.packages = [ pkgs.via ];
@@ -146,13 +179,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
-    ];
-  };
 
   services.sunshine = {
     enable = true;

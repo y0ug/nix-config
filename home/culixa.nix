@@ -21,13 +21,13 @@
     defaultApplications = {
       "inode/directory" = "files.desktop";
 
-      # Firefox as my default browser
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/mailto" = "firefox.desktop";
-      "x-scheme-handler/webcal" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
+      # librewolf as my default browser
+      "text/html" = "librewolf.desktop";
+      "x-scheme-handler/http" = "librewolf.desktop";
+      "x-scheme-handler/https" = "librewolf.desktop";
+      "x-scheme-handler/mailto" = "librewolf.desktop";
+      "x-scheme-handler/webcal" = "librewolf.desktop";
+      "x-scheme-handler/unknown" = "librewolf.desktop";
 
       # Use file-roller for archives
       "application/x-7z-compressed" = "org.gnome.FileRoller.desktop";

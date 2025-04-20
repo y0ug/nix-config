@@ -16,10 +16,10 @@
     cliphist
     wl-clipboard
     wl-clip-persist
-    wl-clipboard
 
     wf-recorder
     wl-screenrec
+    slurp # find windows position and sixe
     glib
     wlr-randr
 

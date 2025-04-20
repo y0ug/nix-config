@@ -76,7 +76,7 @@
           { users.users.rick.home = "/Users/rick"; }
           home-manager.darwinModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/darwin.nix;
             home-manager.extraSpecialArgs = { inherit inputs; };
@@ -92,7 +92,7 @@
           ./hosts/nixos-vm/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/nixos-vm.nix;
             home-manager.extraSpecialArgs = { inherit inputs; };
@@ -108,7 +108,7 @@
           ./hosts/culixa/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/culixa.nix;
             home-manager.extraSpecialArgs = { inherit inputs; };
@@ -118,19 +118,19 @@
 
       homeConfigurations = {
         linux64-rick = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config = { };
-          };
+          # pkgs = import nixpkgs {
+          #   system = "x86_64-linux";
+          #   config = { };
+          # };
           modules = [ ./home/linux.nix ];
           extraSpecialArgs = { inherit inputs; };
         };
 
         osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "aarch64-darwin";
-            config = { };
-          };
+          # pkgs = import nixpkgs {
+          #   system = "aarch64-darwin";
+          #   config = { };
+          # };
           modules = [ ./home/darwin.nix ];
           extraSpecialArgs = { inherit inputs; };
         };

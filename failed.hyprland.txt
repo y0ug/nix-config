@@ -1,0 +1,55 @@
+Running phase: unpackPhase
+@nix { "action": "setPhase", "phase": "unpackPhase" }
+unpacking source archive /nix/store/9njw6n19bawpb8cf6pkgk01xk67wbaj2-source
+source root is source
+Running phase: patchPhase
+@nix { "action": "setPhase", "phase": "patchPhase" }
+Running phase: updateAutotoolsGnuConfigScriptsPhase
+@nix { "action": "setPhase", "phase": "updateAutotoolsGnuConfigScriptsPhase" }
+Running phase: configurePhase
+@nix { "action": "setPhase", "phase": "configurePhase" }
+mesonConfigurePhase flags: --prefix=/nix/store/4zvchljskp5z7irakn9lb3d8g9zl4gbd-hyprland-0.48.0+date=2025-04-21_a4f7d7c --libdir=/nix/store/4zvchljskp5z7irakn9lb3d8g9zl4gbd-hyprland-0.48.0+date=2025-04-21_a4f7d7c/lib --libexecdir=/nix/store/4zvchljskp5z7irakn9lb3d8g9zl4gbd-hyprland-0.48.0+date=2025-04-21_a4f7d7c/libexec --bindir=/nix/store/4zvchljskp5z7irakn9lb3d8g9zl4gbd-hyprland-0.48.0+date=2025-04-21_a4f7d7c/bin --sbindir=/nix/store/4zvchljskp5z7irakn9lb3d8g9zl4gbd-hyprland-0.48.0+date=2025-04-21_a4f7d7c/sbin --includedir=/nix/store/flcsym4zl0s436lsv7amb5jxx4xr1abb-hyprland-0.48.0+date=2025-04-21_a4f7d7c-dev/include --mandir=/nix/store/cl7dhghnhs49a3r5y57vcwx75cnhwj8a-hyprland-0.48.0+date=2025-04-21_a4f7d7c-man/share/man --infodir=/nix/store/4zvchljskp5z7irakn9lb3d8g9zl4gbd-hyprland-0.48.0+date=2025-04-21_a4f7d7c/share/info --localedir=/nix/store/4zvchljskp5z7irakn9lb3d8g9zl4gbd-hyprland-0.48.0+date=2025-04-21_a4f7d7c/share/locale -Dauto_features=enabled -Dwrap_mode=nodownload --buildtype=release -Dhyprpm=disabled -Dlegacy_renderer=disabled -Dsystemd=enabled -Duwsm=disabled -Dxwayland=enabled -Db_pch=false -Dtracy_enable=false
+[1mThe Meson build system[0m
+Version: 1.7.0
+Source dir: [1m/build/source[0m
+Build dir: [1m/build/source/build[0m
+Build type: [1mnative build[0m
+Project name: [1mHyprland[0m
+Project version: [1m0.48.0[0m
+C compiler for the host machine: [1mgcc[0m (gcc 14.2.1 "gcc (GCC) 14.2.1 20250322")
+C linker for the host machine: [1mgcc[0m ld.mold 2.37.1
+C++ compiler for the host machine: [1mg++[0m (gcc 14.2.1 "g++ (GCC) 14.2.1 20250322")
+C++ linker for the host machine: [1mg++[0m ld.mold 2.37.1
+Host machine cpu family: [1mx86_64[0m
+Host machine cpu: [1mx86_64[0m
+Check usable header "[1mexecinfo.h[0m" : [1;32mYES[0m 
+Found pkg-config: [1;32mYES[0m [1m(/nix/store/bbp56ai8w43xkfisar83h37imjdlcx6r-pkg-config-wrapper-0.29.2/bin/pkg-config)[0m [1;34m0.29.2[0m
+Run-time dependency [1maquamarine[0m found: [1;32mYES[0m [36m0.8.0[0m
+Run-time dependency [1mhyprcursor[0m found: [1;32mYES[0m [36m0.1.12[0m
+Run-time dependency [1mhyprgraphics[0m found: [1;32mYES[0m [36m0.1.3[0m
+Run-time dependency [1mhyprlang[0m found: [1;32mYES[0m [36m0.6.1[0m
+Run-time dependency [1mhyprutils[0m found: [1;32mYES[0m [36m0.6.0[0m
+Run-time dependency [1mxcb[0m found: [1;32mYES[0m [36m1.17.0[0m
+Run-time dependency [1mxcb-composite[0m found: [1;32mYES[0m [36m1.17.0[0m
+Run-time dependency [1mxcb-errors[0m found: [1;32mYES[0m [36m1.0.1[0m
+Run-time dependency [1mxcb-icccm[0m found: [1;32mYES[0m [36m0.4.2[0m
+Run-time dependency [1mxcb-render[0m found: [1;32mYES[0m [36m1.17.0[0m
+Run-time dependency [1mxcb-res[0m found: [1;32mYES[0m [36m1.17.0[0m
+Run-time dependency [1mxcb-xfixes[0m found: [1;32mYES[0m [36m1.17.0[0m
+Run-time dependency [1mgio-2.0[0m found: [1;32mYES[0m [36m2.82.5[0m
+Library [1mexecinfo[0m found: [1;31mNO[0m
+Found CMake: [1m/nix/store/ad4c8nx2lkjs4zq0sj9jdpn7w45v9ccs-cmake-3.31.6/bin/cmake[0m (3.31.6)
+Run-time dependency [1mepoll-shim[0m found: [1;31mNO[0m (tried pkgconfig and cmake)
+Run-time dependency [1mlibinotify[0m found: [1;31mNO[0m (tried pkgconfig and cmake)
+Run-time dependency [1mre2[0m found: [1;32mYES[0m [36m11.0.0[0m
+Run-time dependency [1msystemd[0m found: [1;32mYES[0m [36m257[0m
+meson.build:72: [1;33mWARNING:[0m Project does not target a minimum version but uses feature introduced in '1.1.0': feature_option.enable_auto_if().
+[1mMessage:[0m Enabling systemd integration
+Run-time dependency [1mtracy[0m found: [1;31mNO[0m (tried pkgconfig and cmake)
+Dependency [1mwayland-protocols[0m found: [1;31mNO[0m. Found [36m1.42[0m but need: [1m'>=1.43'[0m
+Run-time dependency [1mwayland-protocols[0m found: [1;31mNO[0m (tried pkgconfig and cmake)
+Looking for a fallback subproject for the dependency [1mwayland-protocols[0m
+
+protocols/meson.build:1:17: [1;31mERROR:[0m Neither a subproject directory nor a wayland-protocols.wrap file was found.
+
+A full log can be found at [1m/build/source/build/meson-logs/meson-log.txt[0m
