@@ -321,8 +321,8 @@ in
         "idleinhibit fullscreen, class:^(zen)$"
 
         # windowrule v2 to avoid idle for fullscreen apps
-        " idleinhibit fullscreen, class:^(*)$"
-        " idleinhibit fullscreen, title:^(*)$"
+        " idleinhibit fullscreen, class:^(.*)$"
+        " idleinhibit fullscreen, title:^(.*)$"
         " idleinhibit fullscreen, fullscreen:1"
 
         "float, class:Bitwarden"
@@ -345,7 +345,7 @@ in
         " float, class:^(file-roller|org.gnome.FileRoller)$ # archive manager"
         " float, class:^([Bb]aobab|org.gnome.[Bb]aobab)$ # Disk usage analyzer"
         " float, title:(Kvantum Manager)"
-        " float, class:^([Ss]team)$,title:^((?![Ss]team).*|[Ss]team [Ss]ettings)$"
+        " float, class:^([Ss]team)$,title:^([Ss]team .*)$"
         " float, class:^([Qq]alculate-gtk)$"
         " float, class:^([Ww]hatsapp-for-linux)$"
         " float, class:^([Ff]erdium)$"
