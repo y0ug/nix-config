@@ -1,6 +1,8 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; ([
+    nodejs
+    gcc
     nixfmt-rfc-style
 
     direnv
@@ -36,12 +38,12 @@
     ripgrep # recursively searches directories for a regex pattern
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processor https://github.com/mikefarah/yq
-    # eza # A modern replacement for ‘ls’
-    # fzf # A command-line fuzzy finder
+    # eza # A modern replacement for ‘ls’ , homemagner
+    # fzf # A command-line fuzzy finder, homemanager
     bat # cat alternative
     fd # find replacement
     tdf # cli pdf viewer
-    moar # less alternative
+    moar # alterative pager
 
     # encryption
     sops
@@ -75,7 +77,6 @@
     gh
 
     hexyl # hexviewr
-    xxd
     lazygit
     starship
     xh # curl replacement for API
@@ -87,8 +88,12 @@
     flare-floss
 
     # dev/python general
-    pipx
-
+    (python3.withPackages (
+      ps: with ps; [
+        markitdown
+        pipx
+      ]
+    ))
     cargo
 
     # fzf-preview.sh dependencies
@@ -97,6 +102,7 @@
     file
     #bat
     tmux
+    sesh
   ]);
 
   programs.go = {
@@ -109,9 +115,11 @@
     # enableZshIntegration = true;
     defaultOptions = [
       # "--preview bat --color=always --style=header,grid --line-range :500 {}"
-      # "--preview 'fzf-preview.sh {}'"
+      "--preview 'fzf-preview.sh {}'"
     ];
   };
+
+  programs.zoxide.enable = true;
   programs.eza.enable = true;
   programs.bat.enable = true;
   programs.htop.enable = true;

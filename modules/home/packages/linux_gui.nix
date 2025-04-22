@@ -7,7 +7,7 @@
     imv # image viewer
     gparted # partition editor
 
-    obsidian # markdown editor unfree
+    # obsidian # markdown editor unfree
 
     man-pages # extra man pages
     killall
@@ -27,6 +27,7 @@
     xdg-utils
     wev # to find keycode
     powertop
+
   ]);
 
 }

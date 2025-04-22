@@ -8,6 +8,7 @@
     font-awesome
     nwg-look
     # google-fonts.inter
+    # adwaita-icon-theme
   ];
 
   # home.pointerCursor = {
@@ -21,10 +22,10 @@
   gtk = {
     enable = true;
 
-    # iconTheme = {
-    #   name = "Adwaita";
-    #   package = pkgs.adwaita-icon-theme;
-    # };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
     #
     # iconTheme = {
     #   name = "Numix-Dark-Gtk";

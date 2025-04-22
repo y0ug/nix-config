@@ -1,17 +1,54 @@
 { pkgs, inputs, ... }:
 {
+  nixpkgs.overlays = [
+    (_: prev: {
+      aider-chat = (prev.aider-chat.override { }).overridePythonAttrs (oldAttrs: {
+        dependencies = oldAttrs.dependencies ++ [
+          prev.python3Packages.google-api-core
+          prev.python3Packages.google-auth
+          prev.python3Packages.google-cloud-core
+          prev.python3Packages.googleapis-common-protos
+          prev.python3Packages.google-generativeai
+        ];
+      });
+    })
+    # (_: prev: {
+    #   aider-chat = prev.aider-chat.overridePythonAttrs (oldAttrs: {
+    #     dependencies = oldAttrs.dependencies ++ [
+    #       (prev.python3Packages.litellm.overridePythonAttrs
+    #         (litellmAttrs: {
+    #           dependencies = litellmAttrs.dependencies ++ [
+    #             prev.python3Packages.google-generativeai
+    #             prev.python3Packages.google-api-core
+    #             prev.python3Packages.google-auth
+    #             prev.python3Packages.google-cloud-core
+    #             prev.python3Packages.googleapis-common-protos
+    #           ];
+    #         })
+    #
+    #         prev.python3Packages.google-generativeai
+    #         prev.python3Packages.google-api-core
+    #         prev.python3Packages.google-auth
+    #         prev.python3Packages.google-cloud-core
+    #         prev.python3Packages.googleapis-common-protos
+    #       )
+    #     ];
+    #   });
+    # })
+  ];
+
   home.packages = with pkgs; ([
     mattermost-desktop
     cifs-utils
     nautilus
     vesktop
     eog
-    webex
+    # webex # unfree
     keepassxc
     file-roller
     go-jira
     lftp
-    ffmpeg
+    ffmpeg-full
     librewolf
     devenv
     moonlight-qt
@@ -34,18 +71,9 @@
     argc
 
     aider-chat
-    tor-browser
-    monero-gui
-    cryptsetup
-
-    git-filter-repo
 
   ]);
   # programs.vesktop = {
   #   enable = true;
   # };
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscode.fhs;
-  };
 }

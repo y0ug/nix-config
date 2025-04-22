@@ -44,6 +44,7 @@ in
     lua5_1
     luajit
     neovim-custom
+    icu
     # Can't install this with the rest of the python packages b/c this needs to be in path
     python3Packages.jupytext # if you want to use vim-jupytext or similar
   ];

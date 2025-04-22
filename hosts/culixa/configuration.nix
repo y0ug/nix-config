@@ -89,25 +89,17 @@
   };
 
   # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16
-  tylix = {
+  stylix = {
+    enable = true;
     autoEnable = true;
     polarity = "dark";
-    # stylix.image = pkgs.fetchurl {
-    #   url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
-    #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
-    # };
-    # image = "${opts.wallpaper}";
-    base16Scheme = builtins.toString "../../modules/themes/stylix/arctic_vs_dark.yaml";
-    # base16Scheme = "${toString ../../modules/themes/stylix/arctic_vs_dark.yaml}";
-    # base16Scheme = pkgs.fetchurl {
-    #   url = "https://gist.githubusercontent.com/y0ug/25f05575ba51e5429ef37869e9cd9bdc/raw/c293e94f3a6608ac2700c500338a3bc3d84a171d/arctic_vs_dark.yaml";
-    #   sha256 = "cnovYwgQMARMJe2mRNket3aYSi71gplvmTkulgluM0k=";
-    # };
+    base16Scheme = "${toString ../../modules/themes/stylix/arctic_vs_dark.yaml}";
 
-    # opacity = {
-    #   terminal = 1.0;
-    #   popups = 1.0;
-    # };
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyodark.yaml";
+    opacity = {
+      terminal = 1.0;
+      popups = 1.0;
+    };
 
     cursor = {
       package = pkgs.bibata-cursors;
