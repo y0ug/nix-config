@@ -99,7 +99,7 @@
       # shell = "/usr/bin/env sh -c \"tmux new-session -s kitty_$(date +%s)\"";
       # shell = "tmux new-session -As kitty \; new-window";
 
-      # background_opacity = "0.90";
+      # background_opacity = "1.0";
       window_padding_width = 5;
       scrollback_lines = 10000;
       mouse_hide_wait = 60;

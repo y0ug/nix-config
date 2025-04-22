@@ -16,17 +16,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=v0.47.2-b";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland"; # Prevents version mismatch.
-    };
-    hy3 = {
-      url = "github:outfoxxed/hy3?ref=hl0.47.0"; # where {version} is the hyprland release version
-      # or "github:outfoxxed/hy3" to follow the development branch.
-      # (you may encounter issues if you dont do the same for hyprland)
-      inputs.hyprland.follows = "hyprland";
-    };
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=v0.47.2-b";
+    # hyprland-plugins = {
+    #   url = "github:hyprwm/hyprland-plugins";
+    #   inputs.hyprland.follows = "hyprland"; # Prevents version mismatch.
+    # };
+    # hy3 = {
+    #   url = "github:outfoxxed/hy3?ref=hl0.48.0"; # where {version} is the hyprland release version
+    #   # or "github:outfoxxed/hy3" to follow the development branch.
+    #   # (you may encounter issues if you dont do the same for hyprland)
+    #   inputs.hyprland.follows = "hyprland";
+    # };
     stylix.url = "github:danth/stylix";
     # agenix = {
     #   url = "github:ryantm/agenix";
@@ -52,8 +53,8 @@
       stylix,
       nix-darwin,
       home-manager,
-      hyprland,
-      hyprland-plugins,
+      # hyprland,
+      # hyprland-plugins,
       ...
     }:
     let

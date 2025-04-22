@@ -10,23 +10,21 @@ let
   pointerSize = 16;
 in
 {
-  xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
-    "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
-    "ELECTRON_OZONE_PLATFORM_HINT=wayland"
-    "TERMINAL=kitty"
-    "HYPRSHOT_DIR=$HOME/Pictures"
-  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [
       # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hy3
-      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
-      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
-      inputs.hy3.packages.${pkgs.stdenv.hostPlatform.system}.hy3
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+      # inputs.hy3.packages.${pkgs.stdenv.hostPlatform.system}.hy3
     ];
     settings = {
-      # we used UWSM so no env here
       env = [
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "TERMINAL,kitty"
+        # "HYPRCURSOR_THEME,${cursorName}"
+        # "HYPRCURSOR_SIZE,${toString pointerSize}"
       ];
 
       "$mainMod" = "SUPER";
@@ -41,72 +39,69 @@ in
           accel_profile = "adaptive";
         }
       ];
-      plugin = {
-        hyprbars = {
-          bar_text_font = "JetBrains Mono";
-          bar_height = 20;
-          bar_padding = 5;
-          bar_button_padding = 5;
-          bar_precedence_over_border = true;
-          bar_part_of_window = true;
-          bar_blur = true;
-          # bar_color = "rgb(1a1b26)";
-          # col.text = "rgb(c0caf5)";
-
-          # example buttons (R -> L)
-          # hyprbars-button = color, size, on-click
-          hyprbars-button = [
-            "rgb(7aa2f7), 13, 󰖭, hyprctl dispatch killactive"
-            "rgb(7aa2f7), 13, 󰖯, hyprctl dispatch fullscreen 1"
-            "rgb(7aa2f7), 13, 󰖰, hyprctl dispatch togglefloating"
-            "rgb(7aa2f7), 13, 󰖰, hyprctl dispatch movetoworkspacesilent special:minimized"
-          ];
-        };
-      };
-      plugin = {
-        hyprexpo = {
-          columns = 3;
-          gap_size = 5;
-          # bg_col = "rgb(111111)";
-          workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
-
-          enable_gesture = true; # laptop touchpad
-          gesture_fingers = 3; # 3 or 4
-          gesture_distance = 300; # how far is the "max"
-          gesture_positive = true; # positive = swipe down. Negative = swipe up.
-        };
-      };
-
+      # plugin = {
+      #   hyprbars = {
+      #     bar_text_font = "JetBrains Mono";
+      #     bar_height = 20;
+      #     bar_padding = 5;
+      #     bar_button_padding = 5;
+      #     bar_precedence_over_border = true;
+      #     bar_part_of_window = true;
+      #     bar_blur = true;
+      #     # bar_color = "rgb(1a1b26)";
+      #     # col.text = "rgb(c0caf5)";
+      #
+      #     # example buttons (R -> L)
+      #     # hyprbars-button = color, size, on-click
+      #     hyprbars-button = [
+      #       "rgb(7aa2f7), 13, 󰖭, hyprctl dispatch killactive"
+      #       "rgb(7aa2f7), 13, 󰖯, hyprctl dispatch fullscreen 1"
+      #       "rgb(7aa2f7), 13, 󰖰, hyprctl dispatch togglefloating"
+      #       "rgb(7aa2f7), 13, 󰖰, hyprctl dispatch movetoworkspacesilent special:minimized"
+      #     ];
+      #   };
+      # };
+      # plugin = {
+      #   hyprexpo = {
+      #     columns = 3;
+      #     gap_size = 5;
+      #     bg_col = "rgb(111111)";
+      #     workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
+      #
+      #     enable_gesture = true; # laptop touchpad
+      #     gesture_fingers = 3; # 3 or 4
+      #     gesture_distance = 300; # how far is the "max"
+      #     gesture_positive = true; # positive = swipe down. Negative = swipe up.
+      #   };
+      # };
+      #
       decoration = {
         rounding = 10;
         active_opacity = 1.0;
-        inactive_opacity = 1.0;
+        inactive_opacity = 0.9;
         fullscreen_opacity = 1.0;
 
         blur = {
           enabled = true;
           size = 6;
           passes = 2;
-          new_optimizations = true;
-          # ignore_opacity = false;
+          new_optimizations = "on";
+          ignore_opacity = true;
           xray = true;
+          # blurls = waybar
         };
 
         shadow = {
           enabled = true;
           range = 30;
           render_power = 3;
-          # color = "0x66000000";
+          color = "0x66000000";
         };
 
         # Dim
         dim_inactive = false;
         dim_strength = 0.1;
         dim_special = 0;
-      };
-
-      animations = {
-        enabled = false;
       };
 
       monitor = [
@@ -128,19 +123,15 @@ in
         gaps_in = 5;
         resize_on_border = true;
         # Fallback colors
-        # "col.inactive_border" = "rgb(414868)";
-        # "col.active_border" = "rgb(7aa5f7)";
+        "col.inactive_border" = "rgb(414868)";
+        "col.active_border" = "rgb(7aa5f7)";
         no_focus_fallback = true;
-
-        snap = {
-          enabled = true;
-        };
       };
 
       exec-once = [
         "hyprctl setcursor ${cursorName} ${toString pointerSize}"
-        "${runOnce "wl-paste"} --type text --watch cliphist store"
-        "${runOnce "wl-paste"} --type image --watch cliphist store"
+        "${run} wl-paste --type text --watch cliphist store"
+        "${run} wl-paste --type image --watch cliphist store"
       ];
 
       bind =
@@ -148,30 +139,25 @@ in
           "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
           "$mainMod,RETURN, exec, $terminal"
           # "$mainMod SHIFT, Escape, exec, ${run} wlogout"
-          "$mainMod CTRL, L, exec, ${runOnce "hyprlock"}"
-
           "$mainMod, E, exec, $fileManager"
-          "$mainMod, R, exec, $menu"
           "$mainMod, SPACE, exec, $menu"
 
-          "$mainMod, equal, hyprexpo:expo, toggle"
-          "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
+          # "$mainMod, equal, hyprexpo:expo, toggle"
+          "$mainMod, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
 
           # Screenshot a window
-          "$mainMod, PRINT, exec, ${runOnce "hyprshot"} -m window"
+          "$mainMod SHIFT, W, exec, ${runOnce "hyprshot"} -m window"
           # Screenshot a monitor
-          ", PRINT, exec, ${runOnce "hyprshot"} -m output"
+          "$mainMod SHIFT, M, exec, ${runOnce "hyprshot"} -m output"
           # Screenshot a region
-          "SHIFT, PRINT, exec, ${runOnce "hyprshot"} -m region"
+          "$mainMod SHIFT, S, exec, ${runOnce "hyprshot"} -m region"
 
           "$mainMod SHIFT, n, exec, ${runOnce "swaync-client"} -t -sw"
-          # "$mainMod SHIFT, N, exec, ${runOnce "makoctl"} menu fuzzel -d"
 
           # emoji
           "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
 
           "$mainMod, Q, killactive,"
-          "$mainMod SHIFT, Q, forcekillactive,"
           "$mainMod SHIFT, F, fullscreen,"
           "$mainMod, M, fullscreen,1"
 
@@ -181,7 +167,7 @@ in
           # "$mainMod, I, changegroupactive, b"
           # "$mainMod, O, changegroupactive, f"
 
-          "$mainMod, V, togglesplit, # dwindle"
+          "$mainMod, S, togglesplit, # dwindle"
           "$mainMod, F, togglefloating,"
           "$mainMod, P, pseudo, # dwindle"
           "$mainMod SHIFT, Y, pin" # pin the window
@@ -197,11 +183,6 @@ in
           "$mainMod SHIFT, l, movewindoworgroup, r"
           "$mainMod SHIFT, k, movewindoworgroup, u"
           "$mainMod SHIFT, j, movewindoworgroup, d"
-
-          "$mainMod ALT, h, resizeactive, -40 0"
-          "$mainMod ALT, j, resizeactive, 0 40"
-          "$mainMod ALT, k, resizeactive, 0 -40"
-          "$mainMod ALT, l, resizeactive, 40 0"
 
           "$mainMod, left, movefocus, l"
           "$mainMod, right, movefocus, r"
@@ -288,52 +269,57 @@ in
       ];
 
       windowrulev2 = [
-        # Ignore maximize requests from apps
         "suppressevent maximize, class:.*"
+        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 
         # changed pined border
         "bordercolor rgba(B6C7E9AA) rgba(B6C7E977),pinned:1"
-
-        # enable hyprbars on floating only
-        "plugin:hyprbars:nobar,floating:0"
+        # "plugin:hyprbars:nobar,floating:0"
 
         # idle inhibit while watching videos
         "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
         "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(zen)$"
 
-        # windowrule v2 to avoid idle for fullscreen apps
-        " idleinhibit fullscreen, class:^(*)$"
-        " idleinhibit fullscreen, title:^(*)$"
-        " idleinhibit fullscreen, fullscreen:1"
-
+        # Bitwarden extension
         "float, class:Bitwarden"
-        " float, class:^(org.kde.polkit-kde-authentication-agent-1)$ "
-        " float, class:([Zz]oom|onedriver|onedriver-launcher)$"
-        " float, class:([Tt]hunar), title:(File Operation Progress)"
-        " float, class:([Tt]hunar), title:(Confirm to replace files)"
-        " float, class:(xdg-desktop-portal-gtk)"
-        " float, class:(org.gnome.Calculator), title:(Calculator)"
-        " float, class:(codium|codium-url-handler|VSCodium|code-oss), title:(Add Folder to Workspace)"
-        " float, class:(electron), title:(Add Folder to Workspace)"
-        " float, class:^(eog|org.gnome.Loupe)$ # image viewer"
-        " float, class:^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"
-        " float, class:^(nwg-look|qt5ct|qt6ct)$"
-        " float, class:^(mpv|com.github.rafostar.Clapper)$"
-        " float, class:^(nm-applet|nm-connection-editor|blueman-manager)$"
-        " float, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$ # system monitor"
-        " float, class:^(wihotspot(-gui)?)$ # wifi hotspot"
-        " float, class:^(evince)$ # document viewer"
-        " float, class:^(file-roller|org.gnome.FileRoller)$ # archive manager"
-        " float, class:^([Bb]aobab|org.gnome.[Bb]aobab)$ # Disk usage analyzer"
-        " float, title:(Kvantum Manager)"
-        " float, class:^([Ss]team)$,title:^((?![Ss]team).*|[Ss]team [Ss]ettings)$"
-        " float, class:^([Qq]alculate-gtk)$"
-        " float, class:^([Ww]hatsapp-for-linux)$"
-        " float, class:^([Ff]erdium)$"
-        " float, title:^(Picture-in-Picture)$"
-        " float, title:^(ROG Control)$"
-        " float, title:^(hyprgui)$"
+        "size 50% 50%, class:Bitwarden"
+        "move 25% 25%, class:Bitwarden"
+
+        # gnome calculator
+        "float, class:^(org.gnome.Calculator)$"
+        "size 360 490, class:^(org.gnome.Calculator)$"
+
+        # "float, class:^(pavucontrol)$"
+        # "size 86% 40%, class:^(pavucontrol)$"
+        # "move 50% 6%, class:^(pavucontrol)$"
+        # "workspace special silent, class:^(pavucontrol)$"
+        # "opacity 0.80, class:^(pavucontrol)$"
+        # "minsize 20%, floating:1"
+
+        # "float,class:.*blueman.*"
+
+        "size 25% 25%,class:.*pavucontrol.*"
+        "move 25% 25%,class:.*pavucontrol.*"
+
+        # "workspace special:config,class:.*blueman.*"
+        # "workspace special:config,class:.*pavucontrol.*"
+
+        # smartgaps trick see wiki workspace-rules
+        "bordersize 0, floating:0, onworkspace:w[tv1]"
+        "rounding 0, floating:0, onworkspace:w[tv1]"
+        "bordersize 0, floating:0, onworkspace:f[1]"
+        "rounding 0, floating:0, onworkspace:f[1]"
+
+        "tile, class:^(xfreerdp)$"
+        "workspace name:5, class:^wlfreerdp$"
+        "workspace name:5, class:^xfreerdp$"
+
+        "workspace 6, class:^(Mattermost)$"
+
+        "opacity 0.95 0.85 ,class:^(kitty)$,"
+        # "opacity 0.95 0,85 ,class:^(kitty)$,title:.*vim.*"
+        # "opacity 0.95 0.85 ,class:^(kitty)$,title:.*tmux.*"
 
         "float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
         "float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
@@ -348,7 +334,13 @@ in
         "float,class:^(org.pulseaudio.pavucontrol)$"
         "float,class:^(nwg-look)$"
         "float,class:^(\.virt-manager-wrapped)$"
-        "float,class:^(org.gnome.Nautilus)$"
+
+        # "opacity 0.90 0.80,class:^(org.pulseaudio.pavucontrol)$"
+        # "opacity 0.90 0.80,class:.*blueman.*"
+        # "opacity 0.90 0.80,class:^(nm-applet)$"
+        # "opacity 0.90 0.80,class:^(nm-connection-editor)$"
+        # "opacity 0.90 0.80,class:^(polkit-gnome-authentication-agent-1)$"
+
         "float,class:.*blueman.*"
         "float,class:^(nm-applet)$"
         "float,class:^(nm-connection-editor)$"
@@ -394,13 +386,6 @@ in
 
         "rounding 10,floating:1"
         "bordersize 1,floating:1"
-
-        # Fix some dragging issues with XWayland
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-
-        # Fix mattermost menu that does not have a class and don't render blur correctly
-        "opacity 1 overide 1 overide 1 overide,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-        "noblur,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
 
       windowrule = [
@@ -428,15 +413,10 @@ in
       layerrule = [
         "blur,launcher" # fuzzel
         "ignorezero,launcher"
-
-        "blur,notification" # dunst
-        "ignorezero,notification"
-
         "blur,swaync-control-center"
         "ignorezero,swaync-control-center"
         "blur,swaync-notification-window"
         "ignorezero,swaync-notification-window"
-
         "blur,logout_dialog"
         "blur,waybar"
       ];
@@ -458,6 +438,10 @@ in
         focus_on_activate = false;
       };
 
+      # decoration = {
+      #   blur.enabled = true;
+      #   shadow.enabled = true;
+      # };
       #
       master = {
         new_status = "master";
@@ -467,8 +451,6 @@ in
         kb_layout = "us";
         follow_mouse = 1;
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification
-        # kb_options = "ctrl:nocaps";
-        scroll_factor = 2.0;
         touchpad = {
           natural_scroll = false;
           disable_while_typing = true;
@@ -485,10 +467,10 @@ in
 
     extraConfig = ''
       # Passthrough mode
-      bind=$mainMod , Escape,submap,passthrough
-      submap=passthrough
-      bind=$mainMod , Escape,submap,reset
-      submap=reset
+      # bind=$mainMod SHIFT, P,submap,passthrough
+      # submap=passthrough
+      # bind=$mainMod SHIFT, P,submap,reset
+      # submap=reset
     '';
   };
 }

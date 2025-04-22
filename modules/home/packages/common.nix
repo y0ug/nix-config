@@ -76,6 +76,7 @@
     gh
 
     hexyl # hexviewr
+    xxd
     lazygit
     starship
     xh # curl replacement for API

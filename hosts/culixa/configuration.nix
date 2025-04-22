@@ -88,22 +88,26 @@
     packages = with pkgs; [ ];
   };
 
-  stylix.enable = true;
-  stylix.image = pkgs.fetchurl {
-    url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
-    sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
-  };
-
+  # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16
   stylix = {
     autoEnable = true;
     polarity = "dark";
+    # stylix.image = pkgs.fetchurl {
+    #   url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
+    #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
+    # };
     # image = "${opts.wallpaper}";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyodark.yaml";
+    # base16Scheme = builtins.toString "../../modules/themes/stylix/arctic_vs_dark.yaml";
+    base16Scheme = "${toString ../../modules/themes/stylix/arctic_vs_dark.yaml}";
+    # base16Scheme = pkgs.fetchurl {
+    #   url = "https://gist.githubusercontent.com/y0ug/25f05575ba51e5429ef37869e9cd9bdc/raw/c293e94f3a6608ac2700c500338a3bc3d84a171d/arctic_vs_dark.yaml";
+    #   sha256 = "cnovYwgQMARMJe2mRNket3aYSi71gplvmTkulgluM0k=";
+    # };
 
-    opacity = {
-      terminal = 0.9;
-      popups = 0.8;
-    };
+    # opacity = {
+    #   terminal = 1.0;
+    #   popups = 1.0;
+    # };
 
     cursor = {
       package = pkgs.bibata-cursors;
@@ -198,6 +202,16 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  security.polkit.enable = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.freedesktop.udisks2.filesystem-mount" ||
+          action.id == "org.freedesktop.udisks2.encrypted-unlock") {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 
   services.udev.extraRules = ''
     # annerpro flash mode 04d9:8008
