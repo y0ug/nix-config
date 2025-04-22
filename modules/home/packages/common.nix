@@ -1,8 +1,6 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; ([
-    nodejs
-    gcc
     nixfmt-rfc-style
 
     direnv
@@ -43,6 +41,7 @@
     bat # cat alternative
     fd # find replacement
     tdf # cli pdf viewer
+    moar # less alternative
 
     # encryption
     sops

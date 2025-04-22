@@ -39,6 +39,7 @@
     cryptsetup
 
     git-filter-repo
+
   ]);
   # programs.vesktop = {
   #   enable = true;
