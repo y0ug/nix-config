@@ -6,9 +6,9 @@ let
   toggle = app: "pkill ${app} || uwsm app -u ${app}.scope -- ${app}";
   runOnce = app: "uwsm app -u ${app}.scope -- ${app}";
   run = "uwsm app --";
-  # cursorName = "Bibata-Modern-Classic";
-  # pointerSize = 16;
 in
+# cursorName = "Bibata-Modern-Classic";
+# pointerSize = 16;
 {
   xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
     "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
@@ -20,7 +20,7 @@ in
     enable = true;
     plugins = [
       # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hy3
-      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
       # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
       # inputs.hy3.packages.${pkgs.stdenv.hostPlatform.system}.hy3
     ];
@@ -161,7 +161,7 @@ in
           "$mainMod, R, exec, $menu"
           "$mainMod, SPACE, exec, $menu"
 
-          "$mainMod, equal, hyprexpo:expo, toggle"
+          # "$mainMod, equal, hyprexpo:expo, toggle"
           "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
 
           # Screenshot a window
