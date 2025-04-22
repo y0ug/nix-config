@@ -100,7 +100,7 @@
       # shell = "tmux new-session -As kitty \; new-window";
 
       # background_opacity = "1.0";
-      window_padding_width = 5;
+      window_padding_width = 2;
       scrollback_lines = 10000;
       mouse_hide_wait = 60;
 
