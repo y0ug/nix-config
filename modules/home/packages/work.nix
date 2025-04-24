@@ -34,7 +34,11 @@
     argc
 
     aider-chat
+    tor-browser
+    monero-gui
+    cryptsetup
 
+    git-filter-repo
   ]);
   # programs.vesktop = {
   #   enable = true;

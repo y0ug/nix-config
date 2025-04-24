@@ -36,6 +36,7 @@
       trusted-users = [
         "root"
         "wheel"
+        "rick"
       ];
     };
   };
