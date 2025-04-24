@@ -13,7 +13,6 @@
     lftp
     ffmpeg-full
     librewolf
-    devenv
     moonlight-qt
     vscodium
     zed-editor

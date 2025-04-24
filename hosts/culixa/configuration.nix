@@ -16,6 +16,8 @@
     ../../modules/core/GUI/nestedvm.nix
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
+    ../../modules/pinned/devenv-1.5.1.nix
+
   ];
   nix = {
     settings = {
@@ -101,6 +103,8 @@
 
   # programs.bash.enable = true;
   programs.bash.completion.enable = true;
+
+  programs.devenv.enable = true;
 
   programs.neovim = {
     enable = true;
