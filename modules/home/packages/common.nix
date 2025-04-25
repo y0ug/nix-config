@@ -76,7 +76,10 @@
     # github cli
     gh
 
+    difftastic
+
     hexyl # hexviewr
+    xxd # hexviewer
     lazygit
     starship
     xh # curl replacement for API

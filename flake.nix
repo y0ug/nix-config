@@ -44,7 +44,7 @@
     #   url = "github:cachix/pre-commit-hooks.nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-
+    glovebox.url = "git+ssh://git@github.com:/y0ug/glovebox.git?ref=dev-refactort";
   };
 
   outputs =
@@ -53,6 +53,7 @@
       stylix,
       nix-darwin,
       home-manager,
+      glovebox,
       # hyprland,
       # hyprland-plugins,
       ...

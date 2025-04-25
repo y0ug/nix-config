@@ -1,5 +1,10 @@
-{ pkgs, inputs, ... }:
 {
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  # package = pkgs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   home.packages = with pkgs; ([
     mattermost-desktop
     cifs-utils
@@ -38,6 +43,9 @@
     cryptsetup
 
     git-filter-repo
+
+    inputs.glovebox.packages.${pkgs.stdenv.hostPlatform.system}.default
+    #inputs.glovebox
   ]);
   # programs.vesktop = {
   #   enable = true;
