@@ -84,7 +84,8 @@ in
       };
 
       decoration = {
-        rounding = 10;
+        # rounding = 10;
+        rounding = 0;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
         fullscreen_opacity = 1.0;
@@ -99,7 +100,7 @@ in
         };
 
         shadow = {
-          enabled = true;
+          enabled = false;
           range = 30;
           render_power = 3;
           # color = "0x66000000";
@@ -130,8 +131,8 @@ in
       general = {
         layout = "dwindle";
         border_size = 1;
-        gaps_out = 4;
-        gaps_in = 5;
+        gaps_out = 0;
+        gaps_in = 0;
         resize_on_border = true;
         # Fallback colors
         # "col.inactive_border" = "rgb(414868)";
@@ -381,19 +382,19 @@ in
         "size 25% 25%, class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
 
         "float,class:^(org.keepassxc.KeePassXC)$"
-        "size 25% 25%,class:^(org.keepassxc.KeePassXC)$"
+        "size 40% 40%,class:^(org.keepassxc.KeePassXC)$"
 
-        " size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
-        " size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
-        " size 60% 70%, title:(Kvantum Manager)"
-        " size 60% 70%, class:^(qt6ct)$"
-        " size 70% 70%, class:^(evince|wihotspot(-gui)?)$"
-        " size 60% 70%, class:^(file-roller|org.gnome.FileRoller)$"
-        " size 60% 70%, class:^([Ww]hatsapp-for-linux)$"
-        " size 60% 70%, class:^([Ff]erdium)$"
-        " size 60% 70%, title:^(ROG Control)$"
-        " size 25% 25%, title:^(Picture-in-Picture)$   "
-        " size 60% 70%, title:^(hyprgui)$"
+        "size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
+        "size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
+        "size 60% 70%, title:(Kvantum Manager)"
+        "size 60% 70%, class:^(qt6ct)$"
+        "size 70% 70%, class:^(evince|wihotspot(-gui)?)$"
+        "size 60% 70%, class:^(file-roller|org.gnome.FileRoller)$"
+        "size 60% 70%, class:^([Ww]hatsapp-for-linux)$"
+        "size 60% 70%, class:^([Ff]erdium)$"
+        "size 60% 70%, title:^(ROG Control)$"
+        "size 25% 25%, title:^(Picture-in-Picture)$   "
+        "size 60% 70%, title:^(hyprgui)$"
         "size 60%, 70% class:Bitwarden"
         "size 50%, 50%,class:^(org.gnome.Nautilus)$"
 
@@ -416,7 +417,7 @@ in
         "opacity 0.95 0.85 ,fullscreen:0, pinned:0"
 
         "rounding 10,floating:1"
-        "bordersize 1,floating:1"
+        # "bordersize 1,floating:1"
 
         # Fix some dragging issues with XWayland
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
