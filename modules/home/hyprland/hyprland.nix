@@ -40,7 +40,7 @@
 
     # polkit
     hyprpolkitagent
-    # gcr
+    gcr
 
     seahorse
     tridactyl-native

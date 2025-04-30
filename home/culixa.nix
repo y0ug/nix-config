@@ -41,37 +41,37 @@
     };
   };
 
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      set fish_greeting # Disable greeting
-    '';
-    plugins = [
-      {
-        name = "grc";
-        src = pkgs.fishPlugins.grc.src;
-      }
-      {
-        name = "hydro";
-        src = pkgs.fishPlugins.hydro.src;
-      }
-      {
-        name = "done";
-        src = pkgs.fishPlugins.done.src;
-      }
-      {
-        name = "fzf.fish";
-        src = pkgs.fishPlugins.fzf-fish.src;
-      }
-      {
-        name = "z";
-        src = pkgs.fishPlugins.z.src;
-      }
-      {
-        name = "sponge";
-        src = pkgs.fishPlugins.sponge.src;
-      }
-
-    ];
-  };
+  # programs.fish = {
+  #   enable = true;
+  #   interactiveShellInit = ''
+  #     set fish_greeting # Disable greeting
+  #   '';
+  #   plugins = [
+  #     {
+  #       name = "grc";
+  #       src = pkgs.fishPlugins.grc.src;
+  #     }
+  #     {
+  #       name = "hydro";
+  #       src = pkgs.fishPlugins.hydro.src;
+  #     }
+  #     {
+  #       name = "done";
+  #       src = pkgs.fishPlugins.done.src;
+  #     }
+  #     {
+  #       name = "fzf.fish";
+  #       src = pkgs.fishPlugins.fzf-fish.src;
+  #     }
+  #     {
+  #       name = "z";
+  #       src = pkgs.fishPlugins.z.src;
+  #     }
+  #     {
+  #       name = "sponge";
+  #       src = pkgs.fishPlugins.sponge.src;
+  #     }
+  #
+  #   ];
+  # };
 }

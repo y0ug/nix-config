@@ -318,13 +318,35 @@ in
 
         # idle inhibit while watching videos
         "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
-        "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
+        # "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(zen)$"
 
         # windowrule v2 to avoid idle for fullscreen apps
         " idleinhibit fullscreen, class:^(.*)$"
         " idleinhibit fullscreen, title:^(.*)$"
         " idleinhibit fullscreen, fullscreen:1"
+
+        # Picture-in-Picture for any windows tagged pip
+        # "float, tag:pip"
+        # "pin, tag:pip"
+        # "keepaspectratio, tag:pip"
+        # "noborder, tag:pip"
+        # "plugin:hyprbars:nobar, tag:pip"
+        # "size 480 270, tag:pip"
+        # "minsize 240 135, tag:pip"
+        # "maxsize 960 540, tag:pip"
+        # "move 100%-490 100%-280, tag:pip"
+
+        # make pop-up file dialogs floating, centred, and pinned
+        "tag +dialog, title:(Open|Choose File|Progress|Save File|Save As)"
+        "tag +dialog, title:(Confirm to replace files)"
+        "tag +dialog, title:(File Operation Progress)"
+        "tag +dialog, initialclass:(librewolf|firefox), title:(save to)"
+        "tag +dialog, class:(xdg-desktop-portal-gtk)"
+        "float, tag:dialog"
+        "center, tag:dialog"
+        "pin, tag:dialog"
+        "noborder, tag:dialog"
 
         "float, class:Bitwarden"
         " float, class:^(org.kde.polkit-kde-authentication-agent-1)$ "
@@ -381,8 +403,8 @@ in
         "float,class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
         "size 25% 25%, class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
 
-        "float,class:^(org.keepassxc.KeePassXC)$"
-        "size 40% 40%,class:^(org.keepassxc.KeePassXC)$"
+        # "float,class:^(org.keepassxc.KeePassXC)$"
+        # "size 40% 40%,class:^(org.keepassxc.KeePassXC)$"
 
         "size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
         "size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
@@ -429,11 +451,11 @@ in
 
       windowrule = [
         # common modals
-        "float,title:^(Open)$"
-        "float,title:^(Choose Files)$"
-        "float,title:^(Save As)$"
-        "float,title:^(Confirm to replace files)$"
-        "float,title:^(File Operation Progress)$"
+        # "float,title:^(Open)$"
+        # "float,title:^(Choose Files)$"
+        # "float,title:^(Save As)$"
+        # "float,title:^(Confirm to replace files)$"
+        # "float,title:^(File Operation Progress)$"
       ];
 
       workspace = [

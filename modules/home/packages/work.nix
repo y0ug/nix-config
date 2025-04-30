@@ -39,11 +39,12 @@
 
     aider-chat
     tor-browser
+    session-desktop
     monero-gui
     cryptsetup
 
     git-filter-repo
-
+    devenv
     inputs.glovebox.packages.${pkgs.stdenv.hostPlatform.system}.default
     #inputs.glovebox
   ]);

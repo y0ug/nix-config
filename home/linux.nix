@@ -1,6 +1,9 @@
-{ config, pkgs, ... }: {
-  imports =
-    [ ../modules/home/packages/common.nix ../modules/home/packages/linux.nix ];
+{ config, pkgs, ... }:
+{
+  imports = [
+    ../modules/home/packages/common.nix
+    ../modules/home/packages/linux.nix
+  ];
 
   home.username = "rick";
   home.homeDirectory = "/home/rick";
@@ -16,5 +19,5 @@
     pciutils # lspci
     usbutils # lsusb
   ];
-
+  programs.command-not-found.enable = false;
 }

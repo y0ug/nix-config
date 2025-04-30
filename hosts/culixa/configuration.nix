@@ -16,7 +16,7 @@
     ../../modules/core/GUI/nestedvm.nix
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
-    ../../modules/pinned/devenv-1.5.1.nix
+    # ../../modules/pinned/devenv-1.5.1.nix
 
   ];
   nix = {
@@ -82,8 +82,8 @@
 
   security.sudo.extraConfig = ''
     Defaults timestamp_timeout=120 # 2 hours timeout
-    # Defaults env_keep+=SSH_AUTH_SOCK
-    # Defaults env_keep+=EDITOR
+    Defaults env_keep+=SSH_AUTH_SOCK
+    Defaults env_keep+=EDITOR
   '';
 
   # Docker
@@ -101,10 +101,14 @@
     # enableBashCompletion = true;
   };
 
+  programs.fish = {
+    enable = true;
+  };
+
   # programs.bash.enable = true;
   programs.bash.completion.enable = true;
 
-  programs.devenv.enable = true;
+  # programs.devenv.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -164,6 +168,7 @@
     nix-zsh-completions
     via # qmk userland customization
     zsh-nix-shell
+    pinentry-curses
   ];
 
   services.udev.packages = [ pkgs.via ];
