@@ -183,6 +183,9 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    settings = {
+      ignore-cache-errors = true;
+    };
   };
 
   # List services that you want to enable:
