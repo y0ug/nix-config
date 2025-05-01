@@ -35,7 +35,7 @@
 
     libsecret
 
-    bitwarden-desktop
+    # bitwarden-desktop
     # bitwarden-cli
 
     # polkit

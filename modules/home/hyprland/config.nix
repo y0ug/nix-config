@@ -12,7 +12,7 @@ in
 {
   xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
     "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
-    "ELECTRON_OZONE_PLATFORM_HINT=wayland"
+    # "ELECTRON_OZONE_PLATFORM_HINT=wayland"
     "TERMINAL=kitty"
     "HYPRSHOT_DIR=$HOME/Pictures"
   ];
@@ -433,7 +433,7 @@ in
         "float, class:^(com.moonlight_stream.Moonlight)$,title:^(Moonlight)$"
         "size 25% 50%, class:^(com.moonlight_stream.Moonlight)$,title:^(Moonlight)$"
         "workspace 6 silent, class:^(Mattermost)$"
-        "workspace 7 silent, class:^([vesktop)$"
+        "workspace 7 silent, class:^(vesktop)$"
 
         # "opacity 0.95 0.85 ,class:^(kitty)$,"
         "opacity 0.95 0.85 ,fullscreen:0, pinned:0"

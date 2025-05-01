@@ -10,72 +10,72 @@
       symbol_map U+e000-U+e00a,U+ea60-U+ebeb,U+e0a0-U+e0c8,U+e0ca,U+e0cc-U+e0d7,U+e200-U+e2a9,U+e300-U+e3e3,U+e5fa-U+e6b1,U+e700-U+e7c5,U+ed00-U+efc1,U+f000-U+f2ff,U+f000-U+f2e0,U+f300-U+f372,U+f400-U+f533,U+f0001-U+f1af0 Symbols Nerd Font Mono
 
       # tmux settings
-      map ctrl+a>r load_config_file
-      # Make ctrl+a ctrl+a to send ctrl+a
-      map ctrl+a>ctrl+a send_text all \x01
+      map ctrl+w>r load_config_file
+      # Make ctrl+w ctrl+a to send ctrl+a
+      map ctrl+w>ctrl+a send_text all \x01
       map ctrl+shift+2 send_text all \x00
 
       ### Layout operations ###
       # stack layout behaves the same as tmux pane zoom
       enabled_layouts splits,stack
-      map ctrl+a>z toggle_layout stack
-      map ctrl+a>space layout_action rotate
+      map ctrl+w>z toggle_layout stack
+      map ctrl+w>space layout_action rotate
 
       ### Tab operations, corresponds to tmux window ###
-      map ctrl+a>c new_tab
-      map ctrl+a>& close_tab
-      map ctrl+a>s new_tab_with_cwd
+      map ctrl+w>c new_tab
+      map ctrl+w>& close_tab
+      map ctrl+w>s new_tab_with_cwd
 
-      map ctrl+a>w select_tab
-      map ctrl+a>n next_tab
-      map ctrl+a>p previous_tab
-      map ctrl+a>0 goto_tab 1
-      map ctrl+a>1 goto_tab 2
-      map ctrl+a>2 goto_tab 3
-      map ctrl+a>3 goto_tab 4
-      map ctrl+a>4 goto_tab 5
-      map ctrl+a>5 goto_tab 6
-      map ctrl+a>6 goto_tab 7
-      map ctrl+a>7 goto_tab 8
-      map ctrl+a>8 goto_tab 9
-      map ctrl+a>9 goto_tab 10
+      map ctrl+w>w select_tab
+      map ctrl+w>n next_tab
+      map ctrl+w>p previous_tab
+      map ctrl+w>0 goto_tab 1
+      map ctrl+w>1 goto_tab 2
+      map ctrl+w>2 goto_tab 3
+      map ctrl+w>3 goto_tab 4
+      map ctrl+w>4 goto_tab 5
+      map ctrl+w>5 goto_tab 6
+      map ctrl+w>6 goto_tab 7
+      map ctrl+w>7 goto_tab 8
+      map ctrl+w>8 goto_tab 9
+      map ctrl+w>9 goto_tab 10
 
       # tmux sensible keybinding
-      map ctrl+a>ctrl+p previous_tab
-      map ctrl+a>ctrl+n next_tab
+      map ctrl+w>ctrl+p previous_tab
+      map ctrl+w>ctrl+n next_tab
 
       ### Window operations, corresponds to tmux pane ###
-      map ctrl+a>" launch --location=hsplit --cwd=current
-      map ctrl+a>% launch --location=vsplit --cwd=current
+      map ctrl+w>" launch --location=hsplit --cwd=current
+      map ctrl+w>% launch --location=vsplit --cwd=current
 
-      map ctrl+a>x close_window
-      map ctrl+a>f new_window_with_cwd
+      map ctrl+w>x close_window
+      map ctrl+w>f new_window_with_cwd
 
-      map ctrl+a>q focus_visible_window
-      map ctrl+a>o next_window
+      map ctrl+w>q focus_visible_window
+      map ctrl+w>o next_window
 
-      map ctrl+a>up neighboring_window up
-      map ctrl+a>down neighboring_window down
-      map ctrl+a>left neighboring_window left
-      map ctrl+a>right neighboring_window right
+      map ctrl+w>up neighboring_window up
+      map ctrl+w>down neighboring_window down
+      map ctrl+w>left neighboring_window left
+      map ctrl+w>right neighboring_window right
 
-      map ctrl+a>k neighboring_window up
-      map ctrl+a>j neighboring_window down
-      map ctrl+a>h neighboring_window left
-      map ctrl+a>l neighboring_window right
+      map ctrl+w>k neighboring_window up
+      map ctrl+w>j neighboring_window down
+      map ctrl+w>h neighboring_window left
+      map ctrl+w>l neighboring_window right
 
       ### hints kitten ###
       # Open file or url
-      map ctrl+a>h>f kitten hints --type=linenum --linenum-action=tab nvim +{line} {path}
-      map ctrl+a>h>u open_url_with_hints
+      map ctrl+w>h>f kitten hints --type=linenum --linenum-action=tab nvim +{line} {path}
+      map ctrl+w>h>u open_url_with_hints
       # Insert text directly
-      map ctrl+a>h>p kitten hints --type=path --program=-
-      map ctrl+a>h>w kitten hints --type=word --program=-
-      map ctrl+a>h>h kitten hints --type=hash --program=-
+      map ctrl+w>h>p kitten hints --type=path --program=-
+      map ctrl+w>h>w kitten hints --type=word --program=-
+      map ctrl+w>h>h kitten hints --type=hash --program=-
       # Copy text to clipboard
-      map ctrl+a>h>l kitten hints --type=line --program=@
-      map ctrl+a>h>c kitten hints --type=word --program=@
-      map ctrl+a>h>a kitten hints --type=url --program=@
+      map ctrl+w>h>l kitten hints --type=line --program=@
+      map ctrl+w>h>c kitten hints --type=word --program=@
+      map ctrl+w>h>a kitten hints --type=url --program=@
     '';
 
     # font = {
@@ -138,7 +138,7 @@
 
       # Key Mappings (Default kitty_mod is ctrl+shift)
       # "ctrl+c" = "copy_to_clipboard";
-      # "ctrl+v" = "paste_from_clipboard";
+      # "ctrl+w" = "paste_from_clipboard";
       # "ctrl+s" = "paste_from_selection";
       # "ctrl+o" = "pass_selection_to_program";
       #
