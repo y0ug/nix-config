@@ -185,7 +185,6 @@
     enable = true;
     enableSSHSupport = true;
     enableBrowserSocket = true;
-    pinentryProgram = pkgs.pinentry-curses;
     settings = { };
   };
 
