@@ -4,6 +4,9 @@
   ...
 }:
 {
+  nixpkgs.overlays = [
+    (import ../overlays/aider.nix)
+  ];
   # package = pkgs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   home.packages = with pkgs; ([
     mattermost-desktop

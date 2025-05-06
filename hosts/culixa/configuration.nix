@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     ../../modules/core/system.nix
     ../../modules/core/nvim.nix
+    ../../modules/core/aider.nix
     ../../modules/core/GUI
     ../../modules/core/GUI/nestedvm.nix
     # ../../modules/core/GUI/gnome.nix
