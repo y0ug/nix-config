@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 let
   # toggle = app: "pkill ${app} || uwsm app -u ${app}.scope -- ${app}";
   # runOnce = app: "pgrep ${app} || uwsm app -- ${app}";
@@ -156,6 +161,8 @@ in
         [
           "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
           "$mainMod,RETURN, exec, $terminal"
+          ", XF86Terminal, exec, $terminal"
+
           "$mainMod CTRL, L, exec, ${run} hyprlock"
           # "$mainMod SHIFT, Escape, exec, ${run} wlogout"
 
@@ -165,6 +172,14 @@ in
 
           # "$mainMod, equal, hyprexpo:expo, toggle"
           "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
+
+          # "SUPER, C, exec, ${lib.getExe pkgs.qalculate-gtk}"
+          ", XF86Calculator, exec, ${lib.getExe pkgs.qalculate-gtk}"
+          ", XF86Calculater, exec, ${lib.getExe pkgs.qalculate-gtk}"
+
+          # ", XF86AudioMedia, exec, ${lib.getExe pkgs.librewolf}"
+          ", XF86WWW, exec, ${lib.getExe pkgs.librewolf}"
+          "$mainMod, B, exec, ${lib.getExe pkgs.librewolf}"
 
           # Screenshot a window
           # "$mainMod, PRINT, exec, ${run} hyprshot -m window"
@@ -400,6 +415,8 @@ in
         "float,class:^(io.missioncenter.MissionCenter)$ # MissionCenter-Gtk"
         "float,class:^(io.gitlab.adhami3310.Impression)$ # Impression-Gtk"
         "float,class:^(imv)$"
+        "tile,title:^(imv_nofloat)$"
+
         "size 60% 70%,floating:1"
         "float,class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
         "size 25% 25%, class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"

@@ -303,6 +303,26 @@
         "type": "github"
       }
     },
+    "ida-pro-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743946931,
+        "narHash": "sha256-Rsxqr9CdXvU36jPrLny2CEOR1v6eQGlHfHkRpUubMwM=",
+        "owner": "msanft",
+        "repo": "ida-pro-overlay",
+        "rev": "3382a4aa39861162dedadc506cb9bfe08e69757d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "msanft",
+        "repo": "ida-pro-overlay",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -449,9 +469,11 @@
         "flake-utils": "flake-utils",
         "glovebox": "glovebox",
         "home-manager": "home-manager",
+        "ida-pro-overlay": "ida-pro-overlay",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "vmware-pinned": "vmware-pinned"
       }
     },
     "stylix": {
@@ -645,6 +667,22 @@
       "original": {
         "owner": "pyproject-nix",
         "repo": "uv2nix",
+        "type": "github"
+      }
+    },
+    "vmware-pinned": {
+      "locked": {
+        "lastModified": 1743806800,
+        "narHash": "sha256-sNF/nDNPAPZQTre4ilziqxTED+ZWuGvHYWmqc9Ti24o=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8a119c8042c38c2f6ea0e47bc0f0ddcc1b1a44bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8a119c8042c38c2f6ea0e47bc0f0ddcc1b1a44bd",
         "type": "github"
       }
     }
