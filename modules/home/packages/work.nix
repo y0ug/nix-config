@@ -8,14 +8,13 @@
   nixpkgs.overlays = [
     (import ../overlays/aider.nix)
     inputs.ida-pro-overlay.overlays.default
-    (import ../overlays/vmware.nix)
   ];
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
       "ida-pro"
-      "vmware-workstation"
+      # "vmware-workstation"
     ];
 
   # package = pkgs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -78,7 +77,7 @@
     programmer-calculator # pcalc
     gnome-calculator
 
-    vmware-workstation
+    # vmware-workstation
 
     (callPackage ida-pro {
       # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.

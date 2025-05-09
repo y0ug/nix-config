@@ -15,6 +15,7 @@
     ../../modules/core/aider.nix
     ../../modules/core/GUI
     ../../modules/core/GUI/nestedvm.nix
+    ../../modules/core/GUI/vmware.nix
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
     # ../../modules/pinned/devenv-1.5.1.nix

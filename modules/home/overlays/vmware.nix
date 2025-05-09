@@ -1,4 +1,13 @@
-final: prev: {
-  vmware-workstation =
-    prev.vmware-pinned.vmware-workstation.legacyPackages.x86_64-linux.vmware-workstation;
+inputs: final: prev:
+let
+  system = prev.stdenv.hostPlatform.system;
+  pkgs-vmware-pinned = import inputs.vmware-pinned {
+    inherit system;
+    config = {
+      allowUnfree = true;
+    };
+  };
+in
+{
+  vmware-workstation = pkgs-vmware-pinned.vmware-workstation;
 }
