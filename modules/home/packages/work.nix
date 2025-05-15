@@ -24,6 +24,7 @@
     nautilus
     vesktop
     eog
+
     # webex # unfree
     keepassxc
     file-roller
@@ -31,22 +32,35 @@
     lftp
     ffmpeg-full
     librewolf
-    tridactyl-native
     moonlight-qt
     vscodium
     zed-editor
-    gimp-with-plugins
-    inkscape
     weechat
     ungoogled-chromium
     mutt
     aerc # mutt alternative
     aba # aerc contact
     satty # screenshot annotation
+    swappy # screenshot annotation
+
+    krita # image editor, kde :(
+    gimp-with-plugins
+    inkscape
     pinta
-    (flameshot.override { enableWlrSupport = true; })
-    tesseract
-    lynx
+    exiftool
+    poppler # pdf preview, used by yazi
+    resvg # preciew svg
+    qview
+    zathura
+
+    peazip
+    transmission_4
+
+    # don't really work on wayland
+    # (flameshot.override { enableWlrSupport = true; })
+
+    tesseract # ocr
+    ocrmypdf
 
     aichat
     argc
@@ -55,6 +69,7 @@
     tor-browser
     session-desktop
     monero-gui
+    electrum
     cryptsetup
 
     git-filter-repo

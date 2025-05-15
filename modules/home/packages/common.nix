@@ -12,9 +12,19 @@
     atuin # shell history
     tmux
 
+    man-pages # extra man pages
+    killall
+
     fastfetch
 
-    nnn # terminal file manager
+    # vim
+
+    yazi # terminal file manager
+    superfile # SPF file manager to be test
+    lf # go terminal file manager
+    ncdu # disk space
+    dust # disk usage analyzer
+
     # archives
     zip
     xz
@@ -33,6 +43,8 @@
     ipcalc # it is a calculator for the IPv4/v6 addresses
     curl
     wget
+    lynx
+    xh # curl replacement for API
 
     # utils
     ripgrep # recursively searches directories for a regex pattern
@@ -44,6 +56,16 @@
     fd # find replacement
     tdf # cli pdf viewer
     moar # alterative pager
+    sd # better sed
+
+    # Session manager used with zoxide and tmux
+    sesh
+
+    delta # git diff tool
+    difftastic
+
+    glow # markdown previewer in terminal
+    presenterm # markdown presentation tool
 
     # encryption
     sops
@@ -63,9 +85,6 @@
     # with more details log output
     nix-output-monitor
 
-    glow # markdown previewer in terminal
-    presenterm # markdown presentation tool
-
     btop # replacement of htop/nmon
     iftop # network monitoring
     htop
@@ -76,13 +95,11 @@
     # github cli
     gh
 
-    difftastic
-
     hexyl # hexviewr
     xxd # hexviewer
     lazygit
     starship
-    xh # curl replacement for API
+    lazydocker
 
     chezmoi
 
@@ -103,9 +120,8 @@
     imgcat
     chafa
     file
-    #bat
-    tmux
-    sesh
+    tlrc # better man tldr
+
   ]);
 
   programs.go = {

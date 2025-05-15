@@ -15,14 +15,16 @@
     ../../modules/core/aider.nix
     ../../modules/core/GUI
     ../../modules/core/GUI/nestedvm.nix
-    ../../modules/core/GUI/vmware.nix
+    # ../../modules/core/GUI/vmware.nix
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
     # ../../modules/pinned/devenv-1.5.1.nix
+    ../../modules/pinned/file-zip.nix
     ../../modules/core/flatpak.nix
     ../../modules/core/udev-rules.nix
 
   ];
+
   nix = {
     settings = {
       experimental-features = [
@@ -51,8 +53,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
-  networking.hostId = "95166fcd";
+
   boot.extraModprobeConfig = "options kvm_intel nested=1";
+  boot.blacklistedKernelModules = [
+    "vmmon"
+    "vmnet"
+  ];
 
   hardware.graphics = {
     enable = true;
@@ -69,8 +75,98 @@
 
   networking.hostName = "culixa";
 
+  networking.hostId = "95166fcd";
+  networking.useDHCP = false;
+  networking.useNetworkd = true;
+
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = false;
+
+  systemd.network = {
+    enable = true;
+    wait-online.anyInterface = true;
+    # wait-online.ignoredInterfaces = [
+    #   "virbr0"
+    #   "docker0"
+    # ];
+    netdevs = {
+      "20-br0" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br0";
+        };
+      };
+      # lab
+      "21-br1" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br1";
+        };
+      };
+      # sandbox
+      "22-br2" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br2";
+        };
+      };
+    };
+    networks = {
+      "30-enp3s0" = {
+        matchConfig.Name = "enp3s0";
+        networkConfig.Bridge = "br0";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+
+      "40-br0" = {
+        matchConfig.Name = "br0";
+        bridgeConfig = { };
+        # Disable address autoconfig when no IP configuration is required
+        #networkConfig.LinkLocalAddressing = "no";
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = true; # SLAAC
+        };
+        linkConfig = {
+          # or "routable" with IP addresses configured
+          RequiredForOnline = "carrier";
+        };
+      };
+
+      "41-br1" = {
+        matchConfig.Name = "br1";
+        bridgeConfig = { };
+        # Disable address autoconfig when no IP configuration is required
+        #networkConfig.LinkLocalAddressing = "no";
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = true; # SLAAC
+        };
+        linkConfig = {
+          # or "routable" with IP addresses configured
+          RequiredForOnline = "carrier";
+        };
+        dhcpV4Config = {
+          UseGateway = false;
+        };
+      };
+
+      "42-br2" = {
+        matchConfig.Name = "br2";
+        bridgeConfig = { };
+        # Disable address autoconfig when no IP configuration is required
+        #networkConfig.LinkLocalAddressing = "no";
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = true; # SLAAC
+        };
+        linkConfig = {
+          # or "routable" with IP addresses configured
+          RequiredForOnline = "carrier";
+        };
+      };
+    };
+  };
 
   # Bluetooth
   services.blueman.enable = true;
@@ -194,7 +290,7 @@
 
   services = {
     openssh.enable = true;
-    yubikey-agent.enable = true;
+    # yubikey-agent.enable = true;
     pcscd.enable = true; # smart card reader daemon
     udev.packages = [
       pkgs.yubikey-personalization
@@ -208,26 +304,38 @@
     };
   };
   # Enable the OpenSSH daemon.
-
+  networking.nftables.enable = true;
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [
-      22
-      47984
-      47989
-      47990
-      48010
-    ];
-    allowedUDPPortRanges = [
-      {
-        from = 47998;
-        to = 48000;
-      }
-      {
-        from = 8000;
-        to = 8010;
-      }
-    ];
+    interfaces."br0" = {
+      allowedTCPPorts = [
+        22
+        47984
+        47989
+        47990
+        48010
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 47998;
+          to = 48000;
+        }
+        {
+          from = 8000;
+          to = 8010;
+        }
+      ];
+    };
+    logRefusedPackets = true;
+    logReversePathDrops = true;
+    interfaces."br1" = {
+    };
+    interfaces."br2" = {
+
+    };
+    extraReversePathFilterRules = ''
+      iifname br1 accept 
+    '';
   };
 
   # This value determines the NixOS release from which the default

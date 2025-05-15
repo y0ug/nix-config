@@ -49,7 +49,7 @@ in
         {
           name = "ploopy-corporation-ploopy-adept-trackball-mouse";
           natural_scroll = false;
-          sensitivity = -1;
+          sensitivity = -0.8;
           accel_profile = "adaptive";
         }
       ];
@@ -128,8 +128,8 @@ in
         ",preferred,auto-left,1"
       ];
 
-      "$terminal" = "${run} kitty";
-      "$fileManager" = "${run} nautilus";
+      "$terminal" = "${run} $TERMINAL";
+      "$fileManager" = "${run} $TERMINAL yazi";
       "$menu" = "${toggle "fuzzel"} --launch-prefix='${run}'";
 
       # exec-once = "$terminal";
@@ -140,6 +140,7 @@ in
         gaps_out = 0;
         gaps_in = 0;
         resize_on_border = true;
+        extend_border_grab_area = 10;
         # Fallback colors
         # "col.inactive_border" = "rgb(414868)";
         # "col.active_border" = "rgb(7aa5f7)";
@@ -150,11 +151,30 @@ in
         };
       };
 
+      # Group settings.
+      group = {
+        # Whether dragging a window into an unlocked group will merge them.
+        # 0 = Disabled | 1 = Enabled | 2 = Only when dragging into the groupbar.
+        drag_into_group = 2;
+
+        # Whether window groups can be dragged into other groups.
+        merge_groups_on_drag = false;
+
+        # Groupbar settings.
+        groupbar = {
+          # Height of the groupbar.
+          # height = 17;
+          # "col.inactive" = "rgb(414868)";
+          # Text color of groupbar title.
+          # text_color = "rgb(ffffff)";
+        };
+      };
+
       exec-once = [
         # "hyprctl setcursor ${cursorName} ${toString pointerSize}"
         "${run} wl-paste --type text --watch cliphist store"
         "${run} wl-paste --type image --watch cliphist store"
-        "${run} flameshot"
+        # "${run} flameshot"
       ];
 
       bind =
@@ -185,18 +205,20 @@ in
           # "$mainMod, PRINT, exec, ${run} hyprshot -m window"
           # Screenshot a monitor
           # ", PRINT, exec, ${run} hyprshot -m output"
-          ", PRINT, exec, ${run} flameshot gui"
+          # ", PRINT, exec, ${run} flameshot gui"
+          ", PRINT, exec, ${run} hyprshot -m window"
+          "SHIFT, PRINT, exec, ${run} hyprshot -m window"
           # Screenshot a region
-          # "$mainMod SHIFT, PRINT, exec, ${run} hyprshot -m region"
+          "$mainMod SHIFT, S, exec, ${run} hyprshot -m region"
 
-          "$mainMod SHIFT, n, exec, ${run} swaync-client -t -sw"
+          "$mainMod, N, exec, ${run} swaync-client -t -sw"
           # "$mainMod SHIFT, N, exec, ${run} makoctl menu fuzzel -d"
 
           # emoji
           "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
 
           "$mainMod SHIFT, DOT, exec , ${run} hyprbinds.sh"
-          "$mainMod, A, exec, ${run} correct-clip.sh"
+          "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
 
           "$mainMod, Q, killactive,"
           "$mainMod SHIFT, Q, forcekillactive,"
@@ -212,6 +234,8 @@ in
 
           "$mainMod, V, togglesplit, # dwindle"
           "$mainMod, F, togglefloating,"
+          "$mainMod, F, togglefloating,"
+          "$mainMod, F, centerwindow,"
           "$mainMod, P, pseudo, # dwindle"
           "$mainMod SHIFT, Y, pin" # pin the window
           # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
@@ -323,37 +347,21 @@ in
       ];
 
       windowrulev2 = [
-        # Ignore maximize requests from apps
+        # Global rules
         "suppressevent maximize, class:.*"
+        "opacity 0.95 0.85, fullscreen:0, pinned:0"
+        "bordercolor rgba(B6C7E9AA) rgba(B6C7E977), pinned:1"
+        # "rounding 10, floating:1"
+        # "plugin:hyprbars:nobar, floating:0"
 
-        # changed pined border
-        "bordercolor rgba(B6C7E9AA) rgba(B6C7E977),pinned:1"
-
-        # enable hyprbars on floating only
-        "plugin:hyprbars:nobar,floating:0"
-
-        # idle inhibit while watching videos
+        # Idle inhibition rules
         "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
-        # "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(zen)$"
+        "idleinhibit fullscreen, class:^(.*)$"
+        "idleinhibit fullscreen, title:^(.*)$"
+        "idleinhibit fullscreen, fullscreen:1"
 
-        # windowrule v2 to avoid idle for fullscreen apps
-        " idleinhibit fullscreen, class:^(.*)$"
-        " idleinhibit fullscreen, title:^(.*)$"
-        " idleinhibit fullscreen, fullscreen:1"
-
-        # Picture-in-Picture for any windows tagged pip
-        # "float, tag:pip"
-        # "pin, tag:pip"
-        # "keepaspectratio, tag:pip"
-        # "noborder, tag:pip"
-        # "plugin:hyprbars:nobar, tag:pip"
-        # "size 480 270, tag:pip"
-        # "minsize 240 135, tag:pip"
-        # "maxsize 960 540, tag:pip"
-        # "move 100%-490 100%-280, tag:pip"
-
-        # make pop-up file dialogs floating, centred, and pinned
+        # Dialog window rules
         "tag +dialog, title:(Open|Choose File|Progress|Save File|Save As)"
         "tag +dialog, title:(Confirm to replace files)"
         "tag +dialog, title:(File Operation Progress)"
@@ -364,116 +372,96 @@ in
         "pin, tag:dialog"
         "noborder, tag:dialog"
 
-        "float, class:Bitwarden"
-        " float, class:^(org.kde.polkit-kde-authentication-agent-1)$ "
-        " float, class:([Zz]oom|onedriver|onedriver-launcher)$"
-        " float, class:([Tt]hunar), title:(File Operation Progress)"
-        " float, class:([Tt]hunar), title:(Confirm to replace files)"
-        " float, class:(xdg-desktop-portal-gtk)"
-        " float, class:(org.gnome.Calculator), title:(Calculator)"
-        " float, class:(codium|codium-url-handler|VSCodium|code-oss), title:(Add Folder to Workspace)"
-        " float, class:(electron), title:(Add Folder to Workspace)"
-        " float, class:^(eog|org.gnome.Loupe)$ # image viewer"
-        " float, class:^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"
-        " float, class:^(nwg-look|qt5ct|qt6ct)$"
-        " float, class:^(mpv|com.github.rafostar.Clapper)$"
-        " float, class:^(nm-applet|nm-connection-editor|blueman-manager)$"
-        " float, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$ # system monitor"
-        " float, class:^(wihotspot(-gui)?)$ # wifi hotspot"
-        " float, class:^(evince)$ # document viewer"
-        " float, class:^(file-roller|org.gnome.FileRoller)$ # archive manager"
-        " float, class:^([Bb]aobab|org.gnome.[Bb]aobab)$ # Disk usage analyzer"
-        " float, title:(Kvantum Manager)"
-        " float, class:^([Ss]team)$,title:^([Ss]team .*)$"
-        " float, class:^([Qq]alculate-gtk)$"
-        " float, class:^([Ww]hatsapp-for-linux)$"
-        " float, class:^([Ff]erdium)$"
-        " float, title:^(Picture-in-Picture)$"
-        " float, title:^(ROG Control)$"
-        " float, title:^(hyprgui)$"
+        # File manager and operation dialogs
+        "tag +fileops, class:([Tt]hunar), title:(File Operation Progress)"
+        "tag +fileops, class:([Tt]hunar), title:(Confirm to replace files)"
+        "tag +fileops, class:^(org.kde.dolphin)$, title:^(Progress Dialog — Dolphin)$"
+        "tag +fileops, class:^(org.kde.dolphin)$, title:^(Copying — Dolphin)$"
+        "tag +fileops, class:(xdg-desktop-portal-gtk)"
+        "tag +fileops, class:^(file-roller|org.gnome.FileRoller)$"
+        "tag +fileops, class:^([Bb]aobab|org.gnome.[Bb]aobab)$"
+        # "tag +fileops, class:^(org.gnome.Nautilus)$"
+        "float, tag:fileops"
+        "center, tag:fileops"
+        "size 60% 70%, tag:fileops"
 
-        "float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
-        "float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
-        "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
+        # System utilities and settings
+        "tag +sysutil, class:^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"
+        "tag +sysutil, class:^(nwg-look|qt5ct|qt6ct)$"
+        "tag +sysutil, class:^(nm-applet|nm-connection-editor|blueman-manager)$"
+        "tag +sysutil, class:.*blueman.*"
+        "tag +sysutil, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
+        "tag +sysutil, class:^(wihotspot(-gui)?)$"
+        "tag +sysutil, class:^(org.kde.polkit-kde-authentication-agent-1)$"
+        "tag +sysutil, title:(Kvantum Manager)"
+        "tag +sysutil, title:^(ROG Control)$"
+        "tag +sysutil, title:^(hyprgui)$"
+        "tag +sysutil, class:^([Qq]alculate-gtk)$"
+        "float, tag:sysutil"
+        "center, tag:sysutil"
+        "size 70% 70%, tag:sysutil"
 
-        "float,title:^(About Mozilla Firefox)$"
-        "float,class:^(firefox)$,title:^(Picture-in-Picture)$"
-        "float,class:^(firefox)$,title:^(Library)$"
-        "float,title:^(Sign in)$"
-        "float,class:^(vlc)$"
-        "float,class:^(qt5ct)$"
-        "float,class:^(qt6ct)$"
-        "float,class:^(org.pulseaudio.pavucontrol)$"
-        "float,class:^(nwg-look)$"
-        "float,class:^(\.virt-manager-wrapped)$"
-        "float,class:^(org.gnome.Nautilus)$"
-        "float,class:.*blueman.*"
-        "float,class:^(nm-applet)$"
-        "float,class:^(nm-connection-editor)$"
-        "float,class:^(Signal)$ # Signal-Gtk"
-        "float,class:^(eog)$ # Imageviewer-Gtk"
-        "float,class:^(io.missioncenter.MissionCenter)$ # MissionCenter-Gtk"
-        "float,class:^(io.gitlab.adhami3310.Impression)$ # Impression-Gtk"
-        "float,class:^(imv)$"
-        "tile,title:^(imv_nofloat)$"
+        # Media viewers
+        "tag +media, class:^(mpv|com.github.rafostar.Clapper)$"
+        "tag +media, class:^(eog|org.gnome.Loupe)$"
+        "tag +media, class:^(evince)$"
+        "tag +media, class:^(vlc)$"
+        "tag +media, class:^(imv)$"
+        "tag +media, title:^(Picture-in-Picture)$"
+        "float, tag:media"
+        "center, tag:media"
+        "size 70% 70%, tag:media"
+        "keepaspectratio, title:^(Picture-in-Picture)$"
+        "size 25% 25%, title:^(Picture-in-Picture)$"
+        "tile, title:^(imv_nofloat)$"
 
-        "size 60% 70%,floating:1"
-        "float,class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
-        "size 25% 25%, class:^(CiscoCollabHost)$,title:^(Welcome to Webex -  Webex)$"
+        # Communication apps
+        "tag +comms, class:^([Ww]hatsapp-for-linux)$"
+        "tag +comms, class:^([Ff]erdium)$"
+        "tag +comms, class:^(Signal)$"
+        "tag +comms, class:^(CiscoCollabHost)$"
+        "tag +comms, class:Bitwarden"
+        "float, tag:comms"
+        "center, tag:comms"
+        "size 60% 70%, tag:comms"
+        "size 25% 25%, class:^(CiscoCollabHost)$, title:^(Welcome to Webex -  Webex)$"
 
-        # "float,class:^(org.keepassxc.KeePassXC)$"
-        # "size 40% 40%,class:^(org.keepassxc.KeePassXC)$"
+        # Browser-specific
+        "tag +browser_dialog, class:^(firefox)$, title:^(Picture-in-Picture)$"
+        "tag +browser_dialog, class:^(firefox)$, title:^(Library)$"
+        "tag +browser_dialog, title:^(About Mozilla Firefox)$"
+        "tag +browser_dialog, title:^(Sign in)$"
+        "float, tag:browser_dialog"
+        "center, tag:browser_dialog"
 
-        "size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
-        "size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
-        "size 60% 70%, title:(Kvantum Manager)"
-        "size 60% 70%, class:^(qt6ct)$"
-        "size 70% 70%, class:^(evince|wihotspot(-gui)?)$"
-        "size 60% 70%, class:^(file-roller|org.gnome.FileRoller)$"
-        "size 60% 70%, class:^([Ww]hatsapp-for-linux)$"
-        "size 60% 70%, class:^([Ff]erdium)$"
-        "size 60% 70%, title:^(ROG Control)$"
-        "size 25% 25%, title:^(Picture-in-Picture)$   "
-        "size 60% 70%, title:^(hyprgui)$"
-        "size 60%, 70% class:Bitwarden"
-        "size 50%, 50%,class:^(org.gnome.Nautilus)$"
+        # Workspace assignments
+        "workspace 5 silent, class:^([wl|x]freerdp)$"
+        "workspace 6 silent, class:^(Mattermost)$"
+        "workspace 7 silent, class:^(vesktop)$"
 
-        " keepaspectratio, title:^(Picture-in-Picture)$"
+        # Virt manager
+        "tag +virt-manager, class:^(.virt-manager-wrapped)$"
+        "group, always, tag:virt-manager"
+        "workspace 4, tag:virt-manager"
+        # "group, always, class: (.virt-manager-wrapped), title:(Virtual Machine Manager)"
 
-        # smartgaps trick see wiki workspace-rules
+        # Moonlight
+        "tag +moonlight, class:^(com.moonlight_stream.Moonlight)$"
+        "center, tag:moonlight"
+        "float, tag:moonlight"
+        "size 25% 50%, tag:moonlight"
+        "workspace 5, tag:moonlight"
+
+        # Special workspace styles
         "bordersize 0, floating:0, onworkspace:w[tv1]"
         "rounding 0, floating:0, onworkspace:w[tv1]"
         "bordersize 0, floating:0, onworkspace:f[1]"
         "rounding 0, floating:0, onworkspace:f[1]"
 
-        "workspace 5 silent, class:^([wl|x]freerdp)$"
-        "workspace 5, class:^(com.moonlight_stream.Moonlight)$"
-        "float, class:^(com.moonlight_stream.Moonlight)$,title:^(Moonlight)$"
-        "size 25% 50%, class:^(com.moonlight_stream.Moonlight)$,title:^(Moonlight)$"
-        "workspace 6 silent, class:^(Mattermost)$"
-        "workspace 7 silent, class:^(vesktop)$"
-
-        # "opacity 0.95 0.85 ,class:^(kitty)$,"
-        "opacity 0.95 0.85 ,fullscreen:0, pinned:0"
-
-        "rounding 10,floating:1"
-        # "bordersize 1,floating:1"
-
-        # Fix some dragging issues with XWayland
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-
-        # Fix mattermost menu that does not have a class and don't render blur correctly
-        "opacity 1 overide 1 overide 1 overide,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-        "noblur,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-      ];
-
-      windowrule = [
-        # common modals
-        # "float,title:^(Open)$"
-        # "float,title:^(Choose Files)$"
-        # "float,title:^(Save As)$"
-        # "float,title:^(Confirm to replace files)$"
-        # "float,title:^(File Operation Progress)$"
+        # XWayland fixes
+        "nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
+        "opacity 1 overide 1 overide 1 overide, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
+        "noblur, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
       ];
 
       workspace = [
