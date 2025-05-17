@@ -25,7 +25,7 @@ let
 
   browser = librewolf ++ firefox ++ chromium;
   editor = nvim ++ codium ++ yazi;
-  image = qview ++ eog ++ imv ++ gimp ++ ink;
+  image = qview ++ imv ++ eog ++ gimp ++ ink;
   video = mpv ++ qview;
   document = zathura ++ evince;
   files = yazi ++ nautilus;
@@ -80,7 +80,6 @@ let
     "bmp"
     "gif"
     "avif"
-    "heif"
     "x-eps"
     "x-icns"
     "x-ico"
@@ -176,6 +175,7 @@ let
     // {
       "inode/directory" = files;
 
+      "image/heif" = imv ++ image;
       "x-scheme-handler/codium" = codiumURL;
       "x-scheme-handler/code" = codiumURL;
       "x-scheme-handler/discord" = discord;
@@ -184,6 +184,8 @@ let
       "x-scheme-handler/sgnl" = signal;
       "x-scheme-handler/signalcaptcha" = signal;
     };
+
+  user = "rick";
 in
 {
   imports = [
@@ -198,4 +200,25 @@ in
   xdg.mime.enable = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = defaultApplications;
+  xdg.userDirs.enable = true;
+  # Not seeing my library
+  # services = {
+  #   mpd = {
+  #     enable = true;
+  #     network.startWhenNeeded = true;
+  #     musicDirectory = "~/Music";
+  #     extraConfig = ''
+  #       log_level "verbose"
+  #       audio_output {
+  #         type "pipewire"
+  #         name "Pipewire Output"
+  #       }
+  #     '';
+  #   };
+  #   mpd-mpris.enable = false;
+  # };
+  #
+  # home.packages = with pkgs; ([
+  #   ncmpcpp
+  # ]);
 }

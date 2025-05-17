@@ -19,7 +19,7 @@
     # ../../modules/core/GUI/gnome.nix
     ../../modules/core/GUI/hyprland.nix
     # ../../modules/pinned/devenv-1.5.1.nix
-    ../../modules/pinned/file-zip.nix
+    # ../../modules/pinned/file-zip.nix
     ../../modules/core/flatpak.nix
     ../../modules/core/udev-rules.nix
 

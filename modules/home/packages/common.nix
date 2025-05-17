@@ -1,9 +1,12 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; ([
-    nodejs
     gcc
     nixfmt-rfc-style
+    # it provides the command `nom` works just like `nix`
+    # with more details log output
+    nix-output-monitor
+    nh # nix cli helper
 
     direnv
 
@@ -13,6 +16,7 @@
     tmux
 
     man-pages # extra man pages
+    tlrc # better man tldr
     killall
 
     fastfetch
@@ -20,6 +24,16 @@
     # vim
 
     yazi # terminal file manager
+    exiftool
+    poppler # pdf preview, used by yazi
+    resvg # preciew svg
+    zenity
+
+    zk # note taking
+
+    rclone
+    sshfs
+
     superfile # SPF file manager to be test
     lf # go terminal file manager
     ncdu # disk space
@@ -30,6 +44,7 @@
     xz
     unzip
     p7zip
+    ouch # easy archives management
     zstd
 
     # networking tools
@@ -81,10 +96,6 @@
     gnupg
     bc # calculator
 
-    # it provides the command `nom` works just like `nix`
-    # with more details log output
-    nix-output-monitor
-
     btop # replacement of htop/nmon
     iftop # network monitoring
     htop
@@ -114,13 +125,16 @@
         pipx
       ]
     ))
+    uv
     cargo
+
+    nodejs
+    pnpm
 
     # fzf-preview.sh dependencies
     imgcat
     chafa
     file
-    tlrc # better man tldr
 
   ]);
 
@@ -147,6 +161,14 @@
   programs.bash.enable = true;
   # program.lazygit.enable = true;
 
+  # programs.delta = {
+  #   enable = true;
+  #   options = {
+  #     navigate = true;
+  #     line-numbers = true;
+  #     syntax-theme = "GitHub";
+  #   };
+  # };
   home.sessionPath = [ "$GOPATH/bin" ];
 
   home.file.fzf = {

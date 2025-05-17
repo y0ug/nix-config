@@ -25,6 +25,8 @@
     vesktop
     eog
 
+    trash-cli # trash-put instead of rm
+
     # webex # unfree
     keepassxc
     file-roller
@@ -47,14 +49,14 @@
     gimp-with-plugins
     inkscape
     pinta
-    exiftool
-    poppler # pdf preview, used by yazi
-    resvg # preciew svg
     qview
     zathura
 
+    zk # not taking
+
     peazip
-    transmission_4
+    # transmission_4
+    transmission_4-gtk
 
     # don't really work on wayland
     # (flameshot.override { enableWlrSupport = true; })

@@ -3,24 +3,26 @@
   home.packages = with pkgs; ([
     librewolf
     freerdp3
+
     imv # image viewer
-    gparted # partition editor
+    mpd # media player
+    imv # video player
+
+    playerctl # control media players
+
+    # gparted # partition editor
 
     # obsidian # markdown editor unfree
 
-    libnotify
-    bleachbit # disk cleaner
+    # bleachbit # disk cleaner
 
-    libnotify
-    pamixer
-    pavucontrol
-    qpwgraph
-    playerctl
+    pamixer # pulse audio cli tools
+    pavucontrol # pulse audio volume control
+    qpwgraph # graphical patchbay for pipewire
 
     xdg-utils
     wev # to find keycode
     powertop
-
   ]);
 
 }

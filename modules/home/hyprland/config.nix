@@ -21,6 +21,7 @@ in
     "TERMINAL=kitty"
     "HYPRSHOT_DIR=$HOME/Pictures"
     "XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
+    "ZK_NOTEBOOK_DIR=$HOME/Notebook"
   ];
   wayland.windowManager.hyprland = {
     enable = true;
@@ -180,51 +181,40 @@ in
       bind =
         [
           "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
-          "$mainMod,RETURN, exec, $terminal"
+
           ", XF86Terminal, exec, $terminal"
+          ", XF86Calculater, exec, ${lib.getExe pkgs.qalculate-gtk}"
+          # ", XF86AudioMedia, exec, ${lib.getExe pkgs.librewolf}"
+          ", XF86WWW, exec, ${run} ${lib.getExe pkgs.librewolf}"
 
-          "$mainMod CTRL, L, exec, ${run} hyprlock"
-          # "$mainMod SHIFT, Escape, exec, ${run} wlogout"
+          "$mainMod CTRL, Esc, exec, ${run} hyprlock"
+          "$mainMod CTRL SHIFT, Esc, exec, ${run} wlogout"
 
+          "$mainMod, B, exec, ${run} ${lib.getExe pkgs.librewolf}"
           "$mainMod, E, exec, $fileManager"
           "$mainMod, R, exec, $menu"
+          "$mainMod, T, exec, $terminal"
+          "$mainMod, RETURN, exec, $terminal"
           "$mainMod, SPACE, exec, $menu"
-
-          # "$mainMod, equal, hyprexpo:expo, toggle"
+          "$mainMod SHIFT, N, exec, ${run} swaync-client -t -sw"
+          # "$mainMod N, exec, ${run} makoctl menu fuzzel -d"
           "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
 
-          # "SUPER, C, exec, ${lib.getExe pkgs.qalculate-gtk}"
-          ", XF86Calculator, exec, ${lib.getExe pkgs.qalculate-gtk}"
-          ", XF86Calculater, exec, ${lib.getExe pkgs.qalculate-gtk}"
-
-          # ", XF86AudioMedia, exec, ${lib.getExe pkgs.librewolf}"
-          ", XF86WWW, exec, ${lib.getExe pkgs.librewolf}"
-          "$mainMod, B, exec, ${lib.getExe pkgs.librewolf}"
-
-          # Screenshot a window
-          # "$mainMod, PRINT, exec, ${run} hyprshot -m window"
-          # Screenshot a monitor
-          # ", PRINT, exec, ${run} hyprshot -m output"
-          # ", PRINT, exec, ${run} flameshot gui"
-          ", PRINT, exec, ${run} hyprshot -m window"
-          "SHIFT, PRINT, exec, ${run} hyprshot -m window"
-          # Screenshot a region
-          "$mainMod SHIFT, S, exec, ${run} hyprshot -m region"
-
-          "$mainMod, N, exec, ${run} swaync-client -t -sw"
-          # "$mainMod SHIFT, N, exec, ${run} makoctl menu fuzzel -d"
+          "$mainMod SHIFT, S, exec, ${run} screenshot window"
+          "$mainMod CTRL, S, exec, ${run} screenshot monitor"
+          "$mainMod, S, exec, ${run} screenshot region"
 
           # emoji
-          "$mainMod SHIFT, E, exec, ${toggle "wofi-emoji"}"
+          "$mainMod , dot, exec, ${toggle "wofi-emoji"}"
 
-          "$mainMod SHIFT, DOT, exec , ${run} hyprbinds.sh"
-          "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
+          # "$mainMod SHIFT, QUESTION, exec , ${run} hyprbinds.sh"
+          # "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
 
-          "$mainMod, Q, killactive,"
-          "$mainMod SHIFT, Q, forcekillactive,"
-          "$mainMod SHIFT, F, fullscreen,"
-          "$mainMod SHIFT, M, fullscreen,1"
-          "$mainMod, M, layoutmsg, movetoroot"
+          "$mainMod SHIFT, Q, killactive," # avoid fat finger in $mainMod + 1
+          "$mainMod CTRL SHIFT, Q, forcekillactive,"
+          "$mainMod SHIFT CTRL, RETURN, fullscreen,"
+          "$mainMod SHIFT, RETURN, fullscreen,1"
+          # "$mainMod, M, layoutmsg, movetoroot"
 
           "$mainMod, G, togglegroup,"
           "$mainMod SHIFT, N, changegroupactive, f"
@@ -234,10 +224,9 @@ in
 
           "$mainMod, V, togglesplit, # dwindle"
           "$mainMod, F, togglefloating,"
-          "$mainMod, F, togglefloating,"
-          "$mainMod, F, centerwindow,"
+          "$mainMod SHIFT, C, centerwindow,"
           "$mainMod, P, pseudo, # dwindle"
-          "$mainMod SHIFT, Y, pin" # pin the window
+          "$mainMod SHIFT CTRL, P, pin" # pin the window
           # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
 
           # Move focus focus with mainMod + arrow keys
@@ -246,34 +235,45 @@ in
           "$mainMod, k, movefocus, u"
           "$mainMod, j, movefocus, d"
 
-          "$mainMod SHIFT, h, movewindoworgroup, l"
-          "$mainMod SHIFT, l, movewindoworgroup, r"
-          "$mainMod SHIFT, k, movewindoworgroup, u"
-          "$mainMod SHIFT, j, movewindoworgroup, d"
+          "$mainMod, h, alterzorder, top"
+          "$mainMod, l, alterzorder, top"
+          "$mainMod, k, alterzorder, top"
+          "$mainMod, j, alterzorder, top"
 
-          "$mainMod ALT, h, resizeactive, -40 0"
-          "$mainMod ALT, j, resizeactive, 0 40"
-          "$mainMod ALT, k, resizeactive, 0 -40"
-          "$mainMod ALT, l, resizeactive, 40 0"
+          "$mainMod CTRL SHIFT, h, movewindoworgroup, l"
+          "$mainMod CTRL SHIFT, l, movewindoworgroup, r"
+          "$mainMod CTRL SHIFT, k, movewindoworgroup, u"
+          "$mainMod CTRL SHIFT, j, movewindoworgroup, d"
+
+          "$mainMod SHIFT, h, swapwindow, l"
+          "$mainMod SHIFT, l, swapwindow, r"
+          "$mainMod SHIFT, k, swapwindow, u"
+          "$mainMod SHIFT, j, swapwindow, d"
+
+          "$mainMod ALT, h, resizeactive, -20 0"
+          "$mainMod ALT, j, resizeactive, 0 20"
+          "$mainMod ALT, k, resizeactive, 0 -20"
+          "$mainMod ALT, l, resizeactive, 20 0"
+
+          "$mainMod CTRL ALT, h, moveactive, -100 0"
+          "$mainMod CTRL ALT, j, moveactive, 0 100"
+          "$mainMod CTRL ALT, k, moveactive, 0 -100"
+          "$mainMod CTRL ALT, l, moveactive, 100 0"
 
           "$mainMod, left, movefocus, l"
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"
           "$mainMod, down, movefocus, d"
 
-          "$mainMod SHIFT, left, movewindow, l"
-          "$mainMod SHIFT, right, movewindow, r"
-          "$mainMod SHIFT, up, movewindow, u"
-          "$mainMod SHIFT, down, movewindow, d"
-
           "$mainMod ALT, left, resizeactive, -40 0"
           "$mainMod ALT, right, resizeactive, 0 40"
           "$mainMod ALT, up, resizeactive, 0 -40"
           "$mainMod ALT, down, resizeactive, 40 0"
 
-          "$mainMod SHIFT, O, movetoworkspace, empty"
-          "$mainMod , O, movecurrentworkspacetomonitor,+1"
-          "$mainMod, backslash, workspace, previous"
+          "$mainMod, N, movetoworkspace, empty"
+          "$mainMod, O, movecurrentworkspacetomonitor,+1"
+          "$mainMod SHIFT, O, movewindow, mon:+1"
+          "$mainMod, GRAVE, workspace, previous"
 
           "ALT, tab, cyclenext,"
           "ALT, tab, alterzorder, top"
@@ -281,17 +281,20 @@ in
           "ALT SHIFT, tab, alterzorder, top"
           "$mainMod, tab, focusurgentorlast,"
 
-          "$mainMod SHIFT, period, movecurrentworkspacetomonitor,+1"
-          "$mainMod SHIFT, comma, movecurrentworkspacetomonitor, -1"
-          "$mainMod , period, movewindow, mon:+1"
-          "$mainMod , comma, movewindow, mon:-1"
+          # "$mainMod SHIFT, U, movecurrentworkspacetomonitor,+1"
+          # "$mainMod SHIFT, D, movecurrentworkspacetomonitor, -1"
+          # "$mainMod, U, movewindow, mon:+1"
+          # "$mainMod, D, movewindow, mon:-1"
 
-          # Example special workspace (scratchpad)
-          "$mainMod, S, togglespecialworkspace, magic"
-          "$mainMod SHIFT, S, movetoworkspace, special:magic"
+          "$mainMod, Z, togglespecialworkspace, scratchpad"
+          "$mainMod SHIFT, Z, movetoworkspace, special:scratchpad"
+          "$mainMod SHIFT CTRL, Z, movetoworkspace, e+0"
+          # "$mainMod SHIFT CTRL, Z, togglespecialworkspace, minimized"
 
-          "$mainMod, minus, togglespecialworkspace, minimized"
-          "$mainMod SHIFT, minus, movetoworkspace, special:minimized"
+          "$mainMod, X, togglespecialworkspace, minimized"
+          "$mainMod SHIFT, X, movetoworkspacesilent, special:minimized"
+          "$mainMod SHIFT CTRL, X, movetoworkspace, e+0"
+          # "$mainMod SHIFT CTRL, X, togglespecialworkspace, minimized"
 
           # Scroll through existing workspaces with mainMod + scroll
           "$mainMod, mouse_down, workspace, m+1"
@@ -299,6 +302,9 @@ in
 
           "$mainMod, bracketleft, workspace, m-1"
           "$mainMod, bracketright, workspace, m+1"
+
+          "$mainMod SHIFT, bracketleft, movetoworkspace, m-1"
+          "$mainMod SHIFT, bracketright, movetoworkspace, m+1"
 
         ]
         ++ (
@@ -365,7 +371,7 @@ in
         "tag +dialog, title:(Open|Choose File|Progress|Save File|Save As)"
         "tag +dialog, title:(Confirm to replace files)"
         "tag +dialog, title:(File Operation Progress)"
-        "tag +dialog, initialclass:(librewolf|firefox), title:(save to)"
+        "tag +dialog, class:(librewolf|firefox), title:([sS]ave|[uU]pload)"
         "tag +dialog, class:(xdg-desktop-portal-gtk)"
         "float, tag:dialog"
         "center, tag:dialog"
@@ -402,18 +408,17 @@ in
         "size 70% 70%, tag:sysutil"
 
         # Media viewers
-        "tag +media, class:^(mpv|com.github.rafostar.Clapper)$"
-        "tag +media, class:^(eog|org.gnome.Loupe)$"
-        "tag +media, class:^(evince)$"
-        "tag +media, class:^(vlc)$"
-        "tag +media, class:^(imv)$"
+        # "tag +media, class:^(mpv|com.github.rafostar.Clapper)$"
+        # "tag +media, class:^(eog|org.gnome.Loupe)$"
+        # "tag +media, class:^(evince)$"
+        # "tag +media, class:^(vlc)$"
+        # "tag +media, class:^(imv)$"
         "tag +media, title:^(Picture-in-Picture)$"
         "float, tag:media"
         "center, tag:media"
         "size 70% 70%, tag:media"
         "keepaspectratio, title:^(Picture-in-Picture)$"
         "size 25% 25%, title:^(Picture-in-Picture)$"
-        "tile, title:^(imv_nofloat)$"
 
         # Communication apps
         "tag +comms, class:^([Ww]hatsapp-for-linux)$"
@@ -536,11 +541,41 @@ in
     };
 
     extraConfig = ''
+      $reset = hyprctl dispatch submap reset && #use a variable to keep things more readable
+
       # Passthrough mode
       bind=$mainMod , Escape,submap,passthrough
       submap=passthrough
       bind=$mainMod , Escape,submap,reset
       submap=reset
+
+      # Window mode
+      bind = $mainMod, W, exec, sleep 2 && hyprctl dispatch submap reset #2 seconds timeout
+      bind = $mainMod, W, submap, window 
+
+      submap = window 
+      binde = , right, resizeactive, 10 0
+      binde = , left, resizeactive, -10 0
+      binde = , up, resizeactive, 0 -10
+      binde = , down, resizeactive, 0 10
+
+      binde = shift, right, moveactive, 10 0
+      binde = shift, left, moveactive, -10 0
+      binde = shift, up, moveactive, 0 -10
+      binde = shift, down, moveactive, 0 10
+
+      bind = , Q, killactive,
+      bind = SHIFT, Q, forcekillactive,
+      bind = , RETURN, fullscreen,
+      bind = SHIFT, RETURN, fullscreen,1
+      bind = , M, layoutmsg, movetoroot
+
+
+      # use reset to go back to the global submap
+      bind = , escape, submap, reset
+
+      # will reset the submap, which will return to the global submap
+      submap = reset
     '';
   };
 }

@@ -33,8 +33,11 @@
 
     "hyprland/workspaces" = {
       # all-outputs = true;
-      on-scroll-up = "hyprctl dispatch workspace r-1";
-      on-scroll-down = "hyprctl dispatch workspace r+1";
+      # on-scroll-up = "hyprctl dispatch workspace r-1";
+      # on-scroll-down = "hyprctl dispatch workspace r+1";
+      disable-scroll = true;
+      all-output = true;
+      show-special = true;
       # "format" = "{name}: {icon}";
       # "format-icons" = {
       #   "1" = "";

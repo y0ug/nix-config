@@ -10,7 +10,9 @@
   services.displayManager.ly.enable = lib.mkForce false;
   services.displayManager.sddm.enable = lib.mkForce false;
   # services.displayManager.greetd.enable = lib.mkForce true;
-  environment.systemPackages = with pkgs; [ greetd.tuigreet ];
+  environment.systemPackages = with pkgs; [
+    greetd.tuigreet
+  ];
   services.greetd = lib.mkForce {
     enable = true;
     settings = {
@@ -55,6 +57,7 @@
       # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-termfilechooser
     ];
   };
 
