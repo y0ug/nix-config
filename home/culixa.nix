@@ -201,6 +201,12 @@ in
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = defaultApplications;
   xdg.userDirs.enable = true;
+  xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
+    [filechooser]
+    cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+    default_dir=$HOME
+    env=TERMCMD=kitty --class filechooser"
+  '';
   # Not seeing my library
   # services = {
   #   mpd = {

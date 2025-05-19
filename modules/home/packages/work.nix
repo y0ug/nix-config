@@ -95,6 +95,15 @@
     gnome-calculator
 
     # vmware-workstation
+    mosh
+
+    #image editor
+    darktable
+    digikam
+    rawtherapee
+
+    valent
+    kdePackages.kdeconnect-kde
 
     (callPackage ida-pro {
       # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.

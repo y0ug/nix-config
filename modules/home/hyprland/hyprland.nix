@@ -6,6 +6,7 @@
     hyprsunset
     hyprshot
     hyprcursor
+    inputs.hyprswitch.packages.x86_64-linux.default
 
     # fileManager
     nnn
@@ -35,12 +36,12 @@
 
     libsecret
 
-    # bitwarden-desktop
+    bitwarden-desktop
     # bitwarden-cli
 
     # polkit
     hyprpolkitagent
-    gcr
+    # gcr
 
     seahorse
     tridactyl-native

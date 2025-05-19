@@ -59,8 +59,23 @@
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-termfilechooser
     ];
+    config = {
+      common = {
+        default = [
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "xdg-desktop-portal-termfilechooser" ];
+      };
+      hyprland = {
+        default = [
+          "gtk"
+          "hyprland"
+        ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "xdg-desktop-portal-termfilechooser" ];
+      };
+    };
   };
-
+  environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
   security.pam.services = {
     hyprlock.enableGnomeKeyring = true;
     sddm.enableGnomeKeyring = true;

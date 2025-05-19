@@ -196,6 +196,7 @@ in
           "$mainMod, T, exec, $terminal"
           "$mainMod, RETURN, exec, $terminal"
           "$mainMod, SPACE, exec, $menu"
+          "$mainMod ALT, SPACE, exec, ${run} hyprlist.sh"
           "$mainMod SHIFT, N, exec, ${run} swaync-client -t -sw"
           # "$mainMod N, exec, ${run} makoctl menu fuzzel -d"
           "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
@@ -207,14 +208,14 @@ in
           # emoji
           "$mainMod , dot, exec, ${toggle "wofi-emoji"}"
 
-          # "$mainMod SHIFT, QUESTION, exec , ${run} hyprbinds.sh"
-          # "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
+          "$mainMod SHIFT, QUESTION, exec , ${run} hyprbinds.sh"
+          "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
 
           "$mainMod SHIFT, Q, killactive," # avoid fat finger in $mainMod + 1
           "$mainMod CTRL SHIFT, Q, forcekillactive,"
           "$mainMod SHIFT CTRL, RETURN, fullscreen,"
           "$mainMod SHIFT, RETURN, fullscreen,1"
-          # "$mainMod, M, layoutmsg, movetoroot"
+          "$mainMod, M, layoutmsg, movetoroot"
 
           "$mainMod, G, togglegroup,"
           "$mainMod SHIFT, N, changegroupactive, f"
@@ -224,6 +225,7 @@ in
 
           "$mainMod, V, togglesplit, # dwindle"
           "$mainMod, F, togglefloating,"
+          "$mainMod SHIFT, C, resizeactive, exact 60% 70%"
           "$mainMod SHIFT, C, centerwindow,"
           "$mainMod, P, pseudo, # dwindle"
           "$mainMod SHIFT CTRL, P, pin" # pin the window
@@ -373,10 +375,12 @@ in
         "tag +dialog, title:(File Operation Progress)"
         "tag +dialog, class:(librewolf|firefox), title:([sS]ave|[uU]pload)"
         "tag +dialog, class:(xdg-desktop-portal-gtk)"
+        "tag +dialog, class:(filechooser)"
         "float, tag:dialog"
         "center, tag:dialog"
         "pin, tag:dialog"
         "noborder, tag:dialog"
+        "size 60% 70%, tag:moonlight"
 
         # File manager and operation dialogs
         "tag +fileops, class:([Tt]hunar), title:(File Operation Progress)"
@@ -541,7 +545,7 @@ in
     };
 
     extraConfig = ''
-      $reset = hyprctl dispatch submap reset && #use a variable to keep things more readable
+      $reset = hyprctl dispatch submap reset 
 
       # Passthrough mode
       bind=$mainMod , Escape,submap,passthrough
@@ -550,7 +554,7 @@ in
       submap=reset
 
       # Window mode
-      bind = $mainMod, W, exec, sleep 2 && hyprctl dispatch submap reset #2 seconds timeout
+      # bind = $mainMod, W, exec, sleep 2 && $reset
       bind = $mainMod, W, submap, window 
 
       submap = window 
@@ -568,7 +572,7 @@ in
       bind = SHIFT, Q, forcekillactive,
       bind = , RETURN, fullscreen,
       bind = SHIFT, RETURN, fullscreen,1
-      bind = , M, layoutmsg, movetoroot
+      bind = , M, layoutmsg, movetoroot,
 
 
       # use reset to go back to the global submap

@@ -310,19 +310,33 @@
     interfaces."br0" = {
       allowedTCPPorts = [
         22
-        47984
-        47989
-        47990
-        48010
+        47984 # sunshine
+        47989 # sunshine
+        47990 # sunshine
+        48010 # sunshine
+      ];
+      allowedTCPPortRanges = [
+        {
+          # kde connect
+          from = 1714;
+          to = 1764;
+        }
       ];
       allowedUDPPortRanges = [
         {
+          # sunshine
           from = 47998;
           to = 48000;
         }
         {
+          # sunshine
           from = 8000;
           to = 8010;
+        }
+        {
+          # kde connect
+          from = 1714;
+          to = 1764;
         }
       ];
     };
