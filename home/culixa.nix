@@ -19,17 +19,25 @@ let
   telegram = [ "org.telegram.desktop.desktop" ];
   librewolf = [ "librewolf.desktop" ];
   firefox = [ "firefox.desktop" ];
-  chromium = [ "desktop-chromium.desktop" ];
+  chromium = [ "chromium-browser.desktop" ];
   zathura = [ "org.pwmt.zathura.desktop" ];
   discord = [ "vesktop.desktop" ];
+  torbrowser = [ "torbrowser.desktop" ];
 
-  browser = librewolf ++ firefox ++ chromium;
+  wezterm = ["org.wezfurlong.wezterm.desktop"];
+  kitty = ["kitty.desktop"];
+
+  terminal = wezterm ++ kitty;
+  browser = chromium ++ librewolf ++ firefox ;
   editor = nvim ++ codium ++ yazi;
   image = qview ++ imv ++ eog ++ gimp ++ ink;
   video = mpv ++ qview;
   document = zathura ++ evince;
   files = yazi ++ nautilus;
   bittorent = [ "transmission-gtk.desktop" ];
+
+
+
 
   xdgAssociations =
     type: program: list:
@@ -40,7 +48,7 @@ let
       }) list
     );
 
-  # audio = xdgAssociations "audio" audioPlayer ["mp3" "flac" "wav" "aac"];
+  audio = xdgAssociations "audio" video ["mp3" "flac" "wav" "aac"];
 
   browserTypes =
     (xdgAssociations "application" browser [
@@ -183,6 +191,10 @@ let
       "x-scheme-handler/tg" = telegram;
       "x-scheme-handler/sgnl" = signal;
       "x-scheme-handler/signalcaptcha" = signal;
+
+      "x-scheme-handler/bitcoin" =  [ "electrum.desktop" ];
+      "x-scheme-handler/lightning" = ["electrum.desktop"];
+      "x-scheme-handler/monero" = ["monero-wallet-gui.desktop"];
     };
 
   user = "rick";
@@ -201,12 +213,13 @@ in
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = defaultApplications;
   xdg.userDirs.enable = true;
-  xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
-    [filechooser]
-    cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-    default_dir=$HOME
-    env=TERMCMD=kitty --class filechooser"
-  '';
+  # xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
+  #   [filechooser]
+  #   cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+  #   default_dir=$HOME
+  #   env=TERMCMD="kitty"
+  # '';
+  #env=TERMCMD="kitty --class filechooser"
   # Not seeing my library
   # services = {
   #   mpd = {

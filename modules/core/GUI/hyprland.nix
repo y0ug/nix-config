@@ -64,18 +64,18 @@
         default = [
           "gtk"
         ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "xdg-desktop-portal-termfilechooser" ];
+        # "org.freedesktop.impl.portal.FileChooser" = [ "xdg-desktop-portal-termfilechooser" ];
       };
       hyprland = {
         default = [
           "gtk"
           "hyprland"
         ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "xdg-desktop-portal-termfilechooser" ];
+        # "org.freedesktop.impl.portal.FileChooser" = [ "xdg-desktop-portal-termfilechooser" ];
       };
     };
   };
-  environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
+  # environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
   security.pam.services = {
     hyprlock.enableGnomeKeyring = true;
     sddm.enableGnomeKeyring = true;

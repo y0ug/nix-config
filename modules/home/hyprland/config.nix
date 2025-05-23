@@ -18,7 +18,7 @@ in
   xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
     "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
     "ELECTRON_OZONE_PLATFORM_HINT=wayland"
-    "TERMINAL=kitty"
+    "TERMINAL=${pkgs.wezterm}" 
     "HYPRSHOT_DIR=$HOME/Pictures"
     "XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
     "ZK_NOTEBOOK_DIR=$HOME/Notebook"
@@ -54,42 +54,7 @@ in
           accel_profile = "adaptive";
         }
       ];
-      plugin = {
-        # hyprbars = {
-        #   bar_text_font = "jetbrains mono";
-        #   bar_height = 20;
-        #   bar_padding = 5;
-        #   bar_button_padding = 5;
-        #   bar_precedence_over_border = true;
-        #   bar_part_of_window = true;
-        #   bar_blur = true;
-        #   # bar_color = "rgb(1a1b26)";
-        #   # col.text = "rgb(c0caf5)";
-        #
-        #   # example buttons (R -> L)
-        #   # hyprbars-button = color, size, on-click
-        #   hyprbars-button = [
-        #     "rgb(7aa2f7), 13, 󰖭, hyprctl dispatch killactive"
-        #     "rgb(7aa2f7), 13, 󰖯, hyprctl dispatch fullscreen 1"
-        #     "rgb(7aa2f7), 13, 󰖰, hyprctl dispatch togglefloating"
-        #     "rgb(7aa2f7), 13, 󰖰, hyprctl dispatch movetoworkspacesilent special:minimized"
-        #   ];
-        # };
-      };
-      plugin = {
-        # hyprexpo = {
-        #   columns = 3;
-        #   gap_size = 5;
-        #   # bg_col = "rgb(111111)";
-        #   workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
-        #
-        #   enable_gesture = true; # laptop touchpad
-        #   gesture_fingers = 3; # 3 or 4
-        #   gesture_distance = 300; # how far is the "max"
-        #   gesture_positive = true; # positive = swipe down. Negative = swipe up.
-        # };
-      };
-
+      
       decoration = {
         # rounding = 10;
         rounding = 0;
@@ -180,17 +145,18 @@ in
 
       bind =
         [
-          "$mainMod SHIFT, f1, exec, ${run} $HOME/.local/bin/screenON.sh"
+          "$mainMod SHIFT, f2, exec, ${run} $HOME/.local/bin/screenON.sh"
 
           ", XF86Terminal, exec, $terminal"
           ", XF86Calculater, exec, ${lib.getExe pkgs.qalculate-gtk}"
-          # ", XF86AudioMedia, exec, ${lib.getExe pkgs.librewolf}"
-          ", XF86WWW, exec, ${run} ${lib.getExe pkgs.librewolf}"
+          # ", XF86AudioMedia, exec, ${lib.getExe pkgs.mpv}"
+          ", XF86WWW, exec, ${run} ${lib.getExe pkgs.ungoogled-chromium}"
+          ", XF86ScreenSaver, exec, ${run} ${lib.getExe pkgs.hyprlock}"
 
-          "$mainMod CTRL, Esc, exec, ${run} hyprlock"
-          "$mainMod CTRL SHIFT, Esc, exec, ${run} wlogout"
+          "$mainMod CTRL, Escape, exec, ${run} hyprlock"
+          "$mainMod CTRL SHIFT, Escape, exec, ${run} wlogout"
 
-          "$mainMod, B, exec, ${run} ${lib.getExe pkgs.librewolf}"
+          "$mainMod, B, exec, ${run} ${lib.getExe pkgs.ungoogled-chromium}"
           "$mainMod, E, exec, $fileManager"
           "$mainMod, R, exec, $menu"
           "$mainMod, T, exec, $terminal"
@@ -208,7 +174,7 @@ in
           # emoji
           "$mainMod , dot, exec, ${toggle "wofi-emoji"}"
 
-          "$mainMod SHIFT, QUESTION, exec , ${run} hyprbinds.sh"
+          "$mainMod , F1, exec , ${run} hyprbinds.sh"
           "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
 
           "$mainMod SHIFT, Q, killactive," # avoid fat finger in $mainMod + 1
@@ -370,7 +336,8 @@ in
         "idleinhibit fullscreen, fullscreen:1"
 
         # Dialog window rules
-        "tag +dialog, title:(Open|Choose File|Progress|Save File|Save As)"
+        "tag +dialog, title:((Open|Choose) (File|Directory)|Progress|Save File|Save As)"
+        "tag +dialog, title:^(Open)"
         "tag +dialog, title:(Confirm to replace files)"
         "tag +dialog, title:(File Operation Progress)"
         "tag +dialog, class:(librewolf|firefox), title:([sS]ave|[uU]pload)"

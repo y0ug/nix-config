@@ -73,6 +73,8 @@
     moar # alterative pager
     sd # better sed
 
+    appimage-run
+
     # Session manager used with zoxide and tmux
     sesh
 
@@ -146,10 +148,10 @@
   programs.fzf = {
     enable = true;
     # enableZshIntegration = true;
-    defaultOptions = [
+    # defaultOptions = [
       # "--preview bat --color=always --style=header,grid --line-range :500 {}"
-      "--preview 'fzf-preview.sh {}'"
-    ];
+      # "--preview 'fzf-preview.sh {}'"
+    # ];
   };
 
   programs.zoxide.enable = true;

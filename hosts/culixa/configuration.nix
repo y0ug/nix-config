@@ -314,6 +314,7 @@
         47989 # sunshine
         47990 # sunshine
         48010 # sunshine
+        53317 # localsend
       ];
       allowedTCPPortRanges = [
         {
@@ -321,6 +322,9 @@
           from = 1714;
           to = 1764;
         }
+      ];
+      allowedUDPPorts = [
+        53317 # localsend
       ];
       allowedUDPPortRanges = [
         {
