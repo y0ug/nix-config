@@ -4,3 +4,4 @@ treefmt.toml
 .pre-commit-config.yaml
 .aider.*
 *.bak
+.aider*

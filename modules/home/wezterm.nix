@@ -16,7 +16,6 @@
         front_end = "OpenGL",
         webgpu_power_preference = "HighPerformance",
         -- font = wezterm.font_with_fallback( { 'JetBrainsMono Nerd Font Mono', }),
-        -- color_scheme = 'tokyonight_night',
       }
     '';
     #color_scheme = 'OneHalfDark',

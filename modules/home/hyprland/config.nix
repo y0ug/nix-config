@@ -18,13 +18,21 @@ in
   xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
     "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
     "ELECTRON_OZONE_PLATFORM_HINT=wayland"
-    "TERMINAL=${pkgs.wezterm}" 
+    "TERMINAL=${pkgs.wezterm}"
     "HYPRSHOT_DIR=$HOME/Pictures"
     "XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
     "ZK_NOTEBOOK_DIR=$HOME/Notebook"
+
+    # hints
+    "ACCESSIBILITY_ENABLED=1"
+    "GTK_MODULES=gail:atk-bridge"
+    "OOO_FORCE_DESKTOP=gnome"
+    "GNOME_ACCESSIBILITY=1"
+    "QT_ACCESSIBILITY=1"
+    "QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1"
   ];
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = false;
     plugins = [
       # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hy3
       # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
@@ -54,7 +62,7 @@ in
           accel_profile = "adaptive";
         }
       ];
-      
+
       decoration = {
         # rounding = 10;
         rounding = 0;

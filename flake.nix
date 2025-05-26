@@ -57,6 +57,7 @@
 
   outputs =
     inputs@{
+      self,
       nixpkgs,
       stylix,
       nix-darwin,
@@ -69,6 +70,24 @@
       ...
     }:
     let
+      # Define your custom overlay
+      customPkgsOverlay = selfPkgs: superPkgs: {
+        # You can namespace your packages if you like, e.g., mycustom.hints
+        # Or add them directly to pkgs
+        hints = superPkgs.callPackage ./packages/python/hints.nix {
+          # Pass any specific dependencies from pkgs if hints.nix needed them
+          # beyond what callPackage automatically provides.
+          # For your current hints.nix, this is usually enough.
+        };
+        # If you had other custom packages:
+        # anotherCoolPackage = superPkgs.callPackage ./packages/another/package.nix {};
+      };
+
+      # List of overlays to apply. Your ida-pro-overlay also provides one.
+      commonOverlays = [
+        customPkgsOverlay
+        ida-pro-overlay.overlays.default
+      ];
       username = "rick";
     in
     {
@@ -115,6 +134,12 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          (
+            { config, pkgs, ... }:
+            {
+              nixpkgs.overlays = commonOverlays; # <---- APPLY OVERLAYS HERE
+            }
+          )
           stylix.nixosModules.stylix
           ./hosts/culixa/configuration.nix
           home-manager.nixosModules.home-manager
