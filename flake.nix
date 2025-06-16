@@ -74,7 +74,7 @@
       customPkgsOverlay = selfPkgs: superPkgs: {
         # You can namespace your packages if you like, e.g., mycustom.hints
         # Or add them directly to pkgs
-        hints = superPkgs.callPackage ./packages/python/hints.nix {
+        hints = superPkgs.callPackage ./modules/packages/python/hints.nix {
           # Pass any specific dependencies from pkgs if hints.nix needed them
           # beyond what callPackage automatically provides.
           # For your current hints.nix, this is usually enough.
@@ -137,7 +137,14 @@
           (
             { config, pkgs, ... }:
             {
-              nixpkgs.overlays = commonOverlays; # <---- APPLY OVERLAYS HERE
+              nixpkgs.overlays = commonOverlays;
+
+              nixpkgs.config.allowUnfreePredicate =
+                pkg:
+                builtins.elem (nixpkgs.lib.getName pkg) [
+                  "claude-code"
+                ];
+
             }
           )
           stylix.nixosModules.stylix

@@ -39,6 +39,8 @@
     ncdu # disk space
     dust # disk usage analyzer
 
+    gum # cli prompt ui
+
     # archives
     zip
     xz
@@ -72,7 +74,8 @@
     tdf # cli pdf viewer
     moar # alterative pager
     sd # better sed
-
+    cheat # cheat sheets
+    silicon # image from code/cli
     appimage-run
 
     # Session manager used with zoxide and tmux
@@ -87,6 +90,9 @@
     # encryption
     sops
     age
+
+    # image conversion
+    imagemagick
 
     # misc
     file

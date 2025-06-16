@@ -6,7 +6,7 @@
 }:
 {
   nixpkgs.overlays = [
-    (import ../overlays/aider.nix)
+    # (import ../overlays/aider.nix)
     inputs.ida-pro-overlay.overlays.default
   ];
 
@@ -89,6 +89,8 @@
     lame
     (sox.override { enableLame = true; })
 
+    anki # flashcards
+
     # qalculate
     qalculate-gtk
     programmer-calculator # pcalc
@@ -106,7 +108,7 @@
     localsend
     # kdePackages.kdeconnect-kde
 
-    hints
+    claude-code
 
     (callPackage ida-pro {
       # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.

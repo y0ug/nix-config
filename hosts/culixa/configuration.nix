@@ -71,7 +71,7 @@
   };
 
   hardware.keyboard.qmk.enable = true;
-  # nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "culixa";
 
@@ -374,4 +374,5 @@
     });
   '';
 
+  programs.mosh.enable = true;
 }

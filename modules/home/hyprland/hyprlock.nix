@@ -54,13 +54,17 @@ in
           outline_thickness = 3;
 
           # Using Stylix colors
-          outer_color = "rgba(${colors.base0A}ee)";
-          inner_color = "rgba(${colors.base07}ee)";
-          check_color = "rgba(${colors.base0B}ee)";
-          fail_color = "rgba(${colors.base08}ee)";
+          # outer_color = "rgba(${colors.base0A}ee)";
+          # inner_color = "rgba(${colors.base07}00)";
+          # check_color = "rgba(${colors.base0B}ee)";
+          # fail_color = "rgba(${colors.base08}ee)";
+          outer_color = "rgb(${colors.base0A})";
+          inner_color = "rgb(${colors.base07})";
+          check_color = "rgb(${colors.base0B})";
+          fail_color = "rgb(${colors.base08})";
 
           font_color = "rgb(${colors.base06})";
-          fade_on_empty = false;
+          fade_on_empty = true;
           rounding = 15;
 
           # Using Stylix monospace font

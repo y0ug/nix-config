@@ -12,6 +12,7 @@
   # services.displayManager.greetd.enable = lib.mkForce true;
   environment.systemPackages = with pkgs; [
     greetd.tuigreet
+    hints
   ];
   services.greetd = lib.mkForce {
     enable = true;
