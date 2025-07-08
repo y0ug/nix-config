@@ -1,0 +1,21 @@
+system: "base16"
+name: "Arctic (Nord)"
+author: "Arctic Ice Studio (https://nordtheme.com)"
+variant: "dark"
+palette:
+  base00: "#2E3440" # Background (nord0)
+  base01: "#3B4252" # Lighter Background (nord1)
+  base02: "#434C5E" # Selection Background (nord2)
+  base03: "#4C566A" # Comments, Invisibles (nord3)
+  base04: "#D8DEE9" # Dark Foreground (nord4)
+  base05: "#E5E9F0" # Default Foreground (nord5)
+  base06: "#ECEFF4" # Light Foreground (nord6)
+  base07: "#8FBCBB" # Lightest Foreground (nord7)
+  base08: "#BF616A" # Red (nord11)
+  base09: "#D08770" # Orange (nord12)
+  base0A: "#EBCB8B" # Yellow (nord13)
+  base0B: "#A3BE8C" # Green (nord14)
+  base0C: "#88C0D0" # Cyan (nord8)
+  base0D: "#81A1C1" # Blue (nord9)
+  base0E: "#B48EAD" # Purple (nord15)
+  base0F: "#5E81AC" # Brown (nord10)

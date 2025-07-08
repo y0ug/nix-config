@@ -2,6 +2,8 @@
 
 {
   stylix.targets.wezterm.enable = false;
+  stylix.targets.ghostty.enable = false;
+  stylix.targets.alacritty.enable = false;
 
   home.packages = with pkgs; ([
     wezterm

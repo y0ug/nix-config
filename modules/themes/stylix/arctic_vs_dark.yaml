@@ -10,8 +10,13 @@ palette:
   base04: "#8c8c8c"
   base05: "#cccccc"
   base06: "#dddddd"
-  base07: "#ffffff"
-  base08: "#f44747"
+
+  # try to fix comment too dark in shell 
+  base07: "#6c7086"
+  base08: "#cdd6f4"
+  # base07: "#ffffff"
+  # base08: "#f44747"
+ 
   base09: "#d7ba7d"
   base0A: "#e1cb9e"
   base0B: "#6a9955"
@@ -20,3 +25,7 @@ palette:
   base0E: "#c586c0"
   base0F: "#f55757"
 
+  ## Make bright colors actually bright for executables
+  base0A: "#50fa7b"  # Bright green
+  base0B: "#f1fa8c"  # Bright yellow
+  base0E: "#8be9fd"  # Bright cyan

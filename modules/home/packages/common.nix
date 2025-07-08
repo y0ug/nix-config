@@ -144,6 +144,7 @@
     chafa
     file
 
+    ast-grep
   ]);
 
   programs.go = {
@@ -181,7 +182,6 @@
 
   home.file.fzf = {
     enable = true;
-    target = ".local/bin/fzf-preview.sh";
     executable = true;
     text = ''
       #!/usr/bin/env bash

@@ -13,6 +13,7 @@
     ../../modules/core/system.nix
     ../../modules/core/nvim.nix
     ../../modules/core/aider.nix
+    ../../modules/core/python.nix
     ../../modules/core/GUI
     ../../modules/core/GUI/nestedvm.nix
     # ../../modules/core/GUI/vmware.nix
@@ -235,14 +236,31 @@
     enable = true;
     autoEnable = true;
     polarity = "dark";
-    base16Scheme = "${toString ../../modules/themes/stylix/arctic_vs_dark.yaml}";
+    base16Scheme = "${toString ../../modules/themes/stylix/base16-vscode-dark.yaml}";
 
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyodark.yaml";
     opacity = {
       terminal = 1.0;
       popups = 1.0;
     };
-
+    # base16Scheme = {
+    #   base00 = "000000"; # black (background)
+    #   base01 = "000000"; # lighter black
+    #   base02 = "888888"; # selection background
+    #   base03 = "888888"; # comments, invisibles
+    #   base04 = "888888"; # dark foreground
+    #   base05 = "ffffff"; # default foreground
+    #   base06 = "ffffff"; # light foreground
+    #   base07 = "ffffff"; # lightest foreground
+    #   base08 = "ff7c4d"; # red (variables, deletion)
+    #   base09 = "ffcc00"; # orange (integers, booleans)
+    #   base0A = "ffcc00"; # yellow (classes, search highlight)
+    #   base0B = "22ff00"; # green (strings, addition)
+    #   base0C = "00ffff"; # cyan (regex, escape chars)
+    #   base0D = "1a66ff"; # blue (functions, methods)
+    #   base0E = "ff61df"; # magenta (keywords, storage)
+    #   base0F = "ff7c4d"; # brown (deprecated, opening/closing tags)
+    # };
     cursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
@@ -373,6 +391,8 @@
       }
     });
   '';
+
+  security.pki.certificateFiles = [ ../../certs/mitmproxy-cat-cert.pem ];
 
   programs.mosh.enable = true;
 }

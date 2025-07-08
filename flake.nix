@@ -23,7 +23,7 @@
     # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/vm/vmware-workstation/package.nix
     vmware-pinned.url = "github:NixOS/nixpkgs/8a119c8042c38c2f6ea0e47bc0f0ddcc1b1a44bd";
 
-    hyprswitch.url = "github:h3rmt/hyprswitch/release";
+    # hyprswitch.url = "github:h3rmt/hyprswitch/release";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=v0.47.2-b";
     # hyprland-plugins = {
@@ -52,7 +52,7 @@
     #   url = "github:cachix/pre-commit-hooks.nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    glovebox.url = "git+ssh://git@github.com:/y0ug/glovebox.git?ref=dev-refactort";
+    glovebox.url = "git+ssh://git@github.com:/y0ug/glovebox.git?ref=dev";
   };
 
   outputs =
@@ -143,6 +143,7 @@
                 pkg:
                 builtins.elem (nixpkgs.lib.getName pkg) [
                   "claude-code"
+                  "ida-pro"
                 ];
 
             }

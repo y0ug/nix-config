@@ -125,9 +125,10 @@
       select_by_word_characters = "@-./_~?&=%+#";
 
       # Audio and Visual Bell
-      enable_audio_bell = false;
+      enable_audio_bell = true;
       visual_bell_duration = 0.2;
       window_alert_on_bell = true;
+      bell_on_tab = true;
 
       # kitty_mod = "ctrl+shift";
       clear_all_shortcuts = false;

@@ -6,11 +6,11 @@
     # userName = "";
     # userEmail = "";
 
-    extraConfig = {
-      init.defaultBranch = "main";
-      # credential.helper = "store";
-      core.editor = "nvim";
-    };
+    # extraConfig = {
+    #   init.defaultBranch = "main";
+    #   # credential.helper = "store";
+    #   core.editor = "nvim";
+    # };
     delta = {
       enable = true;
       options = {

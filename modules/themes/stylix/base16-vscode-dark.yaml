@@ -1,0 +1,22 @@
+# VS Code Dark+ theme for Stylix
+scheme: "VS Code Dark+"
+author: "Microsoft (adapted for Stylix)"
+
+# Base16 color definitions
+base00: "#1e1e1e" # Default Background
+base01: "#262626" # Lighter Background (status bars, line number bg)
+base02: "#303030" # Selection Background
+base03: "#8FBCBB" # Comments, Invisibles, Line Highlighting
+# base03: "#3c3c3c"  # Comments, Invisibles, Line Highlighting
+base04: "#6a6a6a" # Dark Foreground (status bars)
+base05: "#d4d4d4" # Default Foreground, Caret, Delimiters, Operators
+base06: "#e5e5e5" # Light Foreground
+base07: "#ffffff" # Light Background
+base08: "#f44747" # Variables, XML Tags, Markup Link Text, Red
+base09: "#d19a66" # Integers, Boolean, Constants, Orange
+base0A: "#e5c07b" # Classes, Markup Bold, Search Text Background, Yellow
+base0B: "#98c379" # Strings, Inherited Class, Markup Code, Green
+base0C: "#56b6c2" # Support, Regular Expressions, Escape Characters, Cyan
+base0D: "#61afef" # Functions, Methods, Attribute IDs, Blue
+base0E: "#c678dd" # Keywords, Storage, Selector, Purple
+base0F: "#be5046" # Deprecated, Opening/Closing Embedded Language Tags, Brown

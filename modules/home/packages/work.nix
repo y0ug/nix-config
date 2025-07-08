@@ -14,6 +14,7 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       "ida-pro"
+      "claude-code"
       # "vmware-workstation"
     ];
 
@@ -99,7 +100,7 @@
     # vmware-workstation
     mosh
 
-    #image editor
+    # raw image editor
     darktable
     digikam
     rawtherapee
@@ -108,8 +109,10 @@
     localsend
     # kdePackages.kdeconnect-kde
 
-    claude-code
+    # claude-code
+    meld # git diff tool GUI
 
+    mitmproxy
     (callPackage ida-pro {
       # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
       # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;

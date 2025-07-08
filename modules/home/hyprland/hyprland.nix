@@ -6,7 +6,7 @@
     hyprsunset
     hyprshot
     hyprcursor
-    inputs.hyprswitch.packages.x86_64-linux.default
+    # inputs.hyprswitch.packages.x86_64-linux.default
 
     # fileManager
     nnn
