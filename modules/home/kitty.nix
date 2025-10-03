@@ -9,79 +9,91 @@
     extraConfig = ''
       symbol_map U+e000-U+e00a,U+ea60-U+ebeb,U+e0a0-U+e0c8,U+e0ca,U+e0cc-U+e0d7,U+e200-U+e2a9,U+e300-U+e3e3,U+e5fa-U+e6b1,U+e700-U+e7c5,U+ed00-U+efc1,U+f000-U+f2ff,U+f000-U+f2e0,U+f300-U+f372,U+f400-U+f533,U+f0001-U+f1af0 Symbols Nerd Font Mono
 
+      # Send Ctrl+H (^H) followed by DEL charac: Send Ctrl+H (^H) followed by DEL character
+      # ctrl+H + DEL
+      # map ctrl+backspace send_text all \x08\x7f
+      # map alt+backspace send_text all \x1b\x08\x7f
+
+      # ctrl+W 
+      map ctrl+backspace send_text all \x17
+
+      # alt+backspace sends ESC + backspace
+      map alt+backspace send_text all \xe\x08
+
+      map shift+enter send_text all \x1b\r
 
       # disable utf8/unicode picker
       map kitty_mod+u no_op
       map cmd+ctrl+space no_op
       map ctrl+cmd+space no_op
 
-      # tmux settings
-      map ctrl+w>r load_config_file
-      # Make ctrl+w ctrl+a to send ctrl+a
-      map ctrl+w>ctrl+a send_text all \x01
-      map ctrl+shift+2 send_text all \x00
-
-      ### Layout operations ###
-      # stack layout behaves the same as tmux pane zoom
-      enabled_layouts splits,stack
-      map ctrl+w>z toggle_layout stack
-      map ctrl+w>space layout_action rotate
-
-      ### Tab operations, corresponds to tmux window ###
-      map ctrl+w>c new_tab
-      map ctrl+w>& close_tab
-      map ctrl+w>s new_tab_with_cwd
-
-      map ctrl+w>w select_tab
-      map ctrl+w>n next_tab
-      map ctrl+w>p previous_tab
-      map ctrl+w>0 goto_tab 1
-      map ctrl+w>1 goto_tab 2
-      map ctrl+w>2 goto_tab 3
-      map ctrl+w>3 goto_tab 4
-      map ctrl+w>4 goto_tab 5
-      map ctrl+w>5 goto_tab 6
-      map ctrl+w>6 goto_tab 7
-      map ctrl+w>7 goto_tab 8
-      map ctrl+w>8 goto_tab 9
-      map ctrl+w>9 goto_tab 10
-
-      # tmux sensible keybinding
-      map ctrl+w>ctrl+p previous_tab
-      map ctrl+w>ctrl+n next_tab
-
-      ### Window operations, corresponds to tmux pane ###
-      map ctrl+w>" launch --location=hsplit --cwd=current
-      map ctrl+w>% launch --location=vsplit --cwd=current
-
-      map ctrl+w>x close_window
-      map ctrl+w>f new_window_with_cwd
-
-      map ctrl+w>q focus_visible_window
-      map ctrl+w>o next_window
-
-      map ctrl+w>up neighboring_window up
-      map ctrl+w>down neighboring_window down
-      map ctrl+w>left neighboring_window left
-      map ctrl+w>right neighboring_window right
-
-      map ctrl+w>k neighboring_window up
-      map ctrl+w>j neighboring_window down
-      map ctrl+w>h neighboring_window left
-      map ctrl+w>l neighboring_window right
-
-      ### hints kitten ###
-      # Open file or url
-      map ctrl+w>h>f kitten hints --type=linenum --linenum-action=tab nvim +{line} {path}
-      map ctrl+w>h>u open_url_with_hints
-      # Insert text directly
-      map ctrl+w>h>p kitten hints --type=path --program=-
-      map ctrl+w>h>w kitten hints --type=word --program=-
-      map ctrl+w>h>h kitten hints --type=hash --program=-
-      # Copy text to clipboard
-      map ctrl+w>h>l kitten hints --type=line --program=@
-      map ctrl+w>h>c kitten hints --type=word --program=@
-      map ctrl+w>h>a kitten hints --type=url --program=@
+      # # tmux settings
+      # map ctrl+w>r load_config_file
+      # # Make ctrl+w ctrl+a to send ctrl+a
+      # map ctrl+w>ctrl+a send_text all \x01
+      # map ctrl+shift+2 send_text all \x00
+      #
+      # ### Layout operations ###
+      # # stack layout behaves the same as tmux pane zoom
+      # enabled_layouts splits,stack
+      # map ctrl+w>z toggle_layout stack
+      # map ctrl+w>space layout_action rotate
+      #
+      # ### Tab operations, corresponds to tmux window ###
+      # map ctrl+w>c new_tab
+      # map ctrl+w>& close_tab
+      # map ctrl+w>s new_tab_with_cwd
+      #
+      # map ctrl+w>w select_tab
+      # map ctrl+w>n next_tab
+      # map ctrl+w>p previous_tab
+      # map ctrl+w>0 goto_tab 1
+      # map ctrl+w>1 goto_tab 2
+      # map ctrl+w>2 goto_tab 3
+      # map ctrl+w>3 goto_tab 4
+      # map ctrl+w>4 goto_tab 5
+      # map ctrl+w>5 goto_tab 6
+      # map ctrl+w>6 goto_tab 7
+      # map ctrl+w>7 goto_tab 8
+      # map ctrl+w>8 goto_tab 9
+      # map ctrl+w>9 goto_tab 10
+      #
+      # # tmux sensible keybinding
+      # map ctrl+w>ctrl+p previous_tab
+      # map ctrl+w>ctrl+n next_tab
+      #
+      # ### Window operations, corresponds to tmux pane ###
+      # map ctrl+w>" launch --location=hsplit --cwd=current
+      # map ctrl+w>% launch --location=vsplit --cwd=current
+      #
+      # map ctrl+w>x close_window
+      # map ctrl+w>f new_window_with_cwd
+      #
+      # map ctrl+w>q focus_visible_window
+      # map ctrl+w>o next_window
+      #
+      # map ctrl+w>up neighboring_window up
+      # map ctrl+w>down neighboring_window down
+      # map ctrl+w>left neighboring_window left
+      # map ctrl+w>right neighboring_window right
+      #
+      # map ctrl+w>k neighboring_window up
+      # map ctrl+w>j neighboring_window down
+      # map ctrl+w>h neighboring_window left
+      # map ctrl+w>l neighboring_window right
+      #
+      # ### hints kitten ###
+      # # Open file or url
+      # map ctrl+w>h>f kitten hints --type=linenum --linenum-action=tab nvim +{line} {path}
+      # map ctrl+w>h>u open_url_with_hints
+      # # Insert text directly
+      # map ctrl+w>h>p kitten hints --type=path --program=-
+      # map ctrl+w>h>w kitten hints --type=word --program=-
+      # map ctrl+w>h>h kitten hints --type=hash --program=-
+      # # Copy text to clipboard
+      # map ctrl+w>h>l kitten hints --type=line --program=@
+      # map ctrl+w>h>c kitten hints --type=word --program=@
+      # map ctrl+w>h>a kitten hints --type=url --program=@
     '';
 
     # font = {
@@ -128,19 +140,19 @@
       enable_audio_bell = true;
       visual_bell_duration = 0.2;
       window_alert_on_bell = true;
-      bell_on_tab = true;
+      bell_on_tab = false;
 
       # kitty_mod = "ctrl+shift";
-      clear_all_shortcuts = false;
+      clear_all_shortcuts = true;
     };
 
     # tmux bindings
     keybindings = {
-      "kitty_mod+;" = "previous_tab";
-      "kitty_mod+'" = "next_tab";
-      "kitty_mod+\\" = "goto_tab -1";
-      "kitty_mod+f" = "toggle_layout stack";
-      "kitty_mod+n" = "new_window_with_cwd";
+      # "kitty_mod+;" = "previous_tab";
+      # "kitty_mod+'" = "next_tab";
+      # "kitty_mod+\\" = "goto_tab -1";
+      # "kitty_mod+f" = "toggle_layout stack";
+      # "kitty_mod+n" = "new_window_with_cwd";
       # "kitty_mod+m" = "toggle_layout tall";
 
       # Key Mappings (Default kitty_mod is ctrl+shift)
@@ -189,7 +201,33 @@
       #"kitty_mod+shift+l" = "resize_window wider 20";
       #"kitty_mod+shift+k" = "resize_window taller 20";
       #"kitty_mod+shift+j" = "resize_window shorter 20";
-
+      #
+      #   "background" = "#16181a";
+      #   "foreground" = "#ffffff";
+      #   "cursor" = "#ffffff";
+      #   "cursor_text_color" = "#16181a";
+      #   "selection_background" = "#3c4048";
+      #   "color0" = "#16181a";
+      #   "color8" = "#3c4048";
+      #   "color1" = "#ff6e5e";
+      #   "color9" = "#ff6e5e";
+      #   "color2" = "#5eff6c";
+      #   "color10" = "#5eff6c";
+      #   "color3" = "#f1ff5e";
+      #   "color11" = "#f1ff5e";
+      #   "color4" = "#5ea1ff";
+      #   "color12" = "#5ea1ff";
+      #   "color5" = "#bd5eff";
+      #   "color13" = "#bd5eff";
+      #   "color6" = "#5ef1ff";
+      #   "color14" = "#5ef1ff";
+      #   "color7" = "#ffffff";
+      #   "color15" = "#ffffff";
+      #   "selection_foreground" = "#ffffff";
+      #   "active_tab_foreground" = "#000000";
+      #   "active_tab_background" = "#ffbd5e";
+      #   "inactive_tab_foreground" = "#ffffff";
+      #   "inactive_tab_background" = "#16181a";
     };
   };
 }

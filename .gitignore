@@ -5,3 +5,4 @@ treefmt.toml
 .aider.*
 *.bak
 .aider*
+.claude/

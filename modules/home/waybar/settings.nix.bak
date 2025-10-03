@@ -6,61 +6,93 @@
     "height" = 30; # Waybar height (to be removed for auto height)
     # "width" = 1280; # Waybar width
     "spacing" = 4; # Gaps between modules (4px)
-    # Choose the order of the modules
+
     "modules-left" = [
       "hyprland/workspaces"
-      # "sway/mode"
-      # "sway/scratchpad"
-      "custom/media"
       "hyprland/submap"
-    ];
-    "modules-center" = [
       "hyprland/window"
     ];
+    "modules-center" = [
+    ];
     "modules-right" = [
-      "mpd"
       "idle_inhibitor"
       "custom/notification"
+      "custom/vpn"
+      "privacy"
       "pulseaudio"
       "network"
-      "power-profiles-daemon"
-      "cpu"
-      "memory"
-      "temperature"
-      "backlight"
-      "keyboard-state"
-      "sway/language"
-      "hyprland/language"
+      # "power-profiles-daemon"
+      # "cpu"
+      # "memory"
+      # "temperature"
+      # "backlight"
+      # "hyprland/language"
       "battery"
-      "battery#bat2"
       "clock"
       "tray"
-      "custom/power"
     ];
-    # Modules configuration
-    # "sway/workspaces" = {
-    #     "disable-scroll" = true;
-    #     "all-outputs" = true;
-    #     "warp-on-scroll" = false;
-    #     "format" = "{name}: {icon}"
-    #     "format-icons" = {
-    #         "1" = ""
-    #         "2" = ""
-    #         "3" = ""
-    #         "4" = ""
-    #         "5" = ""
-    #         "urgent" = ""
-    #         "focused" = ""
-    #         "default" = ""
-    #     }
-    # };
+
     "hyprland/workspaces" = {
       # all-outputs = true;
-      on-scroll-up = "hyprctl dispatch workspace m-1";
-      on-scroll-down = "hyprctl dispatch workspace m+1";
+      # on-scroll-up = "hyprctl dispatch workspace r-1";
+      # on-scroll-down = "hyprctl dispatch workspace r+1";
+      disable-scroll = true;
+      all-output = true;
+      show-special = true;
+      # "format" = "{name}: {icon}";
+      # "format-icons" = {
+      #   "1" = "";
+      #   "2" = "";
+      #   "3" = "";
+      #   "4" = "";
+      #   "5" = "";
+      #   "active" = "";
+      #   "default" = "";
+      # };
+      "persistent-workspaces" = {
+        # "DP-1" = 6; # 5 workspaces by default on every monitor
+        # "HDMI-A-2" = 1; # but only three on HDMI-A-1
+      };
     };
 
-    "hyprland/window".separate-outputs = true;
+    "hyprland/window" = {
+      "format" = "❯ {}";
+
+      "rewrite" = {
+        "(.*) — Mozilla Firefox" = "🌎 $1";
+      };
+      "separate-outputs" = true;
+    };
+
+    "hyprland/submap" = {
+      "format" = "✌️ {}";
+      "max-length" = 8;
+      "tooltip" = false;
+    };
+
+    "privacy" = {
+      "icon-spacing" = 4;
+      "icon-size" = 18;
+      "transition-duration" = 250;
+      "modules" = [
+        {
+          "type" = "screenshare";
+          "tooltip" = true;
+          "tooltip-icon-size" = 24;
+        }
+        # {
+        #   "type" = "audio-out";
+        #   "tooltip" = true;
+        #   "tooltip-icon-size" = 24;
+        # }
+        {
+          "type" = "audio-in";
+          "tooltip" = true;
+          "tooltip-icon-size" = 24;
+        }
+      ];
+    };
+
     "keyboard-state" = {
       "numlock" = true;
       "capslock" = true;
@@ -70,46 +102,7 @@
         "unlocked" = "";
       };
     };
-    "sway/mode" = {
-      "format" = "<span style=\"italic\">{}</span>";
-    };
-    "sway/scratchpad" = {
-      "format" = "{icon} {count}";
-      "show-empty" = false;
-      "format-icons" = [
-        ""
-        ""
-      ];
-      "tooltip" = true;
-      "tooltip-format" = "{app}: {title}";
-    };
-    "mpd" = {
-      "format" =
-        "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";
-      "format-disconnected" = "Disconnected ";
-      "format-stopped" = "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ";
-      "unknown-tag" = "N/A";
-      "interval" = 5;
-      "consume-icons" = {
-        "on" = " ";
-      };
-      "random-icons" = {
-        "off" = "<span color=\"#f53c3c\"></span> ";
-        "on" = " ";
-      };
-      "repeat-icons" = {
-        "on" = " ";
-      };
-      "single-icons" = {
-        "on" = "1 ";
-      };
-      "state-icons" = {
-        "paused" = "";
-        "playing" = "";
-      };
-      "tooltip-format" = "MPD (connected)";
-      "tooltip-format-disconnected" = "MPD (disconnected)";
-    };
+
     "idle_inhibitor" = {
       "format" = "{icon}";
       "format-icons" = {
@@ -121,18 +114,22 @@
       # "icon-size" = 21;
       "spacing" = 10;
     };
+
     "clock" = {
       # "timezone" = "America/New_York"
       "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
       "format-alt" = "{:%Y-%m-%d}";
     };
+
     "cpu" = {
       "format" = "{usage}% ";
       "tooltip" = false;
     };
+
     "memory" = {
       "format" = "{}% ";
     };
+
     "temperature" = {
       # "thermal-zone" = 2;
       # "hwmon-path" = "/sys/class/hwmon/hwmon2/temp1_input"
@@ -145,6 +142,7 @@
         ""
       ];
     };
+
     "backlight" = {
       # "device" = "acpi_video1"
       "format" = "{percent}% {icon}";
@@ -160,6 +158,7 @@
         ""
       ];
     };
+
     "battery" = {
       "states" = {
         # "good" = 95;
@@ -181,9 +180,11 @@
         ""
       ];
     };
+
     "battery#bat2" = {
       "bat" = "BAT2";
     };
+
     "power-profiles-daemon" = {
       "format" = "{icon}";
       "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
@@ -195,27 +196,33 @@
         "power-saver" = "";
       };
     };
+
     "network" = {
       # "interface" = "wlp2*" # (Optional) To force the use of this interface
       "format-wifi" = "{essid} ({signalStrength}%) ";
-      "format-ethernet" = "{ipaddr}/{cidr} ";
-      "tooltip-format" = "{ifname} via {gwaddr} ";
-      "format-linked" = "{ifname} (No IP) ";
-      "format-disconnected" = "Disconnected ⚠";
+      "format" = "";
+      "format-ethernet" = " ";
+      "tooltip-format" = "{ifname} via {gwaddr} ";
+      "format-linked" = "(No IP) ";
+      "format-disconnected" = "⚠";
       "format-alt" = "{ifname}: {ipaddr}/{cidr}";
     };
+
     "pulseaudio" = {
-      # "scroll-step" = 1; # %, can be a float
+      "scroll-step" = 5; # %, can be a float
       "format" = "{volume}% {icon} {format_source}";
-      "format-bluetooth" = "{volume}% {icon} {format_source}";
-      "format-bluetooth-muted" = " {icon} {format_source}";
-      "format-muted" = " {format_source}";
-      "format-source" = "{volume}% ";
+      "format-muted" = "󰝟 {format_source}";
+      # "format-muted" = " {format_source}";
+      # "format-bluetooth" = "{volume}% {icon} {format_source}";
+      # "format-bluetooth-muted" = " {icon} {format_source}";
+      # "format-muted" = " {format_source}";
+      # "format-source" = "{volume}% ";
+      "format-source" = "";
       "format-source-muted" = "";
       "format-icons" = {
         "headphone" = "";
-        "hands-free" = "";
-        "headset" = "";
+        "hands-free" = "󰋎";
+        "headset" = "󰋎";
         "phone" = "";
         "portable" = "";
         "car" = "";
@@ -226,31 +233,10 @@
         ];
       };
       "on-click" = "pavucontrol";
+      "on-click-right" = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      "on-click-middle" = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
     };
-    "custom/media" = {
-      "format" = "{icon} {text}";
-      "return-type" = "json";
-      "max-length" = 40;
-      "format-icons" = {
-        "spotify" = "";
-        "default" = "🎜";
-      };
-      "escape" = true;
-      "exec" = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources folder
-      # "exec" = "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" # Filter player based on name
-    };
-    "custom/power" = {
-      "format" = "⏻ ";
-      "tooltip" = false;
-      "menu" = "on-click";
-      "menu-file" = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
-      "menu-actions" = {
-        "shutdown" = "shutdown";
-        "reboot" = "reboot";
-        "suspend" = "systemctl suspend";
-        "hibernate" = "systemctl hibernate";
-      };
-    };
+
     "custom/notification" = {
       "tooltip" = false;
       "format" = "{icon}";
@@ -271,6 +257,15 @@
       "on-click" = "swaync-client -t -sw";
       "on-click-right" = "swaync-client -d -sw";
       "escape" = true;
+    };
+
+    "custom/vpn" = {
+      "format" = "󰯄 VPN";
+      "exec" = "echo '{\"text\":\"VPN\",\"tooltip\":\"VPN Connected\",\"class\":\"connected\"}'";
+      "exec-if" = "ip -o link show | grep -q POINTOPOINT || ip addr show | grep -qE 'inet 10\\.[0-9]+\\.0\\.[0-9]+/32'";
+      "return-type" = "json";
+      "interval" = 5;
+      "tooltip" = true;
     };
   };
 }

@@ -31,6 +31,8 @@
     # like fuzzel dmenu
     wofi
     wofi-emoji
+    walker
+    elephant
 
     mpv
 

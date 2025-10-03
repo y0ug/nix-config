@@ -18,7 +18,8 @@ in
   xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
     "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
     "ELECTRON_OZONE_PLATFORM_HINT=wayland"
-    "TERMINAL=\"${pkgs.wezterm}/bin/wezterm start\""
+    "TERMINAL=\"${pkgs.wezterm}/bin/kitty"
+    # "TERMINAL=\"${pkgs.wezterm}/bin/wezterm start\""
     "HYPRSHOT_DIR=$HOME/Pictures"
     "XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
     "ZK_NOTEBOOK_DIR=$HOME/Notebook"
@@ -151,158 +152,157 @@ in
         # "${run} flameshot"
       ];
 
-      bind =
-        [
-          "$mainMod SHIFT, f2, exec, ${run} $HOME/.local/bin/screenON.sh"
+      bind = [
+        "$mainMod SHIFT, f2, exec, ${run} $HOME/.local/bin/screenON.sh"
 
-          ", XF86Terminal, exec, $terminal"
-          ", XF86Calculater, exec, ${lib.getExe pkgs.qalculate-gtk}"
-          # ", XF86AudioMedia, exec, ${lib.getExe pkgs.mpv}"
-          ", XF86WWW, exec, ${run} ${lib.getExe pkgs.ungoogled-chromium}"
-          ", XF86ScreenSaver, exec, ${run} ${lib.getExe pkgs.hyprlock}"
+        ", XF86Terminal, exec, $terminal"
+        ", XF86Calculater, exec, ${lib.getExe pkgs.qalculate-gtk}"
+        # ", XF86AudioMedia, exec, ${lib.getExe pkgs.mpv}"
+        ", XF86WWW, exec, ${run} ${lib.getExe pkgs.ungoogled-chromium}"
+        ", XF86ScreenSaver, exec, ${run} ${lib.getExe pkgs.hyprlock}"
 
-          "$mainMod CTRL, Escape, exec, ${run} hyprlock"
-          "$mainMod CTRL SHIFT, Escape, exec, ${run} wlogout"
+        "$mainMod CTRL, Escape, exec, ${run} hyprlock"
+        "$mainMod CTRL SHIFT, Escape, exec, ${run} wlogout"
 
-          "$mainMod, B, exec, ${run} ${lib.getExe pkgs.ungoogled-chromium}"
-          "$mainMod, E, exec, $fileManager"
-          "$mainMod, R, exec, $menu"
-          "$mainMod, T, exec, $terminal"
-          "$mainMod, RETURN, exec, $terminal"
-          "$mainMod, SPACE, exec, $menu"
-          "$mainMod ALT, SPACE, exec, ${run} hyprlist.sh"
-          "$mainMod SHIFT, N, exec, ${run} swaync-client -t -sw"
-          # "$mainMod N, exec, ${run} makoctl menu fuzzel -d"
-          "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
+        "$mainMod, B, exec, ${run} ${lib.getExe pkgs.ungoogled-chromium}"
+        "$mainMod, E, exec, $fileManager"
+        "$mainMod, R, exec, $menu"
+        "$mainMod, T, exec, $terminal"
+        "$mainMod, RETURN, exec, $terminal"
+        "$mainMod, SPACE, exec, $menu"
+        "$mainMod ALT, SPACE, exec, ${run} hyprlist.sh"
+        "$mainMod SHIFT, N, exec, ${run} swaync-client -t -sw"
+        # "$mainMod N, exec, ${run} makoctl menu fuzzel -d"
+        "$mainMod SHIFT, V, exec, ${runOnce "cliphist"} list | fuzzel --dmenu | cliphist decode | wl-copy"
 
-          "$mainMod SHIFT, S, exec, ${run} screenshot window"
-          "$mainMod CTRL, S, exec, ${run} screenshot monitor"
-          "$mainMod, S, exec, ${run} screenshot region"
+        "$mainMod SHIFT, S, exec, ${run} screenshot window"
+        "$mainMod CTRL, S, exec, ${run} screenshot monitor"
+        "$mainMod, S, exec, ${run} screenshot region"
 
-          # emoji
-          "$mainMod , dot, exec, ${toggle "wofi-emoji"}"
+        # emoji
+        "$mainMod , dot, exec, ${toggle "wofi-emoji"}"
 
-          "$mainMod , F1, exec , ${run} hyprbinds.sh"
-          "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
+        "$mainMod , F1, exec , ${run} hyprbinds.sh"
+        "$mainMod SHIFT, A, exec, ${run} correct-clip.sh"
 
-          "$mainMod SHIFT, Q, killactive," # avoid fat finger in $mainMod + 1
-          "$mainMod CTRL SHIFT, Q, forcekillactive,"
-          "$mainMod SHIFT CTRL, RETURN, fullscreen,"
-          "$mainMod SHIFT, RETURN, fullscreen,1"
-          "$mainMod, M, layoutmsg, movetoroot"
+        "$mainMod SHIFT, Q, killactive," # avoid fat finger in $mainMod + 1
+        "$mainMod CTRL SHIFT, Q, forcekillactive,"
+        "$mainMod SHIFT CTRL, RETURN, fullscreen,"
+        "$mainMod SHIFT, RETURN, fullscreen,1"
+        "$mainMod, M, layoutmsg, movetoroot"
 
-          "$mainMod, G, togglegroup,"
-          "$mainMod SHIFT, N, changegroupactive, f"
-          "$mainMod SHIFT, P, changegroupactive, b"
-          # "$mainMod, I, changegroupactive, b"
-          # "$mainMod, O, changegroupactive, f"
+        "$mainMod, G, togglegroup,"
+        "$mainMod SHIFT, N, changegroupactive, f"
+        "$mainMod SHIFT, P, changegroupactive, b"
+        # "$mainMod, I, changegroupactive, b"
+        # "$mainMod, O, changegroupactive, f"
 
-          "$mainMod, V, togglesplit, # dwindle"
-          "$mainMod, F, togglefloating,"
-          "$mainMod SHIFT, C, resizeactive, exact 60% 70%"
-          "$mainMod SHIFT, C, centerwindow,"
-          "$mainMod, P, pseudo, # dwindle"
-          "$mainMod SHIFT CTRL, P, pin" # pin the window
-          # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
+        "$mainMod, V, togglesplit, # dwindle"
+        "$mainMod, F, togglefloating,"
+        "$mainMod SHIFT, C, resizeactive, exact 60% 70%"
+        "$mainMod SHIFT, C, centerwindow,"
+        "$mainMod, P, pseudo, # dwindle"
+        "$mainMod SHIFT CTRL, P, pin" # pin the window
+        # "$mainMod SHIFT, P, layoutmsg, movetoroot" # dwindle
 
-          # Move focus focus with mainMod + arrow keys
-          "$mainMod, h, movefocus, l"
-          "$mainMod, l, movefocus, r"
-          "$mainMod, k, movefocus, u"
-          "$mainMod, j, movefocus, d"
+        # Move focus focus with mainMod + arrow keys
+        "$mainMod, h, movefocus, l"
+        "$mainMod, l, movefocus, r"
+        "$mainMod, k, movefocus, u"
+        "$mainMod, j, movefocus, d"
 
-          "$mainMod, h, alterzorder, top"
-          "$mainMod, l, alterzorder, top"
-          "$mainMod, k, alterzorder, top"
-          "$mainMod, j, alterzorder, top"
+        "$mainMod, h, alterzorder, top"
+        "$mainMod, l, alterzorder, top"
+        "$mainMod, k, alterzorder, top"
+        "$mainMod, j, alterzorder, top"
 
-          "$mainMod CTRL SHIFT, h, movewindoworgroup, l"
-          "$mainMod CTRL SHIFT, l, movewindoworgroup, r"
-          "$mainMod CTRL SHIFT, k, movewindoworgroup, u"
-          "$mainMod CTRL SHIFT, j, movewindoworgroup, d"
+        "$mainMod CTRL SHIFT, h, movewindoworgroup, l"
+        "$mainMod CTRL SHIFT, l, movewindoworgroup, r"
+        "$mainMod CTRL SHIFT, k, movewindoworgroup, u"
+        "$mainMod CTRL SHIFT, j, movewindoworgroup, d"
 
-          "$mainMod SHIFT, h, swapwindow, l"
-          "$mainMod SHIFT, l, swapwindow, r"
-          "$mainMod SHIFT, k, swapwindow, u"
-          "$mainMod SHIFT, j, swapwindow, d"
+        "$mainMod SHIFT, h, swapwindow, l"
+        "$mainMod SHIFT, l, swapwindow, r"
+        "$mainMod SHIFT, k, swapwindow, u"
+        "$mainMod SHIFT, j, swapwindow, d"
 
-          "$mainMod ALT, h, resizeactive, -20 0"
-          "$mainMod ALT, j, resizeactive, 0 20"
-          "$mainMod ALT, k, resizeactive, 0 -20"
-          "$mainMod ALT, l, resizeactive, 20 0"
+        "$mainMod ALT, h, resizeactive, -20 0"
+        "$mainMod ALT, j, resizeactive, 0 20"
+        "$mainMod ALT, k, resizeactive, 0 -20"
+        "$mainMod ALT, l, resizeactive, 20 0"
 
-          "$mainMod CTRL ALT, h, moveactive, -100 0"
-          "$mainMod CTRL ALT, j, moveactive, 0 100"
-          "$mainMod CTRL ALT, k, moveactive, 0 -100"
-          "$mainMod CTRL ALT, l, moveactive, 100 0"
+        "$mainMod CTRL ALT, h, moveactive, -100 0"
+        "$mainMod CTRL ALT, j, moveactive, 0 100"
+        "$mainMod CTRL ALT, k, moveactive, 0 -100"
+        "$mainMod CTRL ALT, l, moveactive, 100 0"
 
-          "$mainMod, left, movefocus, l"
-          "$mainMod, right, movefocus, r"
-          "$mainMod, up, movefocus, u"
-          "$mainMod, down, movefocus, d"
+        "$mainMod, left, movefocus, l"
+        "$mainMod, right, movefocus, r"
+        "$mainMod, up, movefocus, u"
+        "$mainMod, down, movefocus, d"
 
-          "$mainMod ALT, left, resizeactive, -40 0"
-          "$mainMod ALT, right, resizeactive, 0 40"
-          "$mainMod ALT, up, resizeactive, 0 -40"
-          "$mainMod ALT, down, resizeactive, 40 0"
+        "$mainMod ALT, left, resizeactive, -40 0"
+        "$mainMod ALT, right, resizeactive, 0 40"
+        "$mainMod ALT, up, resizeactive, 0 -40"
+        "$mainMod ALT, down, resizeactive, 40 0"
 
-          "$mainMod, N, movetoworkspace, empty"
-          "$mainMod, O, movecurrentworkspacetomonitor,+1"
-          "$mainMod SHIFT, O, movewindow, mon:+1"
-          "$mainMod, GRAVE, workspace, previous"
+        "$mainMod, N, movetoworkspace, empty"
+        "$mainMod, O, movecurrentworkspacetomonitor,+1"
+        "$mainMod SHIFT, O, movewindow, mon:+1"
+        "$mainMod, GRAVE, workspace, previous"
 
-          "ALT, tab, cyclenext,"
-          "ALT, tab, alterzorder, top"
-          "ALT SHIFT, tab, cyclenext, prev"
-          "ALT SHIFT, tab, alterzorder, top"
-          "$mainMod, tab, focusurgentorlast,"
+        "ALT, tab, cyclenext,"
+        "ALT, tab, alterzorder, top"
+        "ALT SHIFT, tab, cyclenext, prev"
+        "ALT SHIFT, tab, alterzorder, top"
+        "$mainMod, tab, focusurgentorlast,"
 
-          # "$mainMod SHIFT, U, movecurrentworkspacetomonitor,+1"
-          # "$mainMod SHIFT, D, movecurrentworkspacetomonitor, -1"
-          # "$mainMod, U, movewindow, mon:+1"
-          # "$mainMod, D, movewindow, mon:-1"
+        # "$mainMod SHIFT, U, movecurrentworkspacetomonitor,+1"
+        # "$mainMod SHIFT, D, movecurrentworkspacetomonitor, -1"
+        # "$mainMod, U, movewindow, mon:+1"
+        # "$mainMod, D, movewindow, mon:-1"
 
-          "$mainMod, Z, togglespecialworkspace, scratchpad"
-          "$mainMod SHIFT, Z, movetoworkspace, special:scratchpad"
-          "$mainMod SHIFT CTRL, Z, movetoworkspace, e+0"
-          # "$mainMod SHIFT CTRL, Z, togglespecialworkspace, minimized"
+        "$mainMod, Z, togglespecialworkspace, scratchpad"
+        "$mainMod SHIFT, Z, movetoworkspace, special:scratchpad"
+        "$mainMod SHIFT CTRL, Z, movetoworkspace, e+0"
+        # "$mainMod SHIFT CTRL, Z, togglespecialworkspace, minimized"
 
-          "$mainMod, X, togglespecialworkspace, minimized"
-          "$mainMod SHIFT, X, movetoworkspacesilent, special:minimized"
-          "$mainMod SHIFT CTRL, X, movetoworkspace, e+0"
-          # "$mainMod SHIFT CTRL, X, togglespecialworkspace, minimized"
+        "$mainMod, X, togglespecialworkspace, minimized"
+        "$mainMod SHIFT, X, movetoworkspacesilent, special:minimized"
+        "$mainMod SHIFT CTRL, X, movetoworkspace, e+0"
+        # "$mainMod SHIFT CTRL, X, togglespecialworkspace, minimized"
 
-          # Scroll through existing workspaces with mainMod + scroll
-          "$mainMod, mouse_down, workspace, m+1"
-          "$mainMod, mouse_up, workspace, m-1"
+        # Scroll through existing workspaces with mainMod + scroll
+        "$mainMod, mouse_down, workspace, m+1"
+        "$mainMod, mouse_up, workspace, m-1"
 
-          "$mainMod, bracketleft, workspace, m-1"
-          "$mainMod, bracketright, workspace, m+1"
+        "$mainMod, bracketleft, workspace, m-1"
+        "$mainMod, bracketright, workspace, m+1"
 
-          "$mainMod SHIFT, bracketleft, movetoworkspace, m-1"
-          "$mainMod SHIFT, bracketright, movetoworkspace, m+1"
+        "$mainMod SHIFT, bracketleft, movetoworkspace, m-1"
+        "$mainMod SHIFT, bracketright, movetoworkspace, m+1"
 
-        ]
-        ++ (
-          # workspaces
-          # binds $mainMod + [shift +] {1..10} to [move to] workspace {1..10}
-          builtins.concatLists (
-            builtins.genList (
-              x:
-              let
-                ws =
-                  let
-                    c = (x + 1) / 10;
-                  in
-                  builtins.toString (x + 1 - (c * 10));
-              in
-              [
-                "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
-                "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-              ]
-            ) 10
-          )
-        );
+      ]
+      ++ (
+        # workspaces
+        # binds $mainMod + [shift +] {1..10} to [move to] workspace {1..10}
+        builtins.concatLists (
+          builtins.genList (
+            x:
+            let
+              ws =
+                let
+                  c = (x + 1) / 10;
+                in
+                builtins.toString (x + 1 - (c * 10));
+            in
+            [
+              "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
+              "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+            ]
+          ) 10
+        )
+      );
 
       bindm = [
         # Move/resize windows with mainMod + LMB/RMB and dragging

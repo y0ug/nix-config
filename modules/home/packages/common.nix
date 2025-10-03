@@ -1,6 +1,19 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; ([
+    nvimpager
+    lux # video downloader
+    yt-dlp # youtube DL
+    tree-sitter
+    (pass-wayland.withExtensions (
+      exts: with exts; [
+        pass-otp
+        pass-import
+        pass-genphrase
+        pass-update
+      ]
+    ))
+
     gcc
     nixfmt-rfc-style
     # it provides the command `nom` works just like `nix`
@@ -14,7 +27,10 @@
     nushell
     atuin # shell history
     tmux
+    zellij
 
+    carapace
+    vivid # terminal color scheme
     man-pages # extra man pages
     tlrc # better man tldr
     killall
@@ -62,6 +78,8 @@
     wget
     lynx
     xh # curl replacement for API
+
+    delta
 
     # utils
     ripgrep # recursively searches directories for a regex pattern
@@ -137,7 +155,8 @@
     cargo
 
     nodejs
-    pnpm
+    # pnpm
+    bun
 
     # fzf-preview.sh dependencies
     imgcat
@@ -145,6 +164,7 @@
     file
 
     ast-grep
+    wireguard-tools
   ]);
 
   programs.go = {
@@ -166,7 +186,7 @@
   programs.bat.enable = true;
   programs.htop.enable = true;
   # programs.tmux.enable = true;
-  programs.starship.enable = true;
+  # programs.starship.enable = true;
   programs.bash.enable = true;
   # program.lazygit.enable = true;
 

@@ -8,7 +8,7 @@
       general = {
         after_sleep_cmd = "hyprctl dispatch dpms on";
         before_sleep_cmd = "loginctl lock-session";
-        lock_cmd = "hyprlock";
+        lock_cmd = "hyprlock --grace 15";
       };
 
       listener = [

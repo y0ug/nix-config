@@ -13,8 +13,6 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
-      "ida-pro"
-      "claude-code"
       # "vmware-workstation"
     ];
 
@@ -25,6 +23,7 @@
     nautilus
     vesktop
     eog
+    browserpass
 
     trash-cli # trash-put instead of rm
 
@@ -39,7 +38,8 @@
     vscodium
     zed-editor
     weechat
-    ungoogled-chromium
+    chromium
+    # ungoogled-chromium
     mutt
     aerc # mutt alternative
     aba # aerc contact
@@ -47,7 +47,7 @@
     swappy # screenshot annotation
 
     krita # image editor, kde :(
-    gimp-with-plugins
+    # gimp-with-plugins
     inkscape
     pinta
     qview
@@ -90,8 +90,6 @@
     lame
     (sox.override { enableLame = true; })
 
-    anki # flashcards
-
     # qalculate
     qalculate-gtk
     programmer-calculator # pcalc
@@ -101,9 +99,9 @@
     mosh
 
     # raw image editor
-    darktable
-    digikam
-    rawtherapee
+    # garktable
+    # digikam
+    # rawtherapee
 
     valent
     localsend
@@ -112,12 +110,18 @@
     # claude-code
     meld # git diff tool GUI
 
+    # for binary ninja
+    libglvnd # For libEGL
+    act # local github actions
     mitmproxy
-    (callPackage ida-pro {
-      # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
-      # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
-      runfile = /nix/store/s9gq70w56355yrg33054g97zscr3r64i-ida-pro_91_x64linux.run;
-    })
+    # (callPackage ida-pro {
+    #   # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
+    #   # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
+    #   runfile = /nix/store/s9gq70w56355yrg33054g97zscr3r64i-ida-pro_91_x64linux.gghkjkrun;
+    # })
+
+    inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
+    eigenwallet
   ]);
 
   # programs.vesktop = {

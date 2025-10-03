@@ -19,9 +19,11 @@
       url = "github:msanft/ida-pro-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/vm/vmware-workstation/package.nix
-    vmware-pinned.url = "github:NixOS/nixpkgs/8a119c8042c38c2f6ea0e47bc0f0ddcc1b1a44bd";
+    elephant = {
+      url = "github:abenz1267/elephant";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
 
     # hyprswitch.url = "github:h3rmt/hyprswitch/release";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -52,7 +54,8 @@
     #   url = "github:cachix/pre-commit-hooks.nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    glovebox.url = "git+ssh://git@github.com:/y0ug/glovebox.git?ref=dev";
+    # glovebox.url = "git+ssh://git@github.com:/caddyglow/zmk-glovebox.git?ref=main";
+    glovebox.url = "github:/caddyglow/zmk-glovebox?ref=main";
   };
 
   outputs =
@@ -64,7 +67,7 @@
       home-manager,
       glovebox,
       ida-pro-overlay,
-      vmware-pinned,
+      elephant,
       # hyprland,
       # hyprland-plugins,
       ...

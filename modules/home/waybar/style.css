@@ -82,8 +82,13 @@ button:hover {
 #scratchpad,
 #power-profiles-daemon,
 #custom-notification,
+#custom-vpn,
 #mpd {
     padding: 0 10px;
+}
+
+#custom-vpn {
+    color: #f14c4c;
 }
 
 /* If workspaces is the leftmost module, omit left margin */

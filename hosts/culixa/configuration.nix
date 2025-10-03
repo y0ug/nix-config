@@ -236,7 +236,8 @@
     enable = true;
     autoEnable = true;
     polarity = "dark";
-    base16Scheme = "${toString ../../modules/themes/stylix/base16-vscode-dark.yaml}";
+    # base16Scheme = "${toString ../../modules/themes/stylix/base16-vscode-dark.yaml}";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
 
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyodark.yaml";
     opacity = {
@@ -392,7 +393,7 @@
     });
   '';
 
-  security.pki.certificateFiles = [ ../../certs/mitmproxy-cat-cert.pem ];
+  security.pki.certificateFiles = [ ../../certs/mitmproxy-ca-cert.pem ];
 
   programs.mosh.enable = true;
 }

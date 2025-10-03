@@ -11,14 +11,14 @@
   services.displayManager.sddm.enable = lib.mkForce false;
   # services.displayManager.greetd.enable = lib.mkForce true;
   environment.systemPackages = with pkgs; [
-    greetd.tuigreet
+    tuigreet
     # hints
   ];
   services.greetd = lib.mkForce {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'uwsm start hyprland-uwsm.desktop'";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'uwsm start hyprland-uwsm.desktop'";
       };
       terminal = {
         vt = "4";
@@ -83,6 +83,7 @@
     login.enableGnomeKeyring = true;
     ly.enableGnomeKeyring = true;
     greetd.enableGnomeKeyring = true;
+    tuigreet.enableGnomeKeyring = true;
     hyprland.enableGnomeKeyring = true;
   };
   security.polkit.enable = true;

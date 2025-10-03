@@ -17,6 +17,7 @@
     "modules-right" = [
       "idle_inhibitor"
       "custom/notification"
+      "custom/vpn"
       "privacy"
       "pulseaudio"
       "network"
@@ -256,6 +257,15 @@
       "on-click" = "swaync-client -t -sw";
       "on-click-right" = "swaync-client -d -sw";
       "escape" = true;
+    };
+
+    "custom/vpn" = {
+      "format" = "󰯄 VPN";
+      "exec" = "echo '{\"text\":\"VPN\",\"tooltip\":\"VPN Connected\",\"class\":\"connected\"}'";
+      "exec-if" = "ip -o link show | grep -q POINTOPOINT || ip addr show | grep -qE 'inet 10\\.[0-9]+\\.0\\.[0-9]+/32'";
+      "return-type" = "json";
+      "interval" = 5;
+      "tooltip" = true;
     };
   };
 }
