@@ -16,7 +16,7 @@
 
     # bleachbit # disk cleaner
 
-    pamixer # pulse audio cli tools
+    # pamixer # pulse audio cli tools
     pavucontrol # pulse audio volume control
     qpwgraph # graphical patchbay for pipewire
 

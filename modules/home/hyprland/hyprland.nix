@@ -32,7 +32,6 @@
     wofi
     wofi-emoji
     walker
-    elephant
 
     mpv
 

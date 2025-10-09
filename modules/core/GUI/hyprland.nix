@@ -5,8 +5,8 @@
   ...
 }:
 {
-  services.xserver.desktopManager.gnome.enable = lib.mkForce false;
-  services.xserver.displayManager.lightdm.enable = lib.mkForce false;
+  # services.displayManager.lightdm.enable = lib.mkForce false;
+  services.desktopManager.gnome.enable = lib.mkForce false;
   services.displayManager.ly.enable = lib.mkForce false;
   services.displayManager.sddm.enable = lib.mkForce false;
   # services.displayManager.greetd.enable = lib.mkForce true;
@@ -14,6 +14,7 @@
     tuigreet
     # hints
   ];
+  services.input-remapper.enable = true;
   services.greetd = lib.mkForce {
     enable = true;
     settings = {

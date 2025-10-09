@@ -116,7 +116,7 @@
       allow_remote_control = "socket-only";
       listen_on = if pkgs.stdenv.isLinux then "unix:@kitty" else "unix:/tmp/kitty";
 
-      enabled_layouts = "tall,stack, fat, grid, splits, horizontal, vertical";
+      # enabled_layouts = "tall,stack, fat, grid, splits, horizontal, vertical";
       # enabled_layouts = "";
 
       notify_on_cmd_finish = "invisible 5.0 command notify-send \"job finished with status: %s\" %c";
@@ -143,7 +143,7 @@
       bell_on_tab = false;
 
       # kitty_mod = "ctrl+shift";
-      clear_all_shortcuts = true;
+      # clear_all_shortcuts = true;
     };
 
     # tmux bindings

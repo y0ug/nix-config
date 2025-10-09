@@ -220,6 +220,7 @@
     isNormalUser = true;
     description = "rick";
     extraGroups = [
+      "users"
       "docker"
       "networkmanager"
       "wheel"

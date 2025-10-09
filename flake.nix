@@ -22,7 +22,13 @@
     elephant = {
       url = "github:abenz1267/elephant";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
+      # inputs.systems.follows = "systems";
+    };
+    binaryninja = {
+      url = "github:jchv/nix-binary-ninja";
+
+      # Optional, but recommended.
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # hyprswitch.url = "github:h3rmt/hyprswitch/release";
@@ -55,7 +61,7 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
     # glovebox.url = "git+ssh://git@github.com:/caddyglow/zmk-glovebox.git?ref=main";
-    glovebox.url = "github:/caddyglow/zmk-glovebox?ref=main";
+    # glovebox.url = "github:/caddyglow/zmk-glovebox?ref=main";
   };
 
   outputs =
@@ -65,26 +71,37 @@
       stylix,
       nix-darwin,
       home-manager,
-      glovebox,
+      # glovebox,
       ida-pro-overlay,
       elephant,
+      binaryninja,
       # hyprland,
       # hyprland-plugins,
       ...
     }:
     let
       # Define your custom overlay
-      customPkgsOverlay = selfPkgs: superPkgs: {
-        # You can namespace your packages if you like, e.g., mycustom.hints
-        # Or add them directly to pkgs
-        hints = superPkgs.callPackage ./modules/packages/python/hints.nix {
-          # Pass any specific dependencies from pkgs if hints.nix needed them
-          # beyond what callPackage automatically provides.
-          # For your current hints.nix, this is usually enough.
+      customPkgsOverlay =
+        selfPkgs: superPkgs:
+        let
+          intelOverlay = import ./modules/overlays/interl-gc-overlay.nix;
+          intelOverlayResult = intelOverlay selfPkgs superPkgs;
+        in
+        {
+          # You can namespace your packages if you like, e.g., mycustom.hints
+          # Or add them directly to pkgs
+          hints = superPkgs.callPackage ./modules/packages/python/hints.nix {
+            # Pass any specific dependencies from pkgs if hints.nix needed them
+            # beyond what callPackage automatically provides.
+            # For your current hints.nix, this is usually enough.
+          };
+
+          intel-graphics-compiler = intelOverlayResult.intel-graphics-compiler;
+          libvdpau-va-gl = intelOverlayResult.libvdpau-va-gl;
+          # ctranslate2 = intelOverlayResult.ctranslate2;
+          # If you had other custom packages:
+          # anotherCoolPackage = superPkgs.callPackage ./packages/another/package.nix {};
         };
-        # If you had other custom packages:
-        # anotherCoolPackage = superPkgs.callPackage ./packages/another/package.nix {};
-      };
 
       # List of overlays to apply. Your ida-pro-overlay also provides one.
       commonOverlays = [

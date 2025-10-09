@@ -13,7 +13,8 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
-      # "vmware-workstation"
+      "ida-pro"
+      # pkg.ida-pro
     ];
 
   # package = pkgs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -77,7 +78,7 @@
 
     git-filter-repo
     devenv
-    inputs.glovebox.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # inputs.glovebox.packages.${pkgs.stdenv.hostPlatform.system}.default
     #inputs.glovebox
     openai-whisper
     openai-whisper-cpp
@@ -103,6 +104,16 @@
     # digikam
     # rawtherapee
 
+    inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
+    (
+      inputs.binaryninja.packages.${pkgs.stdenv.hostPlatform.system}.binary-ninja-commercial-wayland.override
+      {
+        # overrideSource = /home/rick/labvz/binaryninja_linux_stable_commercial.zip;
+        overrideSource = /home/rick/fast/binaryninja_linux_stable_personal.zip;
+        python3 = pkgs.python312;
+      }
+    )
+
     valent
     localsend
     # kdePackages.kdeconnect-kde
@@ -114,13 +125,12 @@
     libglvnd # For libEGL
     act # local github actions
     mitmproxy
-    # (callPackage ida-pro {
-    #   # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
-    #   # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
-    #   runfile = /nix/store/s9gq70w56355yrg33054g97zscr3r64i-ida-pro_91_x64linux.gghkjkrun;
-    # })
+    (callPackage ida-pro {
+      # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
+      # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
+      runfile = /home/rick/Downloads/ida-pro_92_x64linux.run;
+    })
 
-    inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     eigenwallet
   ]);
 
