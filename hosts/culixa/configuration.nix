@@ -50,15 +50,25 @@
     };
   };
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader = {
+    timeout = 1;
+    systemd-boot.enable = true;
+    systemd-boot.configurationLimit = 5;
+  };
+
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" ];
+  # boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
 
   boot.extraModprobeConfig = "options kvm_intel nested=1";
   boot.blacklistedKernelModules = [
     "vmmon"
     "vmnet"
+  ];
+
+  boot.kernelModules = [
+    "loop"
+    "r8125"
   ];
 
   hardware.graphics = {
@@ -83,6 +93,7 @@
   # Enable networking
   networking.networkmanager.enable = false;
 
+  systemd.services.networkd-wait-online.enable = false;
   systemd.network = {
     enable = true;
     wait-online.anyInterface = true;
@@ -149,6 +160,8 @@
         };
         dhcpV4Config = {
           UseGateway = false;
+          UseDNS = false; # ignore DNS from DHCP on br1
+          UseDomains = false; # stops DHCP search suffixes too
         };
       };
 
@@ -164,6 +177,13 @@
         linkConfig = {
           # or "routable" with IP addresses configured
           RequiredForOnline = "carrier";
+        };
+        dhcpV4Config = {
+          UseGateway = false;
+          UseDomains = false; # stops DHCP search suffixes too
+          UseDNS = false; # ignore DNS from DHCP on br1
+        };
+        dhcpConfig = {
         };
       };
     };
@@ -188,7 +208,15 @@
   '';
 
   # Docker
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+  };
+
+  # on demand starting of the docker daemon via socket
+  systemd.services.docker = {
+    wants = [ "docker.socket" ];
+  };
 
   # Virt-manager and qemu
   programs.virt-manager.enable = true;
@@ -373,6 +401,7 @@
     };
     extraReversePathFilterRules = ''
       iifname br1 accept 
+      iifname br2 accept 
     '';
   };
 

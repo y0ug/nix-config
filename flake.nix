@@ -5,7 +5,9 @@
 
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/b9cc362095b0b08186cf5693b84b00ef4bbd9739";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -19,10 +21,11 @@
       url = "github:msanft/ida-pro-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    elephant = {
-      url = "github:abenz1267/elephant";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.systems.follows = "systems";
+    elephant.url = "github:abenz1267/elephant";
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
     };
     binaryninja = {
       url = "github:jchv/nix-binary-ninja";
@@ -74,6 +77,7 @@
       # glovebox,
       ida-pro-overlay,
       elephant,
+      walker,
       binaryninja,
       # hyprland,
       # hyprland-plugins,
@@ -96,8 +100,8 @@
             # For your current hints.nix, this is usually enough.
           };
 
-          intel-graphics-compiler = intelOverlayResult.intel-graphics-compiler;
-          libvdpau-va-gl = intelOverlayResult.libvdpau-va-gl;
+          # intel-graphics-compiler = intelOverlayResult.intel-graphics-compiler;
+          # libvdpau-va-gl = intelOverlayResult.libvdpau-va-gl;
           # ctranslate2 = intelOverlayResult.ctranslate2;
           # If you had other custom packages:
           # anotherCoolPackage = superPkgs.callPackage ./packages/another/package.nix {};

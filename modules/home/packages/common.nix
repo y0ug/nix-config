@@ -21,6 +21,7 @@
     nix-output-monitor
     nh # nix cli helper
 
+    gnumake
     direnv
 
     zsh
@@ -169,7 +170,7 @@
 
   programs.go = {
     enable = true;
-    env.GOPATH = ".go";
+    env.GOPATH = "$HOME/.go";
   };
 
   programs.fzf = {
@@ -187,7 +188,7 @@
   programs.htop.enable = true;
   # programs.tmux.enable = true;
   # programs.starship.enable = true;
-  programs.bash.enable = true;
+  # programs.bash.enable = true;
   # program.lazygit.enable = true;
 
   # programs.delta = {

@@ -16,7 +16,9 @@
       "ida-pro"
       # pkg.ida-pro
     ];
+  imports = [ inputs.walker.homeManagerModules.default ];
 
+  programs.walker.enable = true;
   # package = pkgs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   home.packages = with pkgs; ([
     mattermost-desktop
@@ -47,7 +49,7 @@
     satty # screenshot annotation
     swappy # screenshot annotation
 
-    krita # image editor, kde :(
+    # krita # image editor, kde :(
     # gimp-with-plugins
     inkscape
     pinta
@@ -104,14 +106,19 @@
     # digikam
     # rawtherapee
 
-    inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (
-      inputs.binaryninja.packages.${pkgs.stdenv.hostPlatform.system}.binary-ninja-commercial-wayland.override
-      {
-        # overrideSource = /home/rick/labvz/binaryninja_linux_stable_commercial.zip;
-        overrideSource = /home/rick/fast/binaryninja_linux_stable_personal.zip;
-        python3 = pkgs.python312;
-      }
+      (
+        inputs.binaryninja.packages.${pkgs.stdenv.hostPlatform.system}.binary-ninja-commercial-wayland.override
+        {
+          # overrideSource = /home/rick/labvz/binaryninja_linux_stable_commercial.zip;
+          overrideSource = /home/rick/fast/binaryninja_linux_stable_personal.zip;
+          python3 = pkgs.python312;
+        }
+      ).overrideAttrs
+      (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
+      })
     )
 
     valent
@@ -125,13 +132,22 @@
     libglvnd # For libEGL
     act # local github actions
     mitmproxy
-    (callPackage ida-pro {
-      # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
-      # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
-      runfile = /home/rick/Downloads/ida-pro_92_x64linux.run;
-    })
+    (
+      let
+        baseIdaPro = callPackage ida-pro {
+          # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
+          # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
+          runfile = /home/rick/Downloads/ida-pro_92_x64linux.run;
+        };
+      in
+      callPackage ../../packages/ida-pro-with-venv.nix {
+        ida-pro-package = baseIdaPro;
+      }
+    )
 
     eigenwallet
+    wl-kbptr
+    wlrctl
   ]);
 
   # programs.vesktop = {

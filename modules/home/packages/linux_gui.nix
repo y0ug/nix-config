@@ -27,5 +27,5 @@
     iwmenu
     bzmenu
   ]);
-
+  programs.rofi.enable = true;
 }

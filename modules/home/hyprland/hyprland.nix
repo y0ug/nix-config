@@ -6,6 +6,7 @@
     hyprsunset
     hyprshot
     hyprcursor
+    hyprsysteminfo
     # inputs.hyprswitch.packages.x86_64-linux.default
 
     # fileManager
@@ -30,8 +31,8 @@
 
     # like fuzzel dmenu
     wofi
+    rofi
     wofi-emoji
-    walker
 
     mpv
 
@@ -41,7 +42,7 @@
     # bitwarden-cli
 
     # polkit
-    hyprpolkitagent
+    # hyprpolkitagent
     # gcr
 
     seahorse
@@ -51,5 +52,5 @@
   # services.mpd-mpris.enable = true;
   # services.mpd.enable = true;
   services.playerctld.enable = true;
-
+  services.hyprpolkitagent.enable = true;
 }

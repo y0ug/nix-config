@@ -34,4 +34,7 @@
 
   programs.appimage.binfmt = true;
   programs.command-not-found.enable = false;
+  boot.binfmt.emulatedSystems = [
+    "x86_64-windows"
+  ];
 }

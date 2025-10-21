@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ./packages/common.nix
@@ -15,4 +15,13 @@
   ];
   #nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
+
+  # home-manager.useGlobalPkgs = true;
+  # home-manager.useUserPackages = true;
+
+  # Make it non-blocking
+  # systemd.services.home-manager-rick = {
+  #   after = [ "graphical.target" ];
+  #   wantedBy = lib.mkForce [ ];
+  # };
 }
