@@ -3,8 +3,8 @@
     ./hardware-configuration.nix
     ../../modules/core/system.nix
     ../../modules/core/user.nix
-    ../../modules/core/GUI
-    ../../modules/core/GUI/hyprland.nix
+    ../../modules/core/gui
+    ../../modules/core/gui/hyprland.nix
   ];
   boot.kernelModules = [ "hv_vmbus" "hv_storvsc" "hv_netvsc" "hyperv_fb" ];
   # Use the systemd-boot EFI boot loader.
@@ -13,6 +13,13 @@
   system.stateVersion = "24.11";
 
   networking.hostName = "nixos-vm";
+
+  # Stylix configuration
+  stylix = {
+    enable = true;
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
+  };
 
   environment.systemPackages = with pkgs; [ ];
 

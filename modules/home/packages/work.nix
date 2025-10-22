@@ -95,7 +95,8 @@
 
     # qalculate
     qalculate-gtk
-    programmer-calculator # pcalc
+    # programmer-calculator # pcalc
+    pcalc
     gnome-calculator
 
     # vmware-workstation

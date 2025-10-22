@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ pkgs, username ? "rick", ... }: {
   programs.zsh.enable = true;
 
   programs.neovim = {

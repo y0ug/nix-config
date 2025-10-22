@@ -1,16 +1,23 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-
+{ config, lib, pkgs, stylixAvailable ? false, ... }:
 let
-  inherit (config.stylix) fonts;
-  inherit (config.lib.stylix) colors;
+  defaultColors = {
+    base00 = "1e1e2e";
+    base04 = "a6adc8";
+    base06 = "cdd6f4";
+    base07 = "eff1f5";
+    base08 = "f38ba8";
+    base0A = "f9e2af";
+    base0B = "a6e3a1";
+  };
+  colors =
+    if stylixAvailable then config.lib.stylix.colors else defaultColors;
+  monospaceName =
+    if stylixAvailable
+    then lib.attrByPath [ "monospace" "name" ] "JetBrainsMono Nerd Font" config.stylix.fonts
+    else "JetBrainsMono Nerd Font";
 in
 {
-  stylix.targets.hyprlock.enable = false;
+  stylix.targets.hyprlock.enable = lib.mkIf stylixAvailable false;
   programs.hyprlock = {
     enable = true;
 
@@ -68,7 +75,7 @@ in
           rounding = 15;
 
           # Using Stylix monospace font
-          font_family = "${fonts.monospace.name}";
+          font_family = monospaceName;
           placeholder_text = "Input password...";
           fail_text = "$PAMFAIL";
 
@@ -87,7 +94,7 @@ in
           text = "$TIME";
           font_size = 90;
           # Using Stylix monospace font
-          font_family = "${fonts.monospace.name}";
+          font_family = monospaceName;
 
           position = "-30, 0";
           halign = "right";
@@ -101,7 +108,7 @@ in
           text = "cmd[update:60000] date +\"%A, %d %B %Y\""; # update every 60 seconds
           font_size = 25;
           # Using Stylix monospace font
-          font_family = "${fonts.monospace.name}";
+          font_family = monospaceName;
 
           position = "-30, -150";
           halign = "right";

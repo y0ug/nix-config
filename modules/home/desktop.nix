@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, inputs, pkgs, ... }:
 {
   imports = [
     ./packages/common.nix
@@ -15,6 +15,7 @@
   ];
   #nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
+
 
   # home-manager.useGlobalPkgs = true;
   # home-manager.useUserPackages = true;

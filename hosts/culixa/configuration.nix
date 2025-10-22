@@ -10,45 +10,15 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/core/system.nix
-    ../../modules/core/nvim.nix
-    ../../modules/core/aider.nix
-    ../../modules/core/python.nix
-    ../../modules/core/GUI
-    ../../modules/core/GUI/nestedvm.nix
-    # ../../modules/core/GUI/vmware.nix
-    # ../../modules/core/GUI/gnome.nix
-    ../../modules/core/GUI/hyprland.nix
+    ../../modules/core/workstation.nix
+    ../../modules/core/gui
+    ../../modules/core/gui/nestedvm.nix
+    # ../../modules/core/gui/vmware.nix
+    # ../../modules/core/gui/gnome.nix
+    ../../modules/core/gui/hyprland.nix
     # ../../modules/pinned/devenv-1.5.1.nix
     # ../../modules/pinned/file-zip.nix
-    ../../modules/core/flatpak.nix
-    ../../modules/core/udev-rules.nix
-
   ];
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      substituters = [
-        "https://nix-community.cachix.org"
-        "https://cache.nixos.org/"
-        "https://devenv.cachix.org"
-      ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-      ];
-      trusted-users = [
-        "root"
-        "wheel"
-        "rick"
-      ];
-    };
-  };
   # Bootloader.
   boot.loader = {
     timeout = 1;

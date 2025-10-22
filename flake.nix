@@ -84,34 +84,7 @@
       ...
     }:
     let
-      # Define your custom overlay
-      customPkgsOverlay =
-        selfPkgs: superPkgs:
-        let
-          intelOverlay = import ./modules/overlays/interl-gc-overlay.nix;
-          intelOverlayResult = intelOverlay selfPkgs superPkgs;
-        in
-        {
-          # You can namespace your packages if you like, e.g., mycustom.hints
-          # Or add them directly to pkgs
-          hints = superPkgs.callPackage ./modules/packages/python/hints.nix {
-            # Pass any specific dependencies from pkgs if hints.nix needed them
-            # beyond what callPackage automatically provides.
-            # For your current hints.nix, this is usually enough.
-          };
-
-          # intel-graphics-compiler = intelOverlayResult.intel-graphics-compiler;
-          # libvdpau-va-gl = intelOverlayResult.libvdpau-va-gl;
-          # ctranslate2 = intelOverlayResult.ctranslate2;
-          # If you had other custom packages:
-          # anotherCoolPackage = superPkgs.callPackage ./packages/another/package.nix {};
-        };
-
-      # List of overlays to apply. Your ida-pro-overlay also provides one.
-      commonOverlays = [
-        customPkgsOverlay
-        ida-pro-overlay.overlays.default
-      ];
+      commonOverlays = import ./modules/overlays/default.nix { inherit ida-pro-overlay; };
       username = "rick";
     in
     {
@@ -124,7 +97,9 @@
             allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "vscode" ];
           };
         };
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs username;
+        };
         modules = [
           ./hosts/levua/configuration.nix
           { users.users.rick.home = "/Users/rick"; }
@@ -133,14 +108,19 @@
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/darwin.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              stylixAvailable = inputs ? stylix;
+            };
           }
         ];
       };
 
       nixosConfigurations."nixos-vm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs username;
+        };
         modules = [
           stylix.nixosModules.stylix
           ./hosts/nixos-vm/configuration.nix
@@ -149,14 +129,19 @@
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/nixos-vm.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              stylixAvailable = inputs ? stylix;
+            };
           }
         ];
       };
 
       nixosConfigurations."culixa" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs username;
+        };
         modules = [
           (
             { config, pkgs, ... }:
@@ -179,7 +164,10 @@
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/culixa.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              stylixAvailable = inputs ? stylix;
+            };
           }
         ];
       };
@@ -191,7 +179,10 @@
           #   config = { };
           # };
           modules = [ ./home/linux.nix ];
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = {
+            inherit inputs;
+            stylixAvailable = inputs ? stylix;
+          };
         };
 
         osx-rick = inputs.home-manager.lib.homeManagerConfiguration {
@@ -200,7 +191,10 @@
           #   config = { };
           # };
           modules = [ ./home/darwin.nix ];
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = {
+            inherit inputs;
+            stylixAvailable = inputs ? stylix;
+          };
         };
 
       };

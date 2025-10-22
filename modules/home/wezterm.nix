@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ pkgs, lib, stylixAvailable ? false, ... }:
 
 {
-  stylix.targets.wezterm.enable = false;
-  stylix.targets.ghostty.enable = false;
-  stylix.targets.alacritty.enable = false;
+  stylix.targets.wezterm.enable = lib.mkIf stylixAvailable false;
+  stylix.targets.ghostty.enable = lib.mkIf stylixAvailable false;
+  stylix.targets.alacritty.enable = lib.mkIf stylixAvailable false;
 
   home.packages = with pkgs; ([
     wezterm
