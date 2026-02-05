@@ -7,7 +7,9 @@
 {
   nixpkgs.overlays = [
     # (import ../overlays/aider.nix)
-    inputs.ida-pro-overlay.overlays.default
+    (final: prev: {
+      ida-pro = prev.callPackage ../../overlays/ida-pro/packages/ida-pro.nix { };
+    })
   ];
 
   nixpkgs.config.allowUnfreePredicate =
@@ -136,18 +138,9 @@
     libglvnd # For libEGL
     act # local github actions
     mitmproxy
-    (
-      let
-        baseIdaPro = callPackage ida-pro {
-          # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
-          # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
-          runfile = installer/ida-pro_92_x64linux.run;
-        };
-      in
-      callPackage ../../packages/ida-pro-with-venv.nix {
-        ida-pro-package = baseIdaPro;
-      }
-    )
+    (callPackage ../../packages/ida-pro-with-venv.nix {
+      ida-pro-package = ida-pro;
+    })
 
     eigenwallet
     wl-kbptr

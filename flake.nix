@@ -16,10 +16,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ida-pro-overlay = {
-      url = "github:msanft/ida-pro-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # ida-pro-overlay = {
+    #   url = "github:msanft/ida-pro-overlay";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     elephant.url = "github:abenz1267/elephant";
 
     walker = {
@@ -77,7 +77,7 @@
       nix-darwin,
       home-manager,
       # glovebox,
-      ida-pro-overlay,
+      # ida-pro-overlay,
       # elephant,
       # walker,
       binaryninja,
@@ -86,7 +86,7 @@
       ...
     }:
     let
-      commonOverlays = import ./modules/overlays/default.nix { inherit ida-pro-overlay; };
+      commonOverlays = import ./modules/overlays/default.nix { };
       username = "rick";
     in
     {

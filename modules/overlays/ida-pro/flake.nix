@@ -10,8 +10,8 @@
       ...
     }:
     {
-      overlays.default = self: super: {
-        ida-pro = import ./packages/ida-pro.nix;
+      overlays.default = final: prev: {
+        ida-pro = prev.callPackage ./packages/ida-pro.nix { };
       };
     };
 }

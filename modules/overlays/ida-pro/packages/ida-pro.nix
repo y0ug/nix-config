@@ -1,17 +1,24 @@
 {
   pkgs,
   lib,
-  runfile,
+  # Override these to update IDA Pro version
+  idaVersion ? "9.2",
+  idaHash ? "sha256-qt0PiulyuE+U8ql0g0q/FhnzvZM7O02CdfnFAAjQWuE=",
   ...
 }:
 let
   pythonForIDA = pkgs.python3.withPackages (ps: with ps; [ rpyc ]);
+  installerName = "ida-pro_${builtins.replaceStrings ["."] [""] idaVersion}_x64linux.run";
 in
 pkgs.stdenv.mkDerivation rec {
   pname = "ida-pro";
-  version = "9.2.0.250908";
+  version = "${idaVersion}.0.250908";
 
-  src = runfile;
+  src = pkgs.requireFile {
+    name = installerName;
+    url = "https://my.hex-rays.com/";
+    hash = idaHash;
+  };
 
   desktopItem = pkgs.makeDesktopItem {
     name = "ida-pro";
@@ -29,13 +36,15 @@ pkgs.stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
     autoPatchelfHook
-    qt6.wrapQtAppsHook
+    # Don't use wrapQtAppsHook - IDA bundles its own Qt
   ];
 
   # We just get a runfile in $src, so no need to unpack it.
   dontUnpack = true;
 
   # Add everything to the RPATH, in case IDA decides to dlopen things.
+  # Note: Qt is NOT included here - IDA bundles its own Qt and we must use that
+  # to avoid version mismatches.
   runtimeDependencies = with pkgs; [
     cairo
     dbus
@@ -46,8 +55,9 @@ pkgs.stdenv.mkDerivation rec {
     libdrm
     libGL
     libkrb5
-    qt6.qtbase
-    qt6.qtwayland
+    # IDA bundles its own Qt - don't include system Qt here
+    # qt6.qtbase
+    # qt6.qtwayland
     libunwind
     libxkbcommon
     libsecret
@@ -114,13 +124,14 @@ pkgs.stdenv.mkDerivation rec {
 
     # Link the binaries to the output.
     # Also, hack the PATH so that pythonForIDA is used over the system python.
+    # IMPORTANT: $IDADIR must be FIRST in LD_LIBRARY_PATH to use IDA's bundled Qt
     for bb in ida; do
       wrapProgram $IDADIR/$bb \
         --prefix IDADIR : $IDADIR \
         --prefix QT_PLUGIN_PATH : $IDADIR/plugins/platforms \
         --prefix PYTHONPATH : $out/opt/idalib/python \
         --prefix PATH : ${pythonForIDA}/bin:$IDADIR \
-        --prefix LD_LIBRARY_PATH : $out/lib
+        --prefix LD_LIBRARY_PATH : $IDADIR:$out/lib
       ln -s $IDADIR/$bb $out/bin/$bb
     done
 
