@@ -10,12 +10,16 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules/core/nix-settings.nix
     ../../modules/core/workstation.nix
     ../../modules/core/gui
     ../../modules/core/gui/nestedvm.nix
     # ../../modules/core/gui/vmware.nix
     # ../../modules/core/gui/gnome.nix
+    ../../modules/core/gui/session-manager.nix
     ../../modules/core/gui/hyprland.nix
+    ../../modules/core/gui/niri.nix
+    ../../modules/core/gui/sway.nix
     # ../../modules/pinned/devenv-1.5.1.nix
     # ../../modules/pinned/file-zip.nix
   ];
@@ -147,6 +151,7 @@
         linkConfig = {
           # or "routable" with IP addresses configured
           RequiredForOnline = "carrier";
+          MACAddress = "00:15:5d:33:01:00";
         };
         dhcpV4Config = {
           UseGateway = false;
@@ -181,6 +186,12 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = false;
+    daemon.settings = {
+      dns = [
+        "8.8.8.8"
+        "1.1.1.1"
+      ];
+    };
   };
 
   # on demand starting of the docker daemon via socket
@@ -191,8 +202,11 @@
   # Virt-manager and qemu
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "rick" ];
+  users.groups.pcap.members = [ "rick" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
+
+  programs.tcpdump.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -207,7 +221,8 @@
   # programs.bash.enable = true;
   programs.bash.completion.enable = true;
 
-  # programs.devenv.enable = true;
+  programs.direnv.enable = true;
+  services.lorri.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -275,7 +290,7 @@
         name = "JetBrainsMono Nerd Font";
       };
       emoji = {
-        package = pkgs.noto-fonts-emoji;
+        package = pkgs.noto-fonts-color-emoji;
         name = "Noto Color Emoji";
       };
     };
@@ -287,6 +302,7 @@
     via # qmk userland customization
     zsh-nix-shell
     pinentry-curses
+    pamixer
   ];
 
   environment.localBinInPath = true;
@@ -324,7 +340,7 @@
   # Enable the OpenSSH daemon.
   networking.nftables.enable = true;
   networking.firewall = {
-    enable = true;
+    enable = false;
     interfaces."br0" = {
       allowedTCPPorts = [
         22

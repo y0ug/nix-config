@@ -1,8 +1,10 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; ([
+    foot
     librewolf
-    freerdp3
+    freerdp
+    alsa-utils
 
     imv # image viewer
     mpd # media player
@@ -26,6 +28,7 @@
 
     iwmenu
     bzmenu
+    element-desktop
   ]);
   programs.rofi.enable = true;
 }

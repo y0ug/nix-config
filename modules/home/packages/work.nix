@@ -14,11 +14,11 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       "ida-pro"
-      # pkg.ida-pro
+      "ida-pro-with-venv"
     ];
   imports = [ inputs.walker.homeManagerModules.default ];
 
-  programs.walker.enable = true;
+  # programs.walker.enable = true;
   # package = pkgs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   home.packages = with pkgs; ([
     mattermost-desktop
@@ -83,7 +83,7 @@
     # inputs.glovebox.packages.${pkgs.stdenv.hostPlatform.system}.default
     #inputs.glovebox
     openai-whisper
-    openai-whisper-cpp
+    whisper-cpp
     whisper-ctranslate2
     python312Packages.faster-whisper
 
@@ -113,16 +113,19 @@
         inputs.binaryninja.packages.${pkgs.stdenv.hostPlatform.system}.binary-ninja-commercial-wayland.override
         {
           # overrideSource = /home/rick/labvz/binaryninja_linux_stable_commercial.zip;
-          overrideSource = /home/rick/fast/binaryninja_linux_stable_personal.zip;
+          overrideSource = /home/rick/Downloads/binaryninja_linux_stable_personal.zip;
           python3 = pkgs.python312;
         }
       ).overrideAttrs
       (old: {
         buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
+        autoPatchelfIgnoreMissingDeps = (old.autoPatchelfIgnoreMissingDeps or [ ]) ++ [
+          "libQt6WaylandEglClientHwIntegration.so.6"
+        ];
       })
     )
 
-    valent
+    # valent
     localsend
     # kdePackages.kdeconnect-kde
 
@@ -138,7 +141,7 @@
         baseIdaPro = callPackage ida-pro {
           # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
           # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
-          runfile = /home/rick/Downloads/ida-pro_92_x64linux.run;
+          runfile = installer/ida-pro_92_x64linux.run;
         };
       in
       callPackage ../../packages/ida-pro-with-venv.nix {

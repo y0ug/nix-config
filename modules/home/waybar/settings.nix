@@ -9,12 +9,16 @@
 
     "modules-left" = [
       "hyprland/workspaces"
+      "sway/workspaces"
       "hyprland/submap"
+      "sway/mode"
       "hyprland/window"
+      "sway/window"
     ];
     "modules-center" = [
     ];
     "modules-right" = [
+      "keyboard-state"
       "idle_inhibitor"
       "custom/notification"
       "custom/vpn"
@@ -68,6 +72,21 @@
       "format" = "✌️ {}";
       "max-length" = 8;
       "tooltip" = false;
+    };
+
+    "sway/workspaces" = {
+      "disable-scroll" = true;
+      "all-outputs" = true;
+    };
+
+    "sway/window" = {
+      "format" = "> {}";
+      "max-length" = 50;
+    };
+
+    "sway/mode" = {
+      "format" = "{}";
+      "max-length" = 50;
     };
 
     "privacy" = {

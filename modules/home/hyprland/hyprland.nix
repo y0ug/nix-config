@@ -9,12 +9,14 @@
     hyprsysteminfo
     # inputs.hyprswitch.packages.x86_64-linux.default
 
+    niri
     # fileManager
     nnn
     ranger
     yazi
     superfile
 
+    ripdrag
     cliphist
     wl-clipboard
     wl-clip-persist

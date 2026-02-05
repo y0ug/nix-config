@@ -41,7 +41,8 @@ Then, you can instantiate the package, supplying it with your locally available 
 environment.systemPackages = [
     (callPackage ida-pro {
         # Alternatively, fetch the installer through `fetchurl`, use a local path, etc.
-        runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
+        runfile = installer/ida-pro_90_x64linux.run;
+        # runfile = /nix/store/z83flk6c9fm9li3gs13vbamq2szg9rwf-ida-pro_90_x64linux.run;
     })
 ];
 ```

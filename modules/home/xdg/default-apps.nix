@@ -27,7 +27,7 @@ let
   wezterm = [ "org.wezfurlong.wezterm.desktop" ];
   kitty = [ "kitty.desktop" ];
 
-  terminal = wezterm ++ kitty;
+  terminal = "foot.desktop" ++ wezterm ++ kitty;
   browser = chromium ++ librewolf ++ firefox;
   editor = nvim ++ codium ++ yazi;
   image = qview ++ imv ++ eog ++ gimp ++ ink;

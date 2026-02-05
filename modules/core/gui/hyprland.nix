@@ -5,38 +5,8 @@
   ...
 }:
 {
-  # services.displayManager.lightdm.enable = lib.mkForce false;
-  services.desktopManager.gnome.enable = lib.mkForce false;
-  services.displayManager.ly.enable = lib.mkForce false;
-  services.displayManager.sddm.enable = lib.mkForce false;
-  # services.displayManager.greetd.enable = lib.mkForce true;
-  environment.systemPackages = with pkgs; [
-    tuigreet
-    # hints
-  ];
   services.input-remapper.enable = true;
-  services.greetd = lib.mkForce {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'uwsm start hyprland-uwsm.desktop'";
-      };
-      terminal = {
-        vt = "4";
-      };
-    };
-  };
 
-  # systemd.services.greetd.serviceConfig = {
-  #   Type = "idle";
-  #   StandardInput = "tty";
-  #   StandardOutput = "tty";
-  #   StandardError = "journal"; # Without this errors will spam on screen
-  #   # Without these bootlogs will spam on screen
-  #   TTYReset = true;
-  #   TTYVHangup = true;
-  #   TTYVTDisallocate = true;
-  # };
   programs.hyprland = {
     enable = true;
     withUWSM = true;
@@ -77,16 +47,12 @@
       };
     };
   };
-  # environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
+
   security.pam.services = {
     hyprlock.enableGnomeKeyring = true;
-    sddm.enableGnomeKeyring = true;
-    login.enableGnomeKeyring = true;
-    ly.enableGnomeKeyring = true;
-    greetd.enableGnomeKeyring = true;
-    tuigreet.enableGnomeKeyring = true;
     hyprland.enableGnomeKeyring = true;
   };
+
   security.polkit.enable = true;
 
   services = {
@@ -104,5 +70,4 @@
       openFirewall = true;
     };
   };
-
 }

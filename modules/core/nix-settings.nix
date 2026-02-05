@@ -24,6 +24,6 @@ in
     ];
     substituters = lib.mkDefault defaultSubstituters;
     trusted-public-keys = lib.mkDefault defaultKeys;
-    trusted-users = lib.mkDefault defaultTrustedUsers;
+    trusted-users = lib.mkForce defaultTrustedUsers;
   };
 }

@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.noto
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     gnome-font-viewer
     font-awesome
     nwg-look

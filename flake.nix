@@ -5,8 +5,7 @@
 
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/b9cc362095b0b08186cf5693b84b00ef4bbd9739";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
@@ -47,7 +46,10 @@
     #   # (you may encounter issues if you dont do the same for hyprland)
     #   inputs.hyprland.follows = "hyprland";
     # };
-    stylix.url = "github:danth/stylix";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # agenix = {
     #   url = "github:ryantm/agenix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -76,8 +78,8 @@
       home-manager,
       # glovebox,
       ida-pro-overlay,
-      elephant,
-      walker,
+      # elephant,
+      # walker,
       binaryninja,
       # hyprland,
       # hyprland-plugins,
@@ -152,7 +154,8 @@
                 pkg:
                 builtins.elem (nixpkgs.lib.getName pkg) [
                   "claude-code"
-                  "ida-pro"
+                  # "ida-pro"
+                  # "ida-pro-with-venv"
                 ];
 
             }

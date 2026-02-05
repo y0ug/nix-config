@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
 {
   home.packages = with pkgs; ([
     nvimpager
@@ -14,15 +14,17 @@
       ]
     ))
 
+    whois
     gcc
-    nixfmt-rfc-style
+    nixfmt
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
     nh # nix cli helper
 
+    procs
+
     gnumake
-    direnv
 
     zsh
     nushell
@@ -36,6 +38,7 @@
     tlrc # better man tldr
     killall
 
+    pv
     fastfetch
 
     # vim
@@ -76,6 +79,7 @@
     nmap # A utility for network discovery and security auditing
     ipcalc # it is a calculator for the IPv4/v6 addresses
     curl
+    (lib.lowPrio curl-impersonate)
     wget
     lynx
     xh # curl replacement for API
@@ -91,7 +95,7 @@
     bat # cat alternative
     fd # find replacement
     tdf # cli pdf viewer
-    moar # alterative pager
+    moor # alterative pager
     sd # better sed
     cheat # cheat sheets
     silicon # image from code/cli
@@ -105,6 +109,9 @@
 
     glow # markdown previewer in terminal
     presenterm # markdown presentation tool
+
+    tokei # codebase statistics
+    sloc # count lines of code
 
     # encryption
     sops
@@ -170,8 +177,10 @@
 
   programs.go = {
     enable = true;
-    env.GOPATH = "$HOME/.go";
+    env.GOPRIVATE = "github.com/y0ug/*,github.com/caddyglow/*";
   };
+
+  home.sessionVariables.GOPATH = "$HOME/.go";
 
   programs.fzf = {
     enable = true;

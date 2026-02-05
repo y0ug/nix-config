@@ -11,6 +11,8 @@
     ./git.nix # version control
 
     ./hyprland.nix
+    ./niri.nix
+    ./sway.nix
     ./waybar
   ];
   #nixpkgs.config.allowUnfree = true;

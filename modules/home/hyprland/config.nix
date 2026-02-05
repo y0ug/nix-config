@@ -18,7 +18,7 @@ in
   xdg.configFile."uwsm/env-hyprland".text = builtins.concatStringsSep "\nexport " [
     "QT_WAYLAND_DISABLE_WINDOWDECORATION=1"
     "ELECTRON_OZONE_PLATFORM_HINT=wayland"
-    "TERMINAL=\"${pkgs.wezterm}/bin/kitty"
+    "TERMINAL=\"${pkgs.foot}/bin/foot"
     # "TERMINAL=\"${pkgs.wezterm}/bin/wezterm start\""
     "HYPRSHOT_DIR=$HOME/Pictures"
     "XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
