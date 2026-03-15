@@ -18,10 +18,16 @@
         command = "${pkgs.systemd}/bin/loginctl lock-session";
       }
     ];
-    events = {
-      before-sleep = "${pkgs.systemd}/bin/loginctl lock-session";
-      lock = "${pkgs.swaylock}/bin/swaylock -f";
-    };
+    events = [
+      {
+        event = "before-sleep";
+        command = "${pkgs.systemd}/bin/loginctl lock-session";
+      }
+      {
+        event = "lock";
+        command = "${pkgs.swaylock}/bin/swaylock -f";
+      }
+    ];
   };
 
   # Only start swayidle when SWAYSOCK is set (i.e., in Sway)

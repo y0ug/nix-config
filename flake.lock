@@ -397,26 +397,6 @@
         "type": "github"
       }
     },
-    "ida-pro-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1772053451,
-        "narHash": "sha256-fNJAWkUoXOw5pRZ15rtl6igpxWBSCqHgWbP1VstOHXw=",
-        "owner": "msanft",
-        "repo": "ida-pro-overlay",
-        "rev": "d1dbab124923214cf384d1548e86aec3fbb546a9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "msanft",
-        "repo": "ida-pro-overlay",
-        "type": "github"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -558,7 +538,6 @@
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
-        "ida-pro-overlay": "ida-pro-overlay",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
