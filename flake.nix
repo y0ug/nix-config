@@ -6,6 +6,7 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
@@ -15,6 +16,10 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     ida-pro-overlay = {
       url = "github:msanft/ida-pro-overlay";
@@ -28,8 +33,6 @@
     };
     binaryninja = {
       url = "github:jchv/nix-binary-ninja";
-
-      # Optional, but recommended.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -54,6 +57,10 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix-stable = {
+      url = "github:danth/stylix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     # agenix = {
     #   url = "github:ryantm/agenix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -77,9 +84,12 @@
     inputs@{
       self,
       nixpkgs,
+      nixpkgs-stable,
       stylix,
+      stylix-stable,
       nix-darwin,
       home-manager,
+      home-manager-stable,
       # glovebox,
       ida-pro-overlay,
       # elephant,
@@ -143,7 +153,7 @@
         ];
       };
 
-      nixosConfigurations."culixa" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."culixa" = nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs username;
@@ -154,23 +164,22 @@
             {
               nixpkgs.overlays = commonOverlays;
 
-              nixpkgs.config.allowUnfreePredicate =
-                pkg:
-                builtins.elem (nixpkgs.lib.getName pkg) [
-                  "claude-code"
-                  # "ida-pro"
-                  # "ida-pro-with-venv"
-                ];
+              nixpkgs.config.allowUnfree = true;
 
             }
           )
-          stylix.nixosModules.stylix
+          stylix-stable.nixosModules.stylix
           ./hosts/culixa/configuration.nix
-          home-manager.nixosModules.home-manager
+          home-manager-stable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.rick = import ./home/culixa.nix;
+            home-manager.sharedModules = [
+              {
+                nixpkgs.config.allowUnfree = true;
+              }
+            ];
             home-manager.extraSpecialArgs = {
               inherit inputs;
               stylixAvailable = inputs ? stylix;

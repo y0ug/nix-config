@@ -69,11 +69,11 @@ pkgs.stdenv.mkDerivation rec {
     xorg.libXau
     xorg.libxcb
     xorg.libXext
-    xorg.libXi
-    xorg.libXrender
-    xorg.xcbutilimage
+    libxi
+    libxrender
+    libxcb-image
     xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
+    libxcb-render-util
     xorg.xcbutilwm
     zlib
     curl.out
