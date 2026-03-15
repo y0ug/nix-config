@@ -29,6 +29,8 @@
     iwmenu
     bzmenu
     element-desktop
+
+    rbw
   ]);
   programs.rofi.enable = true;
 }

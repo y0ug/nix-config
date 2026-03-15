@@ -1,6 +1,8 @@
 { ... }:
 {
   services.udev.extraRules = ''
+    KERNEL=="event[0-9]*", SUBSYSTEM=="input", TAG+="uaccess"
+
     # annerpro flash mode 04d9:8008
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="8009", TAG+="uaccess"
     # Atmel DFU

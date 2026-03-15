@@ -14,6 +14,8 @@
     ./niri.nix
     ./sway.nix
     ./waybar
+    ./gammastep.nix
+    ./sops.nix
   ];
   #nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;

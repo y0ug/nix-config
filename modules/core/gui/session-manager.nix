@@ -27,7 +27,7 @@
     settings = {
       default_session = {
         # --sessions shows all available wayland sessions (Hyprland, Niri, Sway, etc.)
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --sessions /run/current-system/sw/share/wayland-sessions";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --sessions /run/current-system/sw/share/wayland-sessions";
       };
       terminal = {
         vt = lib.mkForce 4;

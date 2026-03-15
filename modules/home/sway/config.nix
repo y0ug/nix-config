@@ -9,7 +9,7 @@ let
   run = "uwsm app --";
   terminal = "${run} $TERMINAL";
   fileManager = "${run} $TERMINAL yazi";
-  menu = "${toggle "fuzzel"} --launch-prefix='${run}'";
+  menu = ''${toggle "fuzzel"} --launch-prefix="${run}"'';
   browser = "${run} ${lib.getExe pkgs.ungoogled-chromium}";
   mod = "Mod4"; # Super key
 in
@@ -36,7 +36,7 @@ in
     config = {
       modifier = mod;
       terminal = "sh -c '${terminal}'";
-      menu = "sh -c '${menu}'";
+      menu = "${menu}";
 
       input = {
         "*" = {
@@ -70,9 +70,11 @@ in
       output = {
         "HDMI-A-2" = {
           position = "0 0";
+          mode = "2560x1440@144Hz";
         };
         "DP-1" = {
           position = "2560 0";
+          mode = "3440x1440@144Hz";
         };
       };
 
@@ -94,7 +96,7 @@ in
         "${mod}+Return" = "exec sh -c '${terminal}'";
         "${mod}+t" = "exec sh -c '${terminal}'";
         "${mod}+e" = "exec sh -c '${fileManager}'";
-        "${mod}+space" = "exec sh -c '${menu}'";
+        "${mod}+space" = "exec ${menu}";
         "${mod}+b" = "exec sh -c '${browser}'";
         "${mod}+Shift+n" = "exec swaync-client -t -sw";
         "${mod}+Shift+v" = "exec sh -c 'cliphist list | fuzzel --dmenu | cliphist decode | wl-copy'";
@@ -107,6 +109,7 @@ in
         # Window management
         "${mod}+Shift+q" = "kill";
         "${mod}+f" = "floating toggle";
+        "${mod}+Shift+f" = "focus mode_toggle";
         "${mod}+Shift+Return" = "fullscreen toggle";
 
         # Focus movement
@@ -172,6 +175,9 @@ in
         # Monitor movement
         "${mod}+o" = "focus output right";
         "${mod}+Shift+o" = "move container to output right";
+
+        # Urgent window
+        "${mod}+u" = "[urgent=latest] focus";
 
         # Scratchpad
         "${mod}+z" = "scratchpad show";

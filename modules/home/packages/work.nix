@@ -10,6 +10,20 @@
     (final: prev: {
       ida-pro = prev.callPackage ../../overlays/ida-pro/packages/ida-pro.nix { };
     })
+    (_: prev: {
+      pythonPackagesExtensions =
+        (prev.pythonPackagesExtensions or [ ])
+        ++ [
+          (_: pyPrev: {
+            construct-classes = pyPrev.construct-classes.overridePythonAttrs (old: {
+              postPatch = (old.postPatch or "") + ''
+                substituteInPlace pyproject.toml --replace-warn "uv_build>=0.8.13,<0.9.0" "uv_build>=0.8.13,<0.11.0"
+                substituteInPlace pyproject.toml --replace-warn "uv_build>=0.8.13,<0.10.0" "uv_build>=0.8.13,<0.11.0"
+              '';
+            });
+          })
+        ];
+    })
   ];
 
   nixpkgs.config.allowUnfreePredicate =
@@ -17,6 +31,7 @@
     builtins.elem (lib.getName pkg) [
       "ida-pro"
       "ida-pro-with-venv"
+      "trezor-suite"
     ];
   imports = [ inputs.walker.homeManagerModules.default ];
 
@@ -103,8 +118,13 @@
 
     # vmware-workstation
     mosh
+    tailscale
 
-    # raw image editor
+    trezorctl
+    trezor-suite
+    trezor-udev-rules
+
+    # raw image ediitor
     # garktable
     # digikam
     # rawtherapee

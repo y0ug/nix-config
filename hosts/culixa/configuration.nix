@@ -57,6 +57,9 @@
 
   hardware.keyboard.qmk.enable = true;
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "python3.13-ecdsa-0.19.1"
+  ];
 
   networking.hostName = "culixa";
 
@@ -203,10 +206,12 @@
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "rick" ];
   users.groups.pcap.members = [ "rick" ];
+  users.groups.wireshark.members = [ "rick" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
   programs.tcpdump.enable = true;
+  programs.wireshark.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -323,6 +328,9 @@
   # List services that you want to enable:
 
   services = {
+    eternal-terminal = {
+      enable = true;
+    };
     openssh.enable = true;
     # yubikey-agent.enable = true;
     pcscd.enable = true; # smart card reader daemon

@@ -9,13 +9,13 @@
     systemdTarget = "graphical-session.target";
     timeouts = [
       {
-        timeout = 300; # 5 min
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
-      }
-      {
-        timeout = 360; # 6 min
+        timeout = 360; # 6 min - turn off screens
         command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
         resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
+      }
+      {
+        timeout = 390; # 6 min 30s - lock 30s after screens off
+        command = "${pkgs.systemd}/bin/loginctl lock-session";
       }
     ];
     events = {

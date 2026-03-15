@@ -83,6 +83,9 @@ pkgs.stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
+  # IDA bundles its own Qt libraries, so ignore missing deps during autopatchelf
+  autoPatchelfIgnoreMissingDeps = true;
+
   installPhase = ''
     runHook preInstall
 

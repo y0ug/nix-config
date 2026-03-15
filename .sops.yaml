@@ -1,0 +1,7 @@
+keys:
+  - &rick age129syc8zgy3kg2kensxxwngyxwvfrzep9vqq9c37906gnsd8qf34s9uez3n
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *rick

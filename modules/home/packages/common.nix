@@ -1,4 +1,9 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   home.packages = with pkgs; ([
     nvimpager
@@ -50,6 +55,7 @@
     zenity
 
     zk # note taking
+    typst
 
     rclone
     sshfs
@@ -64,6 +70,7 @@
     # archives
     zip
     xz
+    pixz
     unzip
     p7zip
     ouch # easy archives management
@@ -142,6 +149,7 @@
 
     hexyl # hexviewr
     xxd # hexviewer
+    git-lfs
     lazygit
     starship
     lazydocker
@@ -177,7 +185,6 @@
 
   programs.go = {
     enable = true;
-    env.GOPRIVATE = "github.com/y0ug/*,github.com/caddyglow/*";
   };
 
   home.sessionVariables.GOPATH = "$HOME/.go";

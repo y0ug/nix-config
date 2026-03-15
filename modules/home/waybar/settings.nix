@@ -26,8 +26,8 @@
       "pulseaudio"
       "network"
       # "power-profiles-daemon"
-      # "cpu"
-      # "memory"
+      "cpu"
+      "memory"
       # "temperature"
       # "backlight"
       # "hyprland/language"
@@ -76,7 +76,8 @@
 
     "sway/workspaces" = {
       "disable-scroll" = true;
-      "all-outputs" = true;
+      "all-outputs" = false;
+      "show-special" = true;
     };
 
     "sway/window" = {
@@ -113,13 +114,14 @@
     };
 
     "keyboard-state" = {
-      "numlock" = true;
+      "numlock" = false;
       "capslock" = true;
-      "format" = "{name} {icon}";
+      "format" = "{icon}";
       "format-icons" = {
-        "locked" = "";
+        "locked" = "<span foreground='red'></span>";
         "unlocked" = "";
       };
+      "device-path" = "/dev/input/event4";
     };
 
     "idle_inhibitor" = {
@@ -146,7 +148,9 @@
     };
 
     "memory" = {
-      "format" = "{}% ";
+      # "format" = "{}% ";
+      "interval" = 30;
+      "format" = "{used:0.1f}G/{total:0.1f}G ";
     };
 
     "temperature" = {
@@ -281,7 +285,8 @@
     "custom/vpn" = {
       "format" = "󰯄 VPN";
       "exec" = "echo '{\"text\":\"VPN\",\"tooltip\":\"VPN Connected\",\"class\":\"connected\"}'";
-      "exec-if" = "ip -o link show | grep -q POINTOPOINT || ip addr show | grep -qE 'inet 10\\.[0-9]+\\.0\\.[0-9]+/32'";
+      "exec-if" =
+        "ip -o link show | grep -q POINTOPOINT || ip addr show | grep -qE 'inet 10\\.[0-9]+\\.0\\.[0-9]+/32'";
       "return-type" = "json";
       "interval" = 5;
       "tooltip" = true;

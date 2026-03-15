@@ -16,10 +16,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # ida-pro-overlay = {
-    #   url = "github:msanft/ida-pro-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    ida-pro-overlay = {
+      url = "github:msanft/ida-pro-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     elephant.url = "github:abenz1267/elephant";
 
     walker = {
@@ -46,6 +46,10 @@
     #   # (you may encounter issues if you dont do the same for hyprland)
     #   inputs.hyprland.follows = "hyprland";
     # };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -77,7 +81,7 @@
       nix-darwin,
       home-manager,
       # glovebox,
-      # ida-pro-overlay,
+      ida-pro-overlay,
       # elephant,
       # walker,
       binaryninja,
@@ -86,7 +90,7 @@
       ...
     }:
     let
-      commonOverlays = import ./modules/overlays/default.nix { };
+      commonOverlays = import ./modules/overlays/default.nix { inherit ida-pro-overlay; };
       username = "rick";
     in
     {
@@ -172,6 +176,52 @@
               stylixAvailable = inputs ? stylix;
             };
           }
+        ];
+      };
+
+      nixosConfigurations."toxora" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs username;
+        };
+        modules = [
+          (
+            { config, pkgs, ... }:
+            {
+              nixpkgs.overlays = commonOverlays;
+              nixpkgs.config.allowUnfreePredicate =
+                pkg:
+                builtins.elem (nixpkgs.lib.getName pkg) [
+                  "claude-code"
+                ];
+            }
+          )
+          stylix.nixosModules.stylix
+          ./hosts/toxora/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+            home-manager.users.rick = import ./home/toxora.nix;
+            home-manager.sharedModules = [
+              {
+                nixpkgs.config.permittedInsecurePackages = [
+                  "python3.13-ecdsa-0.19.1"
+                ];
+              }
+            ];
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              stylixAvailable = inputs ? stylix;
+            };
+          }
+        ];
+      };
+
+      nixosConfigurations."installer" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/installer/configuration.nix
         ];
       };
 
