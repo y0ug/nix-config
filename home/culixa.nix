@@ -3,6 +3,7 @@
   imports = [
     ../modules/home/desktop.nix
     ../modules/home/packages/work.nix
+    ../modules/home/packages/commercial.nix
     ../modules/home/xdg/default-apps.nix
   ];
 
