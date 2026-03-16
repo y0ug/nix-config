@@ -188,7 +188,7 @@
         ];
       };
 
-      nixosConfigurations."toxora" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."toxora" = nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs username;
@@ -205,9 +205,9 @@
                 ];
             }
           )
-          stylix.nixosModules.stylix
+          stylix-stable.nixosModules.stylix
           ./hosts/toxora/configuration.nix
-          home-manager.nixosModules.home-manager
+          home-manager-stable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;

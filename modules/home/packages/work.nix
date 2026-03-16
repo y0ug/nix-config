@@ -97,9 +97,9 @@
     mosh
     tailscale
 
-    trezorctl
-    trezor-suite
-    trezor-udev-rules
+    # trezorctl
+    # trezor-suite
+    # trezor-udev-rules
 
     # raw image ediitor
     # garktable

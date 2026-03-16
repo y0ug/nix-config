@@ -218,7 +218,7 @@
   home.sessionPath = [ "$GOPATH/bin" ];
 
   home.file.fzf = {
-    enable = true;
+    enable = false;
     executable = true;
     text = ''
       #!/usr/bin/env bash

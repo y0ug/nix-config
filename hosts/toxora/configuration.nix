@@ -37,6 +37,7 @@
     ];
   };
 
+  hardware.enableRedistributableFirmware = true;
   hardware.keyboard.qmk.enable = true;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
@@ -53,6 +54,7 @@
   networking.wireless.iwd = {
     enable = true;
     settings = {
+      General.Country = "FR";
       Network = {
         EnableIPv6 = true;
         RoutePriorityOffset = 300;
