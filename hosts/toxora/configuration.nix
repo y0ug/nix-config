@@ -211,6 +211,12 @@
       pkgs.yubikey-personalization
       pkgs.via
     ];
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
+    };
   };
 
   networking.nftables.enable = true;
