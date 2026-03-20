@@ -181,6 +181,7 @@
 
     ast-grep
     wireguard-tools
+    bubblewrap
   ]);
 
   programs.go = {
