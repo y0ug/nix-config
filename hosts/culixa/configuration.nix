@@ -35,6 +35,10 @@
   boot.zfs.forceImportRoot = false;
 
   boot.extraModprobeConfig = "options kvm_intel nested=1";
+  boot.kernel.sysctl = {
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+  };
   boot.blacklistedKernelModules = [
     "vmmon"
     "vmnet"
