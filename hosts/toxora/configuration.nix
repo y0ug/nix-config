@@ -217,6 +217,9 @@
       capSysAdmin = true;
       openFirewall = true;
     };
+    tailscale = { 
+      enable = true;
+    };
   };
 
   networking.nftables.enable = true;

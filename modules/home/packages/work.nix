@@ -95,7 +95,6 @@
 
     # vmware-workstation
     mosh
-    tailscale
 
     # trezorctl
     # trezor-suite

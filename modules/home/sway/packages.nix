@@ -32,6 +32,9 @@
     rofi
     wofi
 
+    # Window switcher
+    swayr
+
     # Utilities
     brightnessctl
     playerctl

@@ -31,6 +31,20 @@ in
     "QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1"
   ];
 
+  systemd.user.services.swayrd = {
+    Unit = {
+      Description = "Swayr daemon";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+      ConditionEnvironment = "SWAYSOCK";
+    };
+    Service = {
+      ExecStart = "${pkgs.swayr}/bin/swayrd";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     config = {
@@ -83,7 +97,6 @@ in
       startup = [
         { command = "wl-paste --type text --watch cliphist store"; }
         { command = "wl-paste --type image --watch cliphist store"; }
-        { command = "swaync"; }
       ];
 
       keybindings = lib.mkOptionDefault {
@@ -176,8 +189,14 @@ in
         "${mod}+o" = "focus output right";
         "${mod}+Shift+o" = "move container to output right";
 
+        # Window/workspace switching (swayr)
+        "${mod}+Tab" = "exec ${pkgs.swayr}/bin/swayr switch-window";
+        "${mod}+Shift+Tab" = "exec ${pkgs.swayr}/bin/swayr switch-workspace-or-window";
+        "${mod}+n" = "exec ${pkgs.swayr}/bin/swayr next-window all-workspaces";
+        "${mod}+p" = "exec ${pkgs.swayr}/bin/swayr prev-window all-workspaces";
+
         # Urgent window
-        "${mod}+u" = "[urgent=latest] focus";
+        "${mod}+u" = "exec ${pkgs.swayr}/bin/swayr switch-to-urgent-or-lru-window";
 
         # Scratchpad
         "${mod}+z" = "scratchpad show";
