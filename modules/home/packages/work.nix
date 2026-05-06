@@ -67,6 +67,7 @@
 
     aider-chat
     tor-browser
+    # session-desktop
     monero-gui
     electrum
     cryptsetup

@@ -71,6 +71,12 @@
   systemd.network = {
     enable = true;
     wait-online.anyInterface = true;
+    links = {
+      "10-wol-ether" = {
+        matchConfig.OriginalName = "enp88s0";
+        linkConfig.WakeOnLan = "magic";
+      };
+    };
     networks = {
       "30-wireless" = {
         matchConfig.Type = "wlan";
@@ -88,6 +94,28 @@
         };
         linkConfig.RequiredForOnline = "no";
       };
+    };
+  };
+
+  # Disable wifi when enp88s0 (ethernet) is connected.
+  services.networkd-dispatcher = {
+    enable = true;
+    rules."50-wifi-off-on-ethernet" = {
+      onState = [ "routable" "off" "no-carrier" ];
+      script = ''
+        #!${pkgs.runtimeShell}
+        # shellcheck disable=SC2154
+        [ "$IFACE" = "enp88s0" ] || exit 0
+        # shellcheck disable=SC2154
+        case "$OperationalState" in
+          routable)
+            ${pkgs.util-linux}/bin/rfkill block wifi
+            ;;
+          off|no-carrier)
+            ${pkgs.util-linux}/bin/rfkill unblock wifi
+            ;;
+        esac
+      '';
     };
   };
 

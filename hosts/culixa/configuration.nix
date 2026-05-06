@@ -82,6 +82,12 @@
     #   "virbr0"
     #   "docker0"
     # ];
+    links = {
+      "10-wol-ether" = {
+        matchConfig.OriginalName = "enp3s0";
+        linkConfig.WakeOnLan = "magic";
+      };
+    };
     netdevs = {
       "20-br0" = {
         netdevConfig = {
