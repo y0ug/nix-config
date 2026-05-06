@@ -67,7 +67,6 @@
 
     aider-chat
     tor-browser
-    session-desktop
     monero-gui
     electrum
     cryptsetup
@@ -120,6 +119,8 @@
     eigenwallet
     wl-kbptr
     wlrctl
+
+    python3Packages.huggingface-hub
   ]);
 
   # programs.vesktop = {

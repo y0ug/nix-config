@@ -36,6 +36,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hf-nix = {
+      url = "github:huggingface/hf-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # hyprswitch.url = "github:h3rmt/hyprswitch/release";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=v0.47.2-b";
