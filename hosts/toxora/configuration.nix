@@ -74,7 +74,7 @@
     links = {
       "10-wol-ether" = {
         matchConfig.OriginalName = "enp88s0";
-        linkConfig.WakeOnLan = "magic phy unicast";
+        linkConfig.WakeOnLan = "magic";
       };
     };
     networks = {
