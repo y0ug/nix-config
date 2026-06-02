@@ -109,11 +109,27 @@
           Name = "br2";
         };
       };
+      "23-br70" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br70";
+        };
+      };
+      "30-enp3s0.70" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "enp3s0.70";
+        };
+        vlanConfig.Id = 70;
+      };
     };
     networks = {
       "30-enp3s0" = {
         matchConfig.Name = "enp3s0";
-        networkConfig.Bridge = "br0";
+        networkConfig = {
+          Bridge = "br0";
+          VLAN = [ "enp3s0.70" ];
+        };
         linkConfig.RequiredForOnline = "enslaved";
       };
 
@@ -135,11 +151,10 @@
       "41-br1" = {
         matchConfig.Name = "br1";
         bridgeConfig = { };
-        # Disable address autoconfig when no IP configuration is required
-        #networkConfig.LinkLocalAddressing = "no";
         networkConfig = {
-          DHCP = "ipv4";
-          IPv6AcceptRA = true; # SLAAC
+          DHCP = "no";
+          IPv6AcceptRA = false;
+          LinkLocalAddressing = "no";
         };
         linkConfig = {
           # or "routable" with IP addresses configured
@@ -155,11 +170,10 @@
       "42-br2" = {
         matchConfig.Name = "br2";
         bridgeConfig = { };
-        # Disable address autoconfig when no IP configuration is required
-        #networkConfig.LinkLocalAddressing = "no";
         networkConfig = {
-          DHCP = "ipv4";
-          IPv6AcceptRA = true; # SLAAC
+          DHCP = "no";
+          IPv6AcceptRA = false;
+          LinkLocalAddressing = "no";
         };
         linkConfig = {
           # or "routable" with IP addresses configured
@@ -173,6 +187,23 @@
         };
         dhcpConfig = {
         };
+      };
+
+      "43-enp3s0.70" = {
+        matchConfig.Name = "enp3s0.70";
+        networkConfig.Bridge = "br70";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+
+      "44-br70" = {
+        matchConfig.Name = "br70";
+        bridgeConfig = { };
+        networkConfig = {
+          DHCP = "no";
+          IPv6AcceptRA = false;
+          LinkLocalAddressing = "no";
+        };
+        linkConfig.RequiredForOnline = "carrier";
       };
     };
   };
