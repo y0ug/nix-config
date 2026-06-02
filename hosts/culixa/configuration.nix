@@ -216,7 +216,6 @@
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "rick" ];
   users.groups.pcap.members = [ "rick" ];
-  users.groups.wireshark.members = [ "rick" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
@@ -250,11 +249,13 @@
     extraGroups = [
       "users"
       "docker"
+      "dialout"
       "networkmanager"
       "wheel"
       "plugdev"
       "video"
       "render"
+      "wireshark"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [ ];

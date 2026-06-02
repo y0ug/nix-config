@@ -22,6 +22,7 @@
     eog
     browserpass
 
+    wakeonlan
     trash-cli # trash-put instead of rm
 
     # webex # unfree

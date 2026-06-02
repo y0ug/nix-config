@@ -38,7 +38,11 @@
         inputs.binaryninja.packages.${pkgs.stdenv.hostPlatform.system}.binary-ninja-commercial-wayland.override
         {
           # overrideSource = /home/rick/labvz/binaryninja_linux_stable_commercial.zip;
-          overrideSource = /home/rick/Downloads/binaryninja_linux_stable_personal.zip;
+          overrideSource = builtins.path {
+            name = "binaryninja_linux_stable_personal.zip";
+            path = ../../../installer/binaryninja_linux_stable_personal.zip;
+            sha256 = "sha256-f4FxZFJzodqXcYozVhyEyvSb65qFwrxN/apKdwKzdx0=";
+          };
           python3 = pkgs.python312;
         }
       ).overrideAttrs
@@ -47,6 +51,18 @@
         autoPatchelfIgnoreMissingDeps = (old.autoPatchelfIgnoreMissingDeps or [ ]) ++ [
           "libQt6WaylandEglClientHwIntegration.so.6"
         ];
+        postInstall = (old.postInstall or "") + ''
+          unzip -j "$src" 'binaryninja/libQt6*.so.6' 'binaryninja/libicu*.so.70' -d "$out/opt/binaryninja"
+        '';
+        postFixup = (old.postFixup or "") + ''
+          rm "$out/bin/binaryninja"
+          makeWrapper "$out/opt/binaryninja/binaryninja" "$out/bin/binaryninja" \
+            --prefix PYTHONPATH : "${pkgs.python312Packages.pip}/${pkgs.python312.sitePackages}" \
+            --set-default QT_QPA_PLATFORM wayland \
+            --set QT_PLUGIN_PATH "$out/opt/binaryninja/qt" \
+            --unset NIXPKGS_QT6_QML_IMPORT_PATH \
+            --unset QML2_IMPORT_PATH
+        '';
       })
     )
 
