@@ -49,6 +49,19 @@
     "r8125"
   ];
 
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/f3de95d2-aeb2-4531-a504-c269baa6f07f";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.device-timeout=10s"
+    ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /data/docker 0710 root root -"
+  ];
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
@@ -84,7 +97,7 @@
     # ];
     links = {
       "10-wol-ether" = {
-        matchConfig.OriginalName = "enp3s0";
+        matchConfig.OriginalName = "enp4s0";
         linkConfig.WakeOnLan = "magic";
       };
     };
@@ -115,20 +128,20 @@
           Name = "br70";
         };
       };
-      "30-enp3s0.70" = {
+      "30-enp4s0.70" = {
         netdevConfig = {
           Kind = "vlan";
-          Name = "enp3s0.70";
+          Name = "enp4s0.70";
         };
         vlanConfig.Id = 70;
       };
     };
     networks = {
-      "30-enp3s0" = {
-        matchConfig.Name = "enp3s0";
+      "30-enp4s0" = {
+        matchConfig.Name = "enp4s0";
         networkConfig = {
           Bridge = "br0";
-          VLAN = [ "enp3s0.70" ];
+          VLAN = [ "enp4s0.70" ];
         };
         linkConfig.RequiredForOnline = "enslaved";
       };
@@ -189,8 +202,8 @@
         };
       };
 
-      "43-enp3s0.70" = {
-        matchConfig.Name = "enp3s0.70";
+      "43-enp4s0.70" = {
+        matchConfig.Name = "enp4s0.70";
         networkConfig.Bridge = "br70";
         linkConfig.RequiredForOnline = "enslaved";
       };
@@ -231,6 +244,7 @@
     enable = true;
     enableOnBoot = false;
     daemon.settings = {
+      "data-root" = "/data/docker";
       dns = [
         "8.8.8.8"
         "1.1.1.1"
@@ -240,6 +254,7 @@
 
   # on demand starting of the docker daemon via socket
   systemd.services.docker = {
+    unitConfig.RequiresMountsFor = [ "/data/docker" ];
     wants = [ "docker.socket" ];
   };
 
@@ -343,14 +358,128 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    libinput
-    nix-zsh-completions
-    via # qmk userland customization
-    zsh-nix-shell
-    pinentry-curses
-    pamixer
-  ];
+  environment.systemPackages =
+    let
+      culixa-network-bridge = pkgs.writeShellApplication {
+        name = "culixa-network-bridge";
+        runtimeInputs = with pkgs; [
+          coreutils
+          iproute2
+          systemd
+        ];
+        text = ''
+          set -euo pipefail
+
+          usage() {
+            printf 'usage: %s br0|br70|status\n' "$0" >&2
+          }
+
+          mode="''${1:-}"
+          if [ -z "$mode" ]; then
+            usage
+            exit 2
+          fi
+
+          if [ "$mode" = "status" ]; then
+            for bridge in br0 br70; do
+              ip -brief address show dev "$bridge"
+            done
+            exit 0
+          fi
+
+          if [ "$mode" != "br0" ] && [ "$mode" != "br70" ]; then
+            usage
+            exit 2
+          fi
+
+          if [ "$(id -u)" -ne 0 ]; then
+            exec sudo "$0" "$@"
+          fi
+
+          override_dir=/run/systemd/network
+          mkdir -p "$override_dir"
+
+          cat > "$override_dir/10-culixa-enp4s0.network" <<'EOF'
+          [Match]
+          Name=enp4s0
+
+          [Network]
+          Bridge=br0
+          VLAN=enp4s0.70
+
+          [Link]
+          RequiredForOnline=enslaved
+          EOF
+
+          cat > "$override_dir/10-culixa-enp4s0.70.network" <<'EOF'
+          [Match]
+          Name=enp4s0.70
+
+          [Network]
+          Bridge=br70
+
+          [Link]
+          RequiredForOnline=enslaved
+          EOF
+
+          write_addressed_bridge() {
+            bridge=$1
+            cat > "$override_dir/10-culixa-$bridge.network" <<EOF
+          [Match]
+          Name=$bridge
+
+          [Network]
+          DHCP=ipv4
+          IPv6AcceptRA=yes
+
+          [Link]
+          RequiredForOnline=carrier
+          EOF
+          }
+
+          write_addressless_bridge() {
+            bridge=$1
+            cat > "$override_dir/10-culixa-$bridge.network" <<EOF
+          [Match]
+          Name=$bridge
+
+          [Network]
+          DHCP=no
+          IPv6AcceptRA=no
+          LinkLocalAddressing=no
+
+          [Link]
+          RequiredForOnline=carrier
+          EOF
+          }
+
+          if [ "$mode" = "br70" ]; then
+            write_addressless_bridge br0
+            write_addressed_bridge br70
+            inactive_bridge=br0
+          else
+            write_addressed_bridge br0
+            write_addressless_bridge br70
+            inactive_bridge=br70
+          fi
+
+          networkctl reload
+          systemctl restart systemd-networkd.service
+          ip address flush dev "$inactive_bridge" || true
+          networkctl status "$mode" --no-pager
+        '';
+      };
+    in
+    with pkgs;
+    [
+      libinput
+      nix-zsh-completions
+      via # qmk userland customization
+      zsh-nix-shell
+      pinentry-curses
+      pamixer
+      culixa-network-bridge
+    ];
 
   environment.localBinInPath = true;
 
